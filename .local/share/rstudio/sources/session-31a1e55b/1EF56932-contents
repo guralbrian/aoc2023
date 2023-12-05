@@ -1,0 +1,184 @@
+data <- c(
+'seeds: 79 14 55 13',
+'',
+'seed-to-soil map:',
+'50 98 2',
+'52 50 48',
+'',
+'soil-to-fertilizer map:',
+'0 15 37',
+'37 52 2',
+'39 0 15',
+'',
+'fertilizer-to-water map:',
+'49 53 8',
+'0 11 42',
+'42 0 7',
+'57 7 4',
+'',
+'water-to-light map:',
+'88 18 7',
+'18 25 70',
+'',
+'light-to-temperature map:',
+'45 77 23',
+'81 45 19',
+'68 64 13',
+'',
+'temperature-to-humidity map:',
+'0 69 1',
+"1 0 69",
+'',
+'humidity-to-location map:',
+"60 56 37",
+"56 93 4" )
+
+data <- readLines("data/input_5.txt")
+
+# Extract seeds
+seeds <- as.numeric(unlist(strsplit(data[1], " "))[-1])
+
+# Remove empty strings
+data_clean <- data[data != ""]
+
+# Extract map names and their corresponding indices
+map_names <- data_clean[grepl("map:", data_clean)]
+map_indices <- match(map_names, data_clean)
+
+# Split data into different maps
+map_list <- lapply(1:length(map_names), function(i) {
+  start_index <- map_indices[i] + 1
+  end_index <- ifelse(i < length(map_names), map_indices[i + 1] - 1, length(data_clean))
+  as.data.frame(do.call(rbind, lapply(data_clean[start_index:end_index], function(x) as.numeric(strsplit(x, " ")[[1]]))), stringsAsFactors = FALSE)
+})
+
+names(map_list) <- gsub(" map:", "", map_names)
+
+# Set column names for each dataframe
+map_list <- lapply(map_list, setNames, c("dest", "start", "range"))
+seeds_group <- seeds
+for(rule_groups in rev(1:length(map_list))){
+  for(rule in 1:nrow(map_list[[rule_groups]])){
+    #seeds <- c("81", '57', '53', "52")
+    #rule_groups <- 3
+    #rule <- 1
+    print(map_list[[rule_groups]][rule,])
+      # Extract the start, end of the range, and the delta
+      start_range <- map_list[[rule_groups]][rule, 'start']
+      end_range <- start_range + map_list[[rule_groups]][rule, 'range'] - 1
+      delta <- map_list[[rule_groups]][rule, 'dest'] - start_range
+      
+      # Apply transformation
+      seeds_new <- c(seeds[which(seeds <= end_range & seeds >= start_range)] + delta, 
+                     seeds[which(seeds > end_range | seeds < start_range)]) |> as.numeric()
+    # update current group level seeds with changes
+    # Add only the changed values to an updating list
+    # Keep values that changed at each level, join with unchanged values
+    seeds_group_keep <- seeds_group[!(seeds_group %in% seeds)] # seeds that the rule hasn't changed
+    seeds_new_keep <-   seeds_new[!(seeds_new %in% seeds)] # seeds that have changed, relative to 
+    seeds_group_old <- seeds_group[seeds_group %in% seeds_new]
+    seeds_group <- c(seeds_group_keep, seeds_new_keep, seeds_group_old)
+  }
+  seeds <- seeds_group
+  print(seeds)
+}
+
+ans1 <- max(seeds)
+
+largest_num <- max(seeds)
+
+# Part 2
+#### Reverse the order of the process. 
+# Start from 0, look for match at end
+# Set column names for each dataframe
+
+# Set column names for each dataframe
+map_list <- lapply(map_list, setNames, c("start", "dest", "range"))
+
+seeds <- as.numeric(unlist(strsplit(data[1], " "))[-1])
+seeds.new <- c()
+
+for(i in 1:(length(seeds)/2)){
+  seeds.new[[i]] <- c(seeds[(i*2)-1],
+                      (seeds[(i*2)-1] + seeds[(i*2)] - 1))
+}
+# Making paralellized 
+cores=detectCores()
+cl <- makeCluster(cores[1]-2)
+registerDoParallel(cl)
+
+
+# Make the if statment look for a greater/less than combo
+timer.start <- Sys.time()
+
+foreach(i = 1:10^7) %dopar% {
+  location <- i
+  print(i)
+  for(rule_groups in rev(1:length(map_list))){
+    for(rule in 1:nrow(map_list[[rule_groups]])){
+      # Get rule parameters
+      # Start is where we'll start to look for our 'i' value
+      start <- map_list[[rule_groups]][rule, 'start']
+      # End is the tail end of where we'll look
+      end <- start + map_list[[rule_groups]][rule, 'range'] - 1
+      # Delta is how much we'll add to 'i' if its between start and end 
+      delta <- map_list[[rule_groups]][rule, 'dest'] - start
+      
+      #print(paste("Checking if", i, "falls between", start, "and", end))
+      
+      if(i >= start & i <= end){
+        i <<- (i + delta)
+        #print(paste("It does!", "Adding", delta, "and", i-delta, "to get", i))
+        break # exit the rule level if a condition is met
+      }
+    }
+  }
+  if(any(sapply(seeds.new, function(range) i >= range[1] && i <= range[2]))){
+    print(paste("The lowest number is", location, "which comes from location", i ))
+    answer2 <- location
+    stop(paste("The lowest number is", location, "which comes from location", i ))
+  }
+  
+}
+
+end <- Sys.time()
+
+partime<-timer.start - end
+
+
+# Make the if statment look for a greater/less than combo
+timer.start <- Sys.time()
+
+for(i in 1:10^7)  {
+  location <- i
+  print(i)
+  for(rule_groups in rev(1:length(map_list))){
+    for(rule in 1:nrow(map_list[[rule_groups]])){
+      # Get rule parameters
+      # Start is where we'll start to look for our 'i' value
+      start <- map_list[[rule_groups]][rule, 'start']
+      # End is the tail end of where we'll look
+      end <- start + map_list[[rule_groups]][rule, 'range'] - 1
+      # Delta is how much we'll add to 'i' if its between start and end 
+      delta <- map_list[[rule_groups]][rule, 'dest'] - start
+      
+      #print(paste("Checking if", i, "falls between", start, "and", end))
+      
+      if(i >= start & i <= end){
+        i <- (i + delta)
+        #print(paste("It does!", "Adding", delta, "and", i-delta, "to get", i))
+        break # exit the rule level if a condition is met
+      }
+    }
+  }
+  if(any(sapply(seeds.new, function(range) i >= range[1] && i <= range[2]))){
+    print(paste("The lowest number is", location, "which comes from location", i ))
+    answer2 <- location
+    stop(paste("The lowest number is", location, "which comes from location", i ))
+  }
+  
+}
+
+end <- Sys.time()
+
+timer.start - end
