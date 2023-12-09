@@ -1,1 +1,3 @@
 help/doc/home/,Home
+help/library/data.table/html/rbindlist.html,R: Makes one data.table from a list of many
+help/library/dplyr/html/arrange.html,R: Order rows using column values

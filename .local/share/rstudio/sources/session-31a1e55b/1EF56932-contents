@@ -113,21 +113,16 @@ timer.start <- Sys.time()
 
 foreach(i = 1:10^7) %dopar% {
   location <- i
-  print(i)
   for(rule_groups in rev(1:length(map_list))){
     for(rule in 1:nrow(map_list[[rule_groups]])){
       # Get rule parameters
       # Start is where we'll start to look for our 'i' value
-      start <- map_list[[rule_groups]][rule, 'start']
       # End is the tail end of where we'll look
-      end <- start + map_list[[rule_groups]][rule, 'range'] - 1
       # Delta is how much we'll add to 'i' if its between start and end 
-      delta <- map_list[[rule_groups]][rule, 'dest'] - start
-      
       #print(paste("Checking if", i, "falls between", start, "and", end))
       
-      if(i >= start & i <= end){
-        i <<- (i + delta)
+      if(i >=  map_list[[rule_groups]][rule, 'start'] & i <= start + map_list[[rule_groups]][rule, 'range'] - 1){
+        i <<- (i + map_list[[rule_groups]][rule, 'dest'] -  map_list[[rule_groups]][rule, 'start'])
         #print(paste("It does!", "Adding", delta, "and", i-delta, "to get", i))
         break # exit the rule level if a condition is met
       }
@@ -182,3 +177,44 @@ for(i in 1:10^7)  {
 end <- Sys.time()
 
 timer.start - end
+
+
+data05 <- strsplit(readLines("data/input_5.txt"), " ")
+
+seeds <- as.double(data05[[1]][-1])
+#almanac
+alm <- split(data05[-1], cumsum(sapply(data05[-1], length) == 0))
+alm <- lapply(alm, \(x) matrix(as.numeric(Reduce(c, x[-(1:2)])), ncol = 3, byrow = T))
+
+#change alm format to: start | end | offset
+alm <- lapply(alm, \(x) cbind(x[,2], x[,2] + x[,3] - 1L, x[,1] - x[,2])[order(x[,2]),]) 
+
+fill_alm <- function(m) {#fill alm to contain the whole range from 0 to 1e10
+  for (k in 2:nrow(m)) 
+    if (m[k, 1] > m[k - 1, 2] + 1) m <- rbind(m, c(m[k - 1, 2] + 1, m[k, 1] - 1, 0))
+  
+  rbind(m, c(max(m[,2]) + 1, 1e10, 0)) #add one more row to m which covers range until 10**10
+}
+
+alm <- lapply(alm, fill_alm)
+
+#function first splits  seed range into multiple parts such that every part is inside one interval
+#afterwards, we add the offset to map it
+map_seeds <- function(s_int, m) {
+  res <- m[s_int[1] <= m[,2] & m[,1] <= s_int[2], , drop = FALSE]
+  res[cbind(c(1, nrow(res)), 1:2)] <- s_int
+  res[,1:2] + res[,3]
+}
+
+
+find_location <- function(sr) { #find closest location given a matrix with seed ranges
+  for (m in alm) sr <- do.call(rbind, apply(sr, 1, map_seeds, m = m, simplify = F))
+  return(min(sr))
+}
+
+#part1--------
+find_location(cbind(seeds, seeds))
+
+#part2----
+idx <- seq_along(seeds) %% 2 == 1
+find_location(cbind(seeds[idx], seeds[idx] + seeds[!idx] - 1))

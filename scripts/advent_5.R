@@ -111,7 +111,7 @@ registerDoParallel(cl)
 # Make the if statment look for a greater/less than combo
 timer.start <- Sys.time()
 
-foreach(i = 1:10^7) %dopar% {
+foreach(i = 1:10^8) %dopar% {
   location <- i
   print(i)
   for(rule_groups in rev(1:length(map_list))){
@@ -146,39 +146,3 @@ end <- Sys.time()
 partime<-timer.start - end
 
 
-# Make the if statment look for a greater/less than combo
-timer.start <- Sys.time()
-
-for(i in 1:10^7)  {
-  location <- i
-  print(i)
-  for(rule_groups in rev(1:length(map_list))){
-    for(rule in 1:nrow(map_list[[rule_groups]])){
-      # Get rule parameters
-      # Start is where we'll start to look for our 'i' value
-      start <- map_list[[rule_groups]][rule, 'start']
-      # End is the tail end of where we'll look
-      end <- start + map_list[[rule_groups]][rule, 'range'] - 1
-      # Delta is how much we'll add to 'i' if its between start and end 
-      delta <- map_list[[rule_groups]][rule, 'dest'] - start
-      
-      #print(paste("Checking if", i, "falls between", start, "and", end))
-      
-      if(i >= start & i <= end){
-        i <- (i + delta)
-        #print(paste("It does!", "Adding", delta, "and", i-delta, "to get", i))
-        break # exit the rule level if a condition is met
-      }
-    }
-  }
-  if(any(sapply(seeds.new, function(range) i >= range[1] && i <= range[2]))){
-    print(paste("The lowest number is", location, "which comes from location", i ))
-    answer2 <- location
-    stop(paste("The lowest number is", location, "which comes from location", i ))
-  }
-  
-}
-
-end <- Sys.time()
-
-timer.start - end

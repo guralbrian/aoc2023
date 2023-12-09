@@ -1,0 +1,512 @@
+# Replace the positions with the corresponding values from 'value.df'
+value.df$value[matched_positions]
+}) |> as.data.frame()
+# Get duplicates
+df <- lapply(apply(df, 1, table),function(x){table(x) %>% as.list()}) %>%
+rbindlist(fill = T) %>%
+cbind(df, .)
+# Add bets
+df$bet <- sapply(strsplit(data, " "), "[[", 2)
+# Add hand #
+df$hand <- seq(1,nrow(df), 1)
+df[is.na(df)] <- 0
+df.ordered <- df |>
+#arrange(`5`, `4`, `3`, `2`, `1`, X1, X2, X3, X4, X5, decreasing = TRUE)
+arrange(`3`, `2`, `1`, X1, X2, X3, X4, X5, decreasing = TRUE)
+#Set order
+df.ordered$rank <- seq(1,nrow(df.ordered), 1)
+answer1 <- df.ordered %>%
+mutate(score = as.numeric(bet)*rank) %>%
+pull(score) %>%
+sum()
+# Make Jokers raise the value of the max in 1:5
+df.jokers <- df[apply(df, 1, function(x) any(x == 10)), ]
+# Find most common numbers
+# if there are two twos, reference the higher
+df.hands <- df.jokers[,c(1:5)]
+# Make temp df with jokers converted to best cards
+for(i in 1:nrow(df.hands)){
+target.value <- table(unlist(df.hands[i,])) %>% subset(. == max(.)) %>% subset(names(.) == max(names(.))) %>% names()
+df.hands[i,which(df.hands[i,] == 10)] <- as.numeric(target.value)
+}
+df.hands <- as.numeric(df.hands)
+df.hands
+df.hands
+apply
+# Get duplicates and add back id and bet info
+df.2 <- apply(apply(df.hands, 1, table),2,  function(x){table(x) %>% as.list()}) %>%
+rbindlist(fill = T) %>%
+cbind(df.jokers[,c(1:5)], .)
+df.2[df.2 == 10] <- 0
+df.2[is.na(df.2)] <- 0
+df.2 <- df.2 %>%
+cbind(df.jokers[,c("bet", "hand")])
+df.2
+rbind(df.2, df[!apply(df, 1, function(x) any(x == 10)), ])
+df.2
+df
+left_join(df,df.2, by = "hand")
+df
+left_join(df,df.2, by = c("hand","X1"))
+left_join(df,df.2, by = c(colnames(df)[which(colnames(df) %in% colnames(df))]))
+colnames(df)[which(colnames(df) %in% colnames(df))]
+left_join(df,df.2, by = c(colnames(df)[which(colnames(df) %in% colnames(df.2))]))
+df
+right_join(df,df.2, by = c(colnames(df)[which(colnames(df) %in% colnames(df.2))]))
+left_join(df,df.2, by = c(colnames(df)[which(colnames(df) %in% colnames(df.2))]))
+left_join(df[which(!df$hand %in% df.2$hand),],df.2, by = c(colnames(df)[which(colnames(df) %in% colnames(df.2))]))
+right_join(df[which(!df$hand %in% df.2$hand),],df.2, by = c(colnames(df)[which(colnames(df) %in% colnames(df.2))]))
+join(df[which(!df$hand %in% df.2$hand),],df.2, by = c(colnames(df)[which(colnames(df) %in% colnames(df.2))]))
+merge(df[which(!df$hand %in% df.2$hand),],df.2, by = c(colnames(df)[which(colnames(df) %in% colnames(df.2))]))
+full_join(df[which(!df$hand %in% df.2$hand),],df.2, by = c(colnames(df)[which(colnames(df) %in% colnames(df.2))]))
+df.2 <- full_join(df[which(!df$hand %in% df.2$hand),],df.2, by = c(colnames(df)[which(colnames(df) %in% colnames(df.2))]))
+df.ordered.2 <- df.2 |>
+#arrange(`5`, `4`, `3`, `2`, `1`, X1, X2, X3, X4, X5, decreasing = TRUE)
+arrange(`4`, `2`, `1`, X1, X2, X3, X4, X5, decreasing = TRUE)
+df.ordered.2
+#Set order
+df.ordered.2$rank <- seq(1,nrow(df.ordered.2), 1)
+answer2 <- df.ordered.2 %>%
+mutate(score = as.numeric(bet)*rank) %>%
+pull(score) %>%
+sum()
+answer2
+answer2
+df.ordered.2
+df.ordered.2 <- df.2 |>
+#arrange(`5`, `4`, `3`, `2`, `1`, X1, X2, X3, X4, X5, decreasing = TRUE)
+arrange(`4`, `2`, `1`, X1, X2, X3, X4, X5, decreasing = TRUE)
+df.2
+df.2 |>
+arrange(`4`, `2`, `1`, X1, X2, X3, X4, X5, decreasing = TRUE)
+df.ordered.2 <- df.2 |>
+arrange(`4`, `3`,`2`, `1`, X1, X2, X3, X4, X5, decreasing = TRUE)
+df.ordered.2
+str(df.ordered.2)
+df.2[is.na(df.2)] <- 0
+df.ordered.2 <- df.2 |>
+arrange(`4`, `3`,`2`, `1`, X1, X2, X3, X4, X5, decreasing = TRUE)
+df.ordered.2
+df.ordered.2 <- df.2 |>
+arrange(`4`, `3`,`2`, `1`, X1, X2, X3, X4, X5, decreasing = TRUE)
+df.ordered.2
+df.ordered.2 <- df.2 |>
+arrange(`4`, `3`,`2`, `1`, X1, X2, X3, X4, X5)
+df.ordered.2
+df.ordered.2 <- df.2 |>
+arrange(`4`)
+df.ordered.2
+df.ordered.2 <- df.2 |>
+arrange(`4`, decreasing = TRUE)
+df.ordered.2 <- #
+df.2 |>
+arrange(`4`, decreasing = TRUE)
+df.2 |>
+arrange(`4`, decreasing = TRUE)
+colnames(df.2)
+df.2 |>
+arrange(4, decreasing = TRUE)
+df.2 |>
+arrange("4", decreasing = TRUE)
+df.2 |>
+arrange(`4`, decreasing = TRUE)
+df.2 |>
+arrange(X1, decreasing = TRUE)
+df.2 |>
+arrange(X1)
+?arrange
+df.2 |>
+arrange(X1, desc)
+df.2 |>
+arrange(X1, desc = T)
+df.2 |>
+arrange(X2, desc = T)
+df.2 |>
+arrange(X3, desc = T)
+# Turn jokers into 0s
+as.numeric(df.2$X1)
+# Turn jokers into 0s
+as.numeric(df.2[,c(1:3)])
+# Turn jokers into 0s
+numeric(df.2[,c(1:3)])
+df.ordered.2
+View(df.2)
+df.2 |>
+arrange(desc(X3))
+df.2 |>
+arrange(desc(X3, X1))
+df.2 |>
+arrange(X3, decreasing = TRUE)
+df.2 |>
+arrange(desc(`4`))
+df.2 |>
+arrange(desc(`4`), desc(`3`), desc(`2`),
+desc(`1`), desc(X1),  desc(X2),
+desc(X3),  desc(X4),  desc(X5))
+df.ordered.2  <- df.2 |>
+arrange(desc(`4`), desc(`3`), desc(`2`),
+desc(`1`), desc(X1),  desc(X2),
+desc(X3),  desc(X4),  desc(X5))
+#Set order
+df.ordered.2$rank <- seq(1,nrow(df.ordered.2), 1)
+answer2 <- df.ordered.2 %>%
+mutate(score = as.numeric(bet)*rank) %>%
+pull(score) %>%
+sum()
+answer2
+df.ordered.2  <- df.2 |>
+arrange(desc(`4`), desc(`3`), desc(`2`),
+desc(`1`), desc(X1),  desc(X2),
+desc(X3),  desc(X4),  desc(X5))
+#Set order
+df.ordered.2$rank <- seq(1,nrow(df.ordered.2), 1)
+answer2 <- df.ordered.2 %>%
+mutate(score = as.numeric(bet)*rank) %>%
+pull(score) %>%
+sum()
+df.ordered.2
+df.ordered.2  <- df.2 |>
+arrange(desc(`4`), desc(`3`), desc(`2`),
+desc(`1`))#, desc(X1),  desc(X2),
+df.ordered.2
+df.ordered.2  <- df.2 |>
+arrange(desc(`4`), desc(`3`), desc(`2`),
+desc(`1`), desc(X1),  desc(X2),
+desc(X3),  desc(X4),  desc(X5))
+#Set order
+df.ordered.2$rank <- seq(1,nrow(df.ordered.2), 1)
+df.ordered.2
+#Set order
+df.ordered.2$rank <- rev(seq(1,nrow(df.ordered.2), 1))
+answer2 <- df.ordered.2 %>%
+mutate(score = as.numeric(bet)*rank) %>%
+pull(score) %>%
+sum()
+answer2
+data <- readLines("data/input_7.txt")
+data <- readLines("data/input_7.txt")
+# Add bets
+hand <- lapply(strsplit(data, " "), "[[", 1)
+# Parse data
+df <- data.frame(do.call("rbind", strsplit(as.character(hand), "",
+fixed = TRUE)))
+# Make df to convert cards to value tier
+cards <- c('A', 'K', 'Q', 'J', 'T', '9', '8', '7', '6', '5', '4', '3', '2')
+value.df <- data.frame(cards = cards, value = rev(seq(1, length(cards), 1)))
+# Replace characters in df, using value.df as a dictionary
+df <- apply(df, 2, function(column) {
+# Use 'match' to find the positions of 'df' elements in 'value.df'
+matched_positions <- match(column, value.df$cards)
+# Replace the positions with the corresponding values from 'value.df'
+value.df$value[matched_positions]
+}) |> as.data.frame()
+# Get duplicates
+df <- lapply(apply(df, 1, table),function(x){table(x) %>% as.list()}) %>%
+rbindlist(fill = T) %>%
+cbind(df, .)
+# Add bets
+df$bet <- sapply(strsplit(data, " "), "[[", 2)
+# Add hand #
+df$hand <- seq(1,nrow(df), 1)
+# Part 2
+# Make Jokers raise the value of the max in 1:5
+df.jokers <- df[apply(df, 1, function(x) any(x == 10)), ]
+# Find most common numbers
+# if there are two twos, reference the higher
+df.hands <- df.jokers[,c(1:5)]
+# Make temp df with jokers converted to best cards
+for(i in 1:nrow(df.hands)){
+target.value <- table(unlist(df.hands[i,])) %>% subset(. == max(.)) %>% subset(names(.) == max(names(.))) %>% names()
+df.hands[i,which(df.hands[i,] == 10)] <- as.numeric(target.value)
+}
+# Get duplicates and add back id and bet info
+df.2 <- apply(apply(df.hands, 1, table),2,  function(x){table(x) %>% as.list()}) %>%
+rbindlist(fill = T) %>%
+cbind(df.jokers[,c(1:5)], .)
+# Part 2
+# Make Jokers raise the value of the max in 1:5
+df.jokers <- df[apply(df, 1, function(x) any(x == 10)), ]
+df.jokers
+# Part 2
+# Make Jokers raise the value of the max in 1:5
+df.jokers <- df[apply(df, 1, function(x) any(x == 10)), ]
+df.jokers
+data <- readLines("data/input_7.txt")
+# Add bets
+hand <- lapply(strsplit(data, " "), "[[", 1)
+# Parse data
+df <- data.frame(do.call("rbind", strsplit(as.character(hand), "",
+fixed = TRUE)))
+# Make df to convert cards to value tier
+cards <- c('A', 'K', 'Q', 'J', 'T', '9', '8', '7', '6', '5', '4', '3', '2')
+value.df <- data.frame(cards = cards, value = rev(seq(1, length(cards), 1)))
+# Replace characters in df, using value.df as a dictionary
+df <- apply(df, 2, function(column) {
+# Use 'match' to find the positions of 'df' elements in 'value.df'
+matched_positions <- match(column, value.df$cards)
+# Replace the positions with the corresponding values from 'value.df'
+value.df$value[matched_positions]
+}) |> as.data.frame()
+# Get duplicates
+df <- lapply(apply(df, 1, table),function(x){table(x) %>% as.list()}) %>%
+rbindlist(fill = T) %>%
+cbind(df, .)
+# Add bets
+df$bet <- sapply(strsplit(data, " "), "[[", 2)
+# Add hand #
+df$hand <- seq(1,nrow(df), 1)
+df
+df[is.na(df)] <- 0
+df
+# Part 2
+# Make Jokers raise the value of the max in 1:5
+df.jokers <- df[apply(df, 1, function(x) any(x == 10)), ]
+df.jokers
+# Find most common numbers
+# if there are two twos, reference the higher
+df.hands <- df.jokers[,c(1:5)]
+# Make temp df with jokers converted to best cards
+for(i in 1:nrow(df.hands)){
+target.value <- table(unlist(df.hands[i,])) %>% subset(. == max(.)) %>% subset(names(.) == max(names(.))) %>% names()
+df.hands[i,which(df.hands[i,] == 10)] <- as.numeric(target.value)
+}
+df.hands
+apply(apply(df.hands, 1, table),2,  function(x){table(x) %>% as.list()})
+apply(df.hands, 1, table)
+lapply(apply(df.hands, 1, table),function(x){table(x) %>% as.list()}) %>%
+rbindlist(fill = T)
+# Get duplicates and add back id and bet info
+df.2 <- lapply(apply(df.hands, 1, table),function(x){table(x) %>% as.list()}) %>%
+rbindlist(fill = T) %>%
+cbind(df.jokers[,c(1:5)], .)
+df.2
+df.2[df.2 == 10] <- 0
+df.2[is.na(df.2)] <- 0
+df.2 <- df.2 %>%
+cbind(df.jokers[,c("bet", "hand")])
+# Merge them back together
+df.2 <- full_join(df[which(!df$hand %in% df.2$hand),],df.2, by = c(colnames(df)[which(colnames(df) %in% colnames(df.2))]))
+df.2[is.na(df.2)] <- 0
+df.ordered.2  <- df.2 |>
+arrange(desc(`5`), desc(`4`), desc(`3`), desc(`2`),
+desc(`1`), desc(X1),  desc(X2),
+desc(X3),  desc(X4),  desc(X5))
+#Set order
+df.ordered.2$rank <- rev(seq(1,nrow(df.ordered.2), 1))
+answer2 <- df.ordered.2 %>%
+mutate(score = as.numeric(bet)*rank) %>%
+pull(score) %>%
+sum()
+answer2
+df.ordered.2
+answer2 <- df.ordered.2 %>%
+mutate(score = as.numeric(bet)*rank) %>%
+pull(score) %>%
+sum()
+answer2
+# Add bets
+hand <- lapply(strsplit(data, " "), "[[", 1)
+# Parse data
+df <- data.frame(do.call("rbind", strsplit(as.character(hand), "",
+fixed = TRUE)))
+# Make df to convert cards to value tier
+cards <- c('A', 'K', 'Q', 'J', 'T', '9', '8', '7', '6', '5', '4', '3', '2')
+value.df <- data.frame(cards = cards, value = rev(seq(1, length(cards), 1)))
+# Replace characters in df, using value.df as a dictionary
+df <- apply(df, 2, function(column) {
+# Use 'match' to find the positions of 'df' elements in 'value.df'
+matched_positions <- match(column, value.df$cards)
+# Replace the positions with the corresponding values from 'value.df'
+value.df$value[matched_positions]
+}) |> as.data.frame()
+# Get duplicates
+df <- lapply(apply(df, 1, table),function(x){table(x) %>% as.list()}) %>%
+rbindlist(fill = T) %>%
+cbind(df, .)
+# Add bets
+df$bet <- sapply(strsplit(data, " "), "[[", 2)
+# Add hand #
+df$hand <- seq(1,nrow(df), 1)
+df[is.na(df)] <- 0
+df.ordered <- df |>
+arrange(`5`, `4`, `3`, `2`, `1`, X1, X2, X3, X4, X5, decreasing = TRUE)
+#arrange(`3`, `2`, `1`, X1, X2, X3, X4, X5, decreasing = TRUE)
+#Set order
+df.ordered$rank <- seq(1,nrow(df.ordered), 1)
+answer1 <- df.ordered %>%
+mutate(score = as.numeric(bet)*rank) %>%
+pull(score) %>%
+sum()
+answer1
+251106089
+# Part 2
+# Make Jokers raise the value of the max in 1:5
+df.jokers <- df[apply(df, 1, function(x) any(x == 10)), ]
+# Find most common numbers
+# if there are two twos, reference the higher
+df.hands <- df.jokers[,c(1:5)]
+# Make temp df with jokers converted to best cards
+for(i in 1:nrow(df.hands)){
+target.value <- table(unlist(df.hands[i,])) %>% subset(. == max(.)) %>% subset(names(.) == max(names(.))) %>% names()
+df.hands[i,which(df.hands[i,] == 10)] <- as.numeric(target.value)
+}
+# Get duplicates and add back id and bet info
+df.2 <- lapply(apply(df.hands, 1, table),function(x){table(x) %>% as.list()}) %>%
+rbindlist(fill = T) %>%
+cbind(df.jokers[,c(1:5)], .)
+df.2[df.2 == 10] <- 0
+df.2[is.na(df.2)] <- 0
+df.2 <- df.2 %>%
+cbind(df.jokers[,c("bet", "hand")])
+# Merge them back together
+df.2 <- full_join(df[which(!df$hand %in% df.2$hand),],df.2, by = c(colnames(df)[which(colnames(df) %in% colnames(df.2))]))
+df.2[is.na(df.2)] <- 0
+# Turn jokers into 0s
+df.ordered.2  <- df.2 |>
+arrange(desc(`5`), desc(`4`), desc(`3`), desc(`2`),
+desc(`1`), desc(X1),  desc(X2),
+desc(X3),  desc(X4),  desc(X5))
+#arrange(`5`, `4`, `3`, `2`, `1`, X1, X2, X3, X4, X5, decreasing = TRUE)
+#Set order
+df.ordered.2$rank <- rev(seq(1,nrow(df.ordered.2), 1))
+answer2 <- df.ordered.2 %>%
+mutate(score = as.numeric(bet)*rank) %>%
+pull(score) %>%
+sum()
+answer2
+df.ordered.2
+View(df.ordered.2)
+View(df)
+data <- readLines("data/input_7.txt")
+# Add bets
+hand <- lapply(strsplit(data, " "), "[[", 1)
+# Parse data
+df <- data.frame(do.call("rbind", strsplit(as.character(hand), "",
+fixed = TRUE)))
+# Make df to convert cards to value tier
+cards <- c('A', 'K', 'Q', 'J', 'T', '9', '8', '7', '6', '5', '4', '3', '2')
+value.df <- data.frame(cards = cards, value = rev(seq(1, length(cards), 1)))
+# Replace characters in df, using value.df as a dictionary
+df <- apply(df, 2, function(column) {
+# Use 'match' to find the positions of 'df' elements in 'value.df'
+matched_positions <- match(column, value.df$cards)
+# Replace the positions with the corresponding values from 'value.df'
+value.df$value[matched_positions]
+}) |> as.data.frame()
+# Add bets
+df$bet <- sapply(strsplit(data, " "), "[[", 2)
+# Add hand #
+df$hand <- seq(1,nrow(df), 1)
+df
+# Make Jokers raise the value of the max in 1:5
+df.jokers <- df[apply(df, 1, function(x) any(x == 10)), ]
+# Find most common numbers
+# if there are two twos, reference the higher
+df.hands <- df.jokers[,c(1:5)]
+# Make temp df with jokers converted to best cards
+for(i in 1:nrow(df.hands)){
+target.value <- table(unlist(df.hands[i,])) %>% subset(. == max(.)) %>% subset(names(.) == max(names(.))) %>% names()
+df.hands[i,which(df.hands[i,] == 10)] <- as.numeric(target.value)
+}
+# Get duplicates and add back id and bet info
+df.2 <- lapply(apply(df.hands, 1, table),function(x){table(x) %>% as.list()}) %>%
+rbindlist(fill = T) %>%
+cbind(df.jokers[,c(1:5)], .)
+df.2[df.2 == 10] <- 0
+df.2[is.na(df.2)] <- 0
+df.2 <- df.2 %>%
+cbind(df.jokers[,c("bet", "hand")])
+# Merge them back together
+df.2 <- full_join(df[which(!df$hand %in% df.2$hand),],df.2, by = c(colnames(df)[which(colnames(df) %in% colnames(df.2))]))
+df.2[is.na(df.2)] <- 0
+# Turn jokers into 0s
+df.ordered.2  <- df.2 |>
+arrange(desc(`5`), desc(`4`), desc(`3`), desc(`2`),
+desc(`1`), desc(X1),  desc(X2),
+desc(X3),  desc(X4),  desc(X5))
+#arrange(`5`, `4`, `3`, `2`, `1`, X1, X2, X3, X4, X5, decreasing = TRUE)
+#Set order
+df.ordered.2$rank <- rev(seq(1,nrow(df.ordered.2), 1))
+answer2 <- df.ordered.2 %>%
+mutate(score = as.numeric(bet)*rank) %>%
+pull(score) %>%
+sum()
+answer2
+data <- c('RL',
+'AAA = (BBB, CCC)',
+'BBB = (DDD, EEE)',
+'CCC = (ZZZ, GGG)',
+'DDD = (DDD, DDD)',
+'EEE = (EEE, EEE)',
+'GGG = (GGG, GGG)',
+'ZZZ = (ZZZ, ZZZ)')
+pattern <- data[[1]]
+nodes <- data[-1]
+str_split(nodes, "(")
+nodes
+# Applying the regex to extract the parts
+extracted_parts <- str_extract_all(nodes, "(\\w+) = \\((\\w+), (\\w+)\\)")
+View(extracted_parts)
+# Applying the regex to extract the parts
+extracted_parts <- str_extract_all(nodes, "(\\w+))")
+# Applying the regex to extract the parts
+extracted_parts <- str_extract_all(nodes, "\\w+")
+View(extracted_parts)
+str_replace_all(pattern, c("R" = 3, "L" = 2))
+str_replace_all(pattern, c("R" = "3", "L" = "2"))
+# Use regex to detect word character sequences
+nodes.extracted <- str_extract_all(nodes, "\\w+")
+pattern.number <- str_replace_all(pattern, c("R" = "3", "L" = "2"))
+print(i)
+for(i in nodes.extracted){
+print(i)
+}
+steps <- 0
+pattern.iteration <- 1
+for(i in nodes.extracted){
+i[[pattern.number[[pattern.iteration]]]]
+}
+nodes.extracted <- str_extract_all(nodes, "\\w+")
+# Turn left/right into usable indexes
+pattern.number <- str_replace_all(pattern, c("R" = "3", "L" = "2"))
+steps <- 0
+pattern.iteration <- 1
+for(i in nodes.extracted){
+i[[as.numeric(pattern.number[[pattern.iteration]])]]
+}
+nodes.extracted[[pattern.number]]
+nodes.extracted[[pattern.number[[pattern.iteration]]]]
+pattern.number[[pattern.iteration]]
+# Turn left/right into usable indexes
+pattern.number <- str_replace_all(pattern, c("R" = "3", "L" = "2")) %>%
+str_split(.,"")
+pattern.number
+pattern.number <- pattern.number[[1]]
+pattern.number
+steps <- 0
+pattern.iteration <- 1
+for(i in nodes.extracted){
+i[[as.numeric(pattern.number[[pattern.iteration]])]]
+}
+nodes.extracted[[pattern.number[[pattern.iteration]]]]
+pattern.number
+pattern.iteration
+pattern.number[[pattern.iteration]]
+# Turn left/right into usable indexes
+pattern.number <- str_replace_all(pattern, c("R" = "3", "L" = "2")) %>%
+str_split(.,"") %>%
+as.numeric()
+pattern.number <- pattern.number[[1]]
+# Turn left/right into usable indexes
+pattern.number <- str_replace_all(pattern, c("R" = "3", "L" = "2")) %>%
+str_split(.,"")
+pattern.number <- pattern.number[[1]] %>% as.numeric()
+pattern.number
+steps <- 0
+pattern.iteration <- 1
+for(i in nodes.extracted){
+i[[as.numeric(pattern.number[[pattern.iteration]])]]
+}
+nodes.extracted[[pattern.number[[pattern.iteration]]]]
+pattern.number[[pattern.iteration]]
+nodes.extracted

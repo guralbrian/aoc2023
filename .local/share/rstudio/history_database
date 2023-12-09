@@ -4084,3 +4084,3318 @@
 1701819044692:stop(paste("The lowest number is", location, "which comes from location", i ))
 1701819044709:}
 1701819044733:}
+1701820135904:# Make the if statment look for a greater/less than combo
+1701820135912:timer.start <- Sys.time()
+1701820135928:foreach(i = 1:10^4) %dopar% {
+1701820135938:location <- i
+1701820135946:for(rule_groups in rev(1:length(map_list))){
+1701820135956:for(rule in 1:nrow(map_list[[rule_groups]])){
+1701820135969:# Get rule parameters
+1701820135978:# Start is where we'll start to look for our 'i' value
+1701820135989:# End is the tail end of where we'll look
+1701820135999:# Delta is how much we'll add to 'i' if its between start and end
+1701820136009:#print(paste("Checking if", i, "falls between", start, "and", end))
+1701820136024:if(i >=  map_list[[rule_groups]][rule, 'start'] & i <= start + map_list[[rule_groups]][rule, 'range'] - 1){
+1701820136036:i <<- (i + map_list[[rule_groups]][rule, 'dest'] -  map_list[[rule_groups]][rule, 'start'])
+1701820136048:#print(paste("It does!", "Adding", delta, "and", i-delta, "to get", i))
+1701820136057:break # exit the rule level if a condition is met
+1701820136068:}
+1701820136080:}
+1701820136092:}
+1701820136102:if(any(sapply(seeds.new, function(range) i >= range[1] && i <= range[2]))){
+1701820136113:print(paste("The lowest number is", location, "which comes from location", i ))
+1701820136124:answer2 <- location
+1701820136136:stop(paste("The lowest number is", location, "which comes from location", i ))
+1701820136147:}
+1701820136163:}
+1701820144397:end <- Sys.time()
+1701820144416:partime<-timer.start - end
+1701820150204:partime
+1701820157999:# Make the if statment look for a greater/less than combo
+1701820158009:timer.start <- Sys.time()
+1701820158026:foreach(i = 1:10^4) %dopar% {
+1701820158037:location <- i
+1701820158046:for(rule_groups in rev(1:length(map_list))){
+1701820158059:for(rule in 1:nrow(map_list[[rule_groups]])){
+1701820158070:# Get rule parameters
+1701820158080:# Start is where we'll start to look for our 'i' value
+1701820158090:# End is the tail end of where we'll look
+1701820158101:# Delta is how much we'll add to 'i' if its between start and end
+1701820158110:#print(paste("Checking if", i, "falls between", start, "and", end))
+1701820158127:if(i >=  map_list[[rule_groups]][rule, 'start'] & i <= start + map_list[[rule_groups]][rule, 'range'] - 1){
+1701820158137:i <<- (i + map_list[[rule_groups]][rule, 'dest'] -  map_list[[rule_groups]][rule, 'start'])
+1701820158148:#print(paste("It does!", "Adding", delta, "and", i-delta, "to get", i))
+1701820158159:break # exit the rule level if a condition is met
+1701820158170:}
+1701820158181:}
+1701820158192:}
+1701820158203:if(any(sapply(seeds.new, function(range) i >= range[1] && i <= range[2]))){
+1701820158215:print(paste("The lowest number is", location, "which comes from location", i ))
+1701820158226:answer2 <- location
+1701820158234:stop(paste("The lowest number is", location, "which comes from location", i ))
+1701820158244:}
+1701820158257:}
+1701820166714:end <- Sys.time()
+1701820166738:partime<-timer.start - end
+1701820170867:partime
+1701820226428:# Make the if statment look for a greater/less than combo
+1701820226440:timer.start <- Sys.time()
+1701820226463:foreach(i = 1:10^7) %dopar% {
+1701820226472:location <- i
+1701820226484:for(rule_groups in rev(1:length(map_list))){
+1701820226494:for(rule in 1:nrow(map_list[[rule_groups]])){
+1701820226505:# Get rule parameters
+1701820226515:# Start is where we'll start to look for our 'i' value
+1701820226526:# End is the tail end of where we'll look
+1701820226536:# Delta is how much we'll add to 'i' if its between start and end
+1701820226547:#print(paste("Checking if", i, "falls between", start, "and", end))
+1701820226565:if(i >=  map_list[[rule_groups]][rule, 'start'] & i <= start + map_list[[rule_groups]][rule, 'range'] - 1){
+1701820226576:i <<- (i + map_list[[rule_groups]][rule, 'dest'] -  map_list[[rule_groups]][rule, 'start'])
+1701820226586:#print(paste("It does!", "Adding", delta, "and", i-delta, "to get", i))
+1701820226596:break # exit the rule level if a condition is met
+1701820226606:}
+1701820226616:}
+1701820226626:}
+1701820226636:if(any(sapply(seeds.new, function(range) i >= range[1] && i <= range[2]))){
+1701820226646:print(paste("The lowest number is", location, "which comes from location", i ))
+1701820226656:answer2 <- location
+1701820226667:stop(paste("The lowest number is", location, "which comes from location", i ))
+1701820226678:}
+1701820226695:}
+1701866243729:data05 <- strsplit(readLines("data/input_5.txt"), " ")
+1701866244431:seeds <- as.double(data05[[1]][-1])
+1701866244917:#almanac
+1701866244931:alm <- split(data05[-1], cumsum(sapply(data05[-1], length) == 0))
+1701866245250:alm <- lapply(alm, \(x) matrix(as.numeric(Reduce(c, x[-(1:2)])), ncol = 3, byrow = T))
+1701866245780:#change alm format to: start | end | offset
+1701866245794:alm <- lapply(alm, \(x) cbind(x[,2], x[,2] + x[,3] - 1L, x[,1] - x[,2])[order(x[,2]),])
+1701866246443:fill_alm <- function(m) {#fill alm to contain the whole range from 0 to 1e10
+1701866246456:for (k in 2:nrow(m))
+1701866246468:if (m[k, 1] > m[k - 1, 2] + 1) m <- rbind(m, c(m[k - 1, 2] + 1, m[k, 1] - 1, 0))
+1701866246488:rbind(m, c(max(m[,2]) + 1, 1e10, 0)) #add one more row to m which covers range until 10**10
+1701866246498:}
+1701866247480:alm <- lapply(alm, fill_alm)
+1701866248223:#function first splits  seed range into multiple parts such that every part is inside one interval
+1701866248237:#afterwards, we add the offset to map it
+1701866248253:map_seeds <- function(s_int, m) {
+1701866248265:res <- m[s_int[1] <= m[,2] & m[,1] <= s_int[2], , drop = FALSE]
+1701866248274:res[cbind(c(1, nrow(res)), 1:2)] <- s_int
+1701866248284:res[,1:2] + res[,3]
+1701866248293:}
+1701866249225:find_location <- function(sr) { #find closest location given a matrix with seed ranges
+1701866249239:for (m in alm) sr <- do.call(rbind, apply(sr, 1, map_seeds, m = m, simplify = F))
+1701866249251:return(min(sr))
+1701866249262:}
+1701866250844:#part1--------
+1701866250861:find_location(cbind(seeds, seeds))
+1701866252125:#part2----
+1701866252138:idx <- seq_along(seeds) %% 2 == 1
+1701866253015:find_location(cbind(seeds[idx], seeds[idx] + seeds[!idx] - 1))
+1701866297239:data05 <- strsplit(readLines("data/input_5.txt"), " ")
+1701866297261:seeds <- as.double(data05[[1]][-1])
+1701866297269:#almanac
+1701866297280:alm <- split(data05[-1], cumsum(sapply(data05[-1], length) == 0))
+1701866297290:alm <- lapply(alm, \(x) matrix(as.numeric(Reduce(c, x[-(1:2)])), ncol = 3, byrow = T))
+1701866297311:#change alm format to: start | end | offset
+1701866297322:alm <- lapply(alm, \(x) cbind(x[,2], x[,2] + x[,3] - 1L, x[,1] - x[,2])[order(x[,2]),])
+1701866297344:fill_alm <- function(m) {#fill alm to contain the whole range from 0 to 1e10
+1701866297356:for (k in 2:nrow(m))
+1701866297368:if (m[k, 1] > m[k - 1, 2] + 1) m <- rbind(m, c(m[k - 1, 2] + 1, m[k, 1] - 1, 0))
+1701866297388:rbind(m, c(max(m[,2]) + 1, 1e10, 0)) #add one more row to m which covers range until 10**10
+1701866297398:}
+1701866297420:alm <- lapply(alm, fill_alm)
+1701866297455:#function first splits  seed range into multiple parts such that every part is inside one interval
+1701866297469:#afterwards, we add the offset to map it
+1701866297484:map_seeds <- function(s_int, m) {
+1701866297495:res <- m[s_int[1] <= m[,2] & m[,1] <= s_int[2], , drop = FALSE]
+1701866297512:res[cbind(c(1, nrow(res)), 1:2)] <- s_int
+1701866297523:res[,1:2] + res[,3]
+1701866297538:}
+1701866297563:find_location <- function(sr) { #find closest location given a matrix with seed ranges
+1701866297574:for (m in alm) sr <- do.call(rbind, apply(sr, 1, map_seeds, m = m, simplify = F))
+1701866297585:return(min(sr))
+1701866297596:}
+1701866297613:#part1--------
+1701866297622:find_location(cbind(seeds, seeds))
+1701866297646:#part2----
+1701866297656:idx <- seq_along(seeds) %% 2 == 1
+1701866297665:find_location(cbind(seeds[idx], seeds[idx] + seeds[!idx] - 1))
+1701866451239:data05 <- strsplit(readLines("data/input_5.txt"), " ")
+1701866453036:View(data05)
+1701866459446:seeds <- as.double(data05[[1]][-1])
+1701866460229:#almanac
+1701866460244:alm <- split(data05[-1], cumsum(sapply(data05[-1], length) == 0))
+1701866460838:alm <- lapply(alm, \(x) matrix(as.numeric(Reduce(c, x[-(1:2)])), ncol = 3, byrow = T))
+1701866462809:View(data05)
+1701866464856:View(alm)
+1701866470308:View(data05)
+1701866474799:#change alm format to: start | end | offset
+1701866474813:alm <- lapply(alm, \(x) cbind(x[,2], x[,2] + x[,3] - 1L, x[,1] - x[,2])[order(x[,2]),])
+1701866476403:fill_alm <- function(m) {#fill alm to contain the whole range from 0 to 1e10
+1701866476417:for (k in 2:nrow(m))
+1701866476427:if (m[k, 1] > m[k - 1, 2] + 1) m <- rbind(m, c(m[k - 1, 2] + 1, m[k, 1] - 1, 0))
+1701866476446:rbind(m, c(max(m[,2]) + 1, 1e10, 0)) #add one more row to m which covers range until 10**10
+1701866476454:}
+1701866477146:alm <- lapply(alm, fill_alm)
+1701866477822:#function first splits  seed range into multiple parts such that every part is inside one interval
+1701866477833:#afterwards, we add the offset to map it
+1701866477847:map_seeds <- function(s_int, m) {
+1701866477862:res <- m[s_int[1] <= m[,2] & m[,1] <= s_int[2], , drop = FALSE]
+1701866477873:res[cbind(c(1, nrow(res)), 1:2)] <- s_int
+1701866477883:res[,1:2] + res[,3]
+1701866477893:}
+1701866478496:find_location <- function(sr) { #find closest location given a matrix with seed ranges
+1701866478511:for (m in alm) sr <- do.call(rbind, apply(sr, 1, map_seeds, m = m, simplify = F))
+1701866478520:return(min(sr))
+1701866478532:}
+1701866479294:#part1--------
+1701866479309:find_location(cbind(seeds, seeds))
+1701866486702:data <- c(
+1701866486787:'seeds: 79 14 55 13',
+1701866486856:'',
+1701866486909:'seed-to-soil map:',
+1701866486946:'50 98 2',
+1701866486978:'52 50 48',
+1701866487011:'',
+1701866487045:'soil-to-fertilizer map:',
+1701866487078:'0 15 37',
+1701866487104:'37 52 2',
+1701866487138:'39 0 15',
+1701866487171:'',
+1701866487207:'fertilizer-to-water map:',
+1701866487251:'49 53 8',
+1701866487317:'0 11 42',
+1701866487343:'42 0 7',
+1701866487362:'57 7 4',
+1701866487381:'',
+1701866487399:'water-to-light map:',
+1701866487417:'88 18 7',
+1701866487435:'18 25 70',
+1701866487456:'',
+1701866487478:'light-to-temperature map:',
+1701866487499:'45 77 23',
+1701866487522:'81 45 19',
+1701866487595:'68 64 13',
+1701866487651:'',
+1701866487728:'temperature-to-humidity map:',
+1701866487762:'0 69 1',
+1701866487793:"1 0 69",
+1701866487818:'',
+1701866487832:'humidity-to-location map:',
+1701866487846:"60 56 37",
+1701866487861:"56 93 4" )
+1701866500158:data05 <- data
+1701866500838:seeds <- as.double(data05[[1]][-1])
+1701866501108:#almanac
+1701866501120:alm <- split(data05[-1], cumsum(sapply(data05[-1], length) == 0))
+1701866501335:alm <- lapply(alm, \(x) matrix(as.numeric(Reduce(c, x[-(1:2)])), ncol = 3, byrow = T))
+1701866501504:#change alm format to: start | end | offset
+1701866501518:alm <- lapply(alm, \(x) cbind(x[,2], x[,2] + x[,3] - 1L, x[,1] - x[,2])[order(x[,2]),])
+1701866523386:View(alm)
+1701866545852:data05 <- data
+1701866551589:data05 <- strsplit(readLines("data/input_5.txt"), " ")
+1701866554053:View(data05)
+1701866576138:data05 <- strsplit(data, " ")
+1701866580993:seeds <- as.double(data05[[1]][-1])
+1701866581851:#almanac
+1701866581868:alm <- split(data05[-1], cumsum(sapply(data05[-1], length) == 0))
+1701866582087:alm <- lapply(alm, \(x) matrix(as.numeric(Reduce(c, x[-(1:2)])), ncol = 3, byrow = T))
+1701866582718:#change alm format to: start | end | offset
+1701866582730:alm <- lapply(alm, \(x) cbind(x[,2], x[,2] + x[,3] - 1L, x[,1] - x[,2])[order(x[,2]),])
+1701866582951:fill_alm <- function(m) {#fill alm to contain the whole range from 0 to 1e10
+1701866582963:for (k in 2:nrow(m))
+1701866582976:if (m[k, 1] > m[k - 1, 2] + 1) m <- rbind(m, c(m[k - 1, 2] + 1, m[k, 1] - 1, 0))
+1701866583005:rbind(m, c(max(m[,2]) + 1, 1e10, 0)) #add one more row to m which covers range until 10**10
+1701866583020:}
+1701866583166:alm <- lapply(alm, fill_alm)
+1701866583976:#function first splits  seed range into multiple parts such that every part is inside one interval
+1701866583991:#afterwards, we add the offset to map it
+1701866584007:map_seeds <- function(s_int, m) {
+1701866584019:res <- m[s_int[1] <= m[,2] & m[,1] <= s_int[2], , drop = FALSE]
+1701866584032:res[cbind(c(1, nrow(res)), 1:2)] <- s_int
+1701866584042:res[,1:2] + res[,3]
+1701866584053:}
+1701866584709:find_location <- function(sr) { #find closest location given a matrix with seed ranges
+1701866584722:for (m in alm) sr <- do.call(rbind, apply(sr, 1, map_seeds, m = m, simplify = F))
+1701866584738:return(min(sr))
+1701866584750:}
+1701866585281:#part1--------
+1701866585293:find_location(cbind(seeds, seeds))
+1701866603341:View(alm)
+1701866603967:View(data05)
+1701866619357:data05 <- strsplit(readLines("data/input_5.txt"), " ")
+1701866620969:View(data05)
+1701866636143:seeds <- as.double(data05[[1]][-1])
+1701866636368:#almanac
+1701866636383:alm <- split(data05[-1], cumsum(sapply(data05[-1], length) == 0))
+1701866636572:alm <- lapply(alm, \(x) matrix(as.numeric(Reduce(c, x[-(1:2)])), ncol = 3, byrow = T))
+1701866636795:#change alm format to: start | end | offset
+1701866636810:alm <- lapply(alm, \(x) cbind(x[,2], x[,2] + x[,3] - 1L, x[,1] - x[,2])[order(x[,2]),])
+1701866637021:fill_alm <- function(m) {#fill alm to contain the whole range from 0 to 1e10
+1701866637037:for (k in 2:nrow(m))
+1701866637049:if (m[k, 1] > m[k - 1, 2] + 1) m <- rbind(m, c(m[k - 1, 2] + 1, m[k, 1] - 1, 0))
+1701866637070:rbind(m, c(max(m[,2]) + 1, 1e10, 0)) #add one more row to m which covers range until 10**10
+1701866637081:}
+1701866637235:alm <- lapply(alm, fill_alm)
+1701866638088:#function first splits  seed range into multiple parts such that every part is inside one interval
+1701866638100:#afterwards, we add the offset to map it
+1701866638117:map_seeds <- function(s_int, m) {
+1701866638130:res <- m[s_int[1] <= m[,2] & m[,1] <= s_int[2], , drop = FALSE]
+1701866638141:res[cbind(c(1, nrow(res)), 1:2)] <- s_int
+1701866638152:res[,1:2] + res[,3]
+1701866638161:}
+1701866640247:find_location <- function(sr) { #find closest location given a matrix with seed ranges
+1701866640261:for (m in alm) sr <- do.call(rbind, apply(sr, 1, map_seeds, m = m, simplify = F))
+1701866640274:return(min(sr))
+1701866640285:}
+1701866640630:#part1--------
+1701866640642:find_location(cbind(seeds, seeds))
+1701866641385:#part2----
+1701866641399:idx <- seq_along(seeds) %% 2 == 1
+1701866642004:find_location(cbind(seeds[idx], seeds[idx] + seeds[!idx] - 1))
+1701866843192:data <- readLines("data/input_5.txt")
+1701866843213:# Extract seeds
+1701866843223:seeds <- as.numeric(unlist(strsplit(data[1], " "))[-1])
+1701866843242:# Remove empty strings
+1701866843253:data_clean <- data[data != ""]
+1701866843272:# Extract map names and their corresponding indices
+1701866843282:map_names <- data_clean[grepl("map:", data_clean)]
+1701866843292:map_indices <- match(map_names, data_clean)
+1701866843309:# Split data into different maps
+1701866843320:map_list <- lapply(1:length(map_names), function(i) {
+1701866843330:start_index <- map_indices[i] + 1
+1701866843340:end_index <- ifelse(i < length(map_names), map_indices[i + 1] - 1, length(data_clean))
+1701866843350:as.data.frame(do.call(rbind, lapply(data_clean[start_index:end_index], function(x) as.numeric(strsplit(x, " ")[[1]]))), stringsAsFactors = FALSE)
+1701866843362:})
+1701866843387:names(map_list) <- gsub(" map:", "", map_names)
+1701866843405:# Set column names for each dataframe
+1701866843416:map_list <- lapply(map_list, setNames, c("dest", "start", "range"))
+1701866843427:seeds_group <- seeds
+1701866843438:for(rule_groups in rev(1:length(map_list))){
+1701866843449:for(rule in 1:nrow(map_list[[rule_groups]])){
+1701866843460:#seeds <- c("81", '57', '53', "52")
+1701866843471:#rule_groups <- 3
+1701866843483:#rule <- 1
+1701866843495:print(map_list[[rule_groups]][rule,])
+1701866843507:# Extract the start, end of the range, and the delta
+1701866843519:start_range <- map_list[[rule_groups]][rule, 'start']
+1701866843530:end_range <- start_range + map_list[[rule_groups]][rule, 'range'] - 1
+1701866843541:delta <- map_list[[rule_groups]][rule, 'dest'] - start_range
+1701866843558:# Apply transformation
+1701866843568:seeds_new <- c(seeds[which(seeds <= end_range & seeds >= start_range)] + delta,
+1701866843579:seeds[which(seeds > end_range | seeds < start_range)]) |> as.numeric()
+1701866843590:# update current group level seeds with changes
+1701866843603:# Add only the changed values to an updating list
+1701866843615:# Keep values that changed at each level, join with unchanged values
+1701866843628:seeds_group_keep <- seeds_group[!(seeds_group %in% seeds)] # seeds that the rule hasn't changed
+1701866843639:seeds_new_keep <-   seeds_new[!(seeds_new %in% seeds)] # seeds that have changed, relative to
+1701866843652:seeds_group_old <- seeds_group[seeds_group %in% seeds_new]
+1701866843664:seeds_group <- c(seeds_group_keep, seeds_new_keep, seeds_group_old)
+1701866843675:}
+1701866843690:seeds <- seeds_group
+1701866843702:print(seeds)
+1701866843714:}
+1701866844016:ans1 <- max(seeds)
+1701866844036:largest_num <- max(seeds)
+1701866844059:# Part 2
+1701866844072:#### Reverse the order of the process.
+1701866844086:# Start from 0, look for match at end
+1701866844100:# Set column names for each dataframe
+1701866844122:# Set column names for each dataframe
+1701866844136:map_list <- lapply(map_list, setNames, c("start", "dest", "range"))
+1701866844157:seeds <- as.numeric(unlist(strsplit(data[1], " "))[-1])
+1701866844171:seeds.new <- c()
+1701866844194:for(i in 1:(length(seeds)/2)){
+1701866844208:seeds.new[[i]] <- c(seeds[(i*2)-1],
+1701866844222:(seeds[(i*2)-1] + seeds[(i*2)] - 1))
+1701866844235:}
+1701866844258:# Making paralellized
+1701866844270:cores=detectCores()
+1701866856520:library(foreach)
+1701866860872:library(doParallel)
+1701866864804:data <- c(
+1701866864816:'seeds: 79 14 55 13',
+1701866864828:'',
+1701866864841:'seed-to-soil map:',
+1701866864852:'50 98 2',
+1701866864864:'52 50 48',
+1701866864877:'',
+1701866864889:'soil-to-fertilizer map:',
+1701866864900:'0 15 37',
+1701866864912:'37 52 2',
+1701866864923:'39 0 15',
+1701866864935:'',
+1701866864946:'fertilizer-to-water map:',
+1701866864957:'49 53 8',
+1701866864969:'0 11 42',
+1701866864982:'42 0 7',
+1701866864994:'57 7 4',
+1701866865006:'',
+1701866865018:'water-to-light map:',
+1701866865031:'88 18 7',
+1701866865044:'18 25 70',
+1701866865056:'',
+1701866865069:'light-to-temperature map:',
+1701866865081:'45 77 23',
+1701866865093:'81 45 19',
+1701866865106:'68 64 13',
+1701866865117:'',
+1701866865128:'temperature-to-humidity map:',
+1701866865143:'0 69 1',
+1701866865156:"1 0 69",
+1701866865172:'',
+1701866865182:'humidity-to-location map:',
+1701866865189:"60 56 37",
+1701866865198:"56 93 4" )
+1701866865218:data <- readLines("data/input_5.txt")
+1701866865251:# Extract seeds
+1701866865262:seeds <- as.numeric(unlist(strsplit(data[1], " "))[-1])
+1701866865279:# Remove empty strings
+1701866865288:data_clean <- data[data != ""]
+1701866865303:# Extract map names and their corresponding indices
+1701866865313:map_names <- data_clean[grepl("map:", data_clean)]
+1701866865323:map_indices <- match(map_names, data_clean)
+1701866865339:# Split data into different maps
+1701866865349:map_list <- lapply(1:length(map_names), function(i) {
+1701866865360:start_index <- map_indices[i] + 1
+1701866865373:end_index <- ifelse(i < length(map_names), map_indices[i + 1] - 1, length(data_clean))
+1701866865385:as.data.frame(do.call(rbind, lapply(data_clean[start_index:end_index], function(x) as.numeric(strsplit(x, " ")[[1]]))), stringsAsFactors = FALSE)
+1701866865398:})
+1701866865429:names(map_list) <- gsub(" map:", "", map_names)
+1701866865449:# Set column names for each dataframe
+1701866865461:map_list <- lapply(map_list, setNames, c("dest", "start", "range"))
+1701866865473:seeds_group <- seeds
+1701866865485:for(rule_groups in rev(1:length(map_list))){
+1701866865498:for(rule in 1:nrow(map_list[[rule_groups]])){
+1701866865511:#seeds <- c("81", '57', '53', "52")
+1701866865524:#rule_groups <- 3
+1701866865539:#rule <- 1
+1701866865551:print(map_list[[rule_groups]][rule,])
+1701866865563:# Extract the start, end of the range, and the delta
+1701866865574:start_range <- map_list[[rule_groups]][rule, 'start']
+1701866865586:end_range <- start_range + map_list[[rule_groups]][rule, 'range'] - 1
+1701866865597:delta <- map_list[[rule_groups]][rule, 'dest'] - start_range
+1701866865616:# Apply transformation
+1701866865628:seeds_new <- c(seeds[which(seeds <= end_range & seeds >= start_range)] + delta,
+1701866865640:seeds[which(seeds > end_range | seeds < start_range)]) |> as.numeric()
+1701866865654:# update current group level seeds with changes
+1701866865666:# Add only the changed values to an updating list
+1701866865679:# Keep values that changed at each level, join with unchanged values
+1701866865691:seeds_group_keep <- seeds_group[!(seeds_group %in% seeds)] # seeds that the rule hasn't changed
+1701866865702:seeds_new_keep <-   seeds_new[!(seeds_new %in% seeds)] # seeds that have changed, relative to
+1701866865714:seeds_group_old <- seeds_group[seeds_group %in% seeds_new]
+1701866865724:seeds_group <- c(seeds_group_keep, seeds_new_keep, seeds_group_old)
+1701866865735:}
+1701866865745:seeds <- seeds_group
+1701866865756:print(seeds)
+1701866865767:}
+1701866865977:ans1 <- max(seeds)
+1701866865995:largest_num <- max(seeds)
+1701866866015:# Part 2
+1701866866028:#### Reverse the order of the process.
+1701866866039:# Start from 0, look for match at end
+1701866866051:# Set column names for each dataframe
+1701866866069:# Set column names for each dataframe
+1701866866081:map_list <- lapply(map_list, setNames, c("start", "dest", "range"))
+1701866866101:seeds <- as.numeric(unlist(strsplit(data[1], " "))[-1])
+1701866866113:seeds.new <- c()
+1701866866131:for(i in 1:(length(seeds)/2)){
+1701866866141:seeds.new[[i]] <- c(seeds[(i*2)-1],
+1701866866153:(seeds[(i*2)-1] + seeds[(i*2)] - 1))
+1701866866165:}
+1701866866257:# Making paralellized
+1701866866266:cores=detectCores()
+1701866866281:cl <- makeCluster(cores[1]-2)
+1701866867553:registerDoParallel(cl)
+1701866867578:# Make the if statment look for a greater/less than combo
+1701866867590:timer.start <- Sys.time()
+1701866867607:foreach(i = 1:10^8) %dopar% {
+1701866867619:location <- i
+1701866867630:print(i)
+1701866867643:for(rule_groups in rev(1:length(map_list))){
+1701866867655:for(rule in 1:nrow(map_list[[rule_groups]])){
+1701866867667:# Get rule parameters
+1701866867679:# Start is where we'll start to look for our 'i' value
+1701866867691:start <- map_list[[rule_groups]][rule, 'start']
+1701866867702:# End is the tail end of where we'll look
+1701866867713:end <- start + map_list[[rule_groups]][rule, 'range'] - 1
+1701866867725:# Delta is how much we'll add to 'i' if its between start and end
+1701866867737:delta <- map_list[[rule_groups]][rule, 'dest'] - start
+1701866867756:#print(paste("Checking if", i, "falls between", start, "and", end))
+1701866867775:if(i >= start & i <= end){
+1701866867787:i <<- (i + delta)
+1701866867797:#print(paste("It does!", "Adding", delta, "and", i-delta, "to get", i))
+1701866867809:break # exit the rule level if a condition is met
+1701866867820:}
+1701866867832:}
+1701866867843:}
+1701866867854:if(any(sapply(seeds.new, function(range) i >= range[1] && i <= range[2]))){
+1701866867865:print(paste("The lowest number is", location, "which comes from location", i ))
+1701866867876:answer2 <- location
+1701866867888:stop(paste("The lowest number is", location, "which comes from location", i ))
+1701866867899:}
+1701866867918:}
+1701870912959:gc()
+1701871018014:data <- c(7,9)
+1701871220484:possibility <- 0
+1701871220931:while(i < data[1]){
+1701871220953:test <- i(data[1] - i)
+1701871220970:if(test >  data[2]){
+1701871220990:possibility <- possibility + 1
+1701871221013:}
+1701871221036:}
+1701871249466:data <- c(7,9)
+1701871249713:possibility <- 0
+1701871249915:i <- 0
+1701871250331:while(i < data[1]){
+1701871250356:test <- i(data[1] - i)
+1701871250375:if(test >  data[2]){
+1701871250398:possibility <- possibility + 1
+1701871250419:}
+1701871250442:i <- i + 1
+1701871250464:}
+1701871257442:possibility <- 0
+1701871257666:i <- 0
+1701871257857:while(i < data[1]){
+1701871257882:test <- i*(data[1] - i)
+1701871257904:if(test >  data[2]){
+1701871257926:possibility <- possibility + 1
+1701871257948:}
+1701871257969:i <- i + 1
+1701871257991:}
+1701871280178:data <- c(15,40)
+1701871280367:possibility <- 0
+1701871280850:i <- 0
+1701871281313:while(i < data[1]){
+1701871281339:test <- i*(data[1] - i)
+1701871281360:if(test >  data[2]){
+1701871281381:possibility <- possibility + 1
+1701871281404:}
+1701871281428:i <- i + 1
+1701871281449:}
+1701871634526:possibility <- 0
+1701871634828:i <- rep(0,length(time))
+1701871635046:for(race in 1:length(time)){
+1701871663167:possibility <- 0
+1701871663417:i <- rep(0,length(time))
+1701871663854:for(race in 1:length(time)){
+1701871663881:while(i[race] < time[race]){
+1701871663902:test <- i[race]*(time[race] - i[race])
+1701871663923:if(test >  data[2]){
+1701871663944:possibility <- possibility + 1
+1701871663966:}
+1701871663987:i[race] <- i[race] + 1
+1701871664008:}
+1701871664030:}
+1701871672211:i[1]
+1701871685793:time <- as.numeric(c('55','99','97','93'))
+1701871685818:dist <- as.numeric(c('401','1485','2274','1405'))
+1701871685860:possibility <- 0
+1701871685882:i <- rep(0,length(time))
+1701871685910:for(race in 1:length(time)){
+1701871685929:while(i[race] < time[race]){
+1701871685949:test <- i[race]*(time[race] - i[race])
+1701871685970:if(test >  dist[race]){
+1701871685991:possibility <- possibility + 1
+1701871686013:}
+1701871686035:i[race] <- i[race] + 1
+1701871686057:}
+1701871686077:}
+1701871686102:i[1]
+1701871696560:prod(i)
+1701871841022:i <- rep(0,length(time))
+1701871841053:for(race in 1:length(time)){
+1701871841076:time_hold <- 0
+1701871841098:while(time_hold < time[race]){
+1701871841123:test <- time_hold*(time[race] - time_hold)
+1701871841146:if(test >  dist[race]){
+1701871841170:i[race] <- i[race] + 1
+1701871841194:}
+1701871841218:time_hold <- time_hold + 1
+1701871841242:}
+1701871841265:}
+1701871841315:prod(i)
+1701872044268:# Part 2
+1701872044293:time.2 <- paste0(time) |> as.numeric()
+1701872044647:dist.2 <- paste0(dist) |> as.numeric()
+1701872051680:paste0(time)
+1701872061199:time
+1701872096593:paste0(time, collapse = "")
+1701872105478:# Part 2
+1701872105504:time.2 <- paste0(time, collapse = "") |> as.numeric()
+1701872106055:dist.2 <- paste0(dist,collapse = "") |> as.numeric()
+1701872156896:time.2 <- paste0(time, collapse = "") |> as.numeric()
+1701872156918:dist.2 <- paste0(dist,collapse = "") |> as.numeric()
+1701872156962:time_hold <- 0
+1701872156984:while(time_hold < time.2){
+1701872157008:test <- time_hold*(time.2 - time_hold)
+1701872157034:if(test >  dist.2){
+1701872157060:i[race] <- i[race] + 1
+1701872157088:}
+1701872157114:time_hold <- time_hold + 1
+1701872157140:}
+1701872172455:prod(i)
+1701872218473:possibility <- 0
+1701872218494:time_hold <- 0
+1701872218516:while(time_hold < time.2){
+1701872218540:test <- time_hold*(time.2 - time_hold)
+1701872218562:if(test >  dist.2){
+1701872218580:possibility <- possibility + 1
+1701872218597:}
+1701872218619:time_hold <- time_hold + 1
+1701872218639:}
+1701872227212:possibility
+1701872324689:data <- readLines("data/input_5.txt")
+1701872324725:# Extract seeds
+1701872324746:seeds <- as.numeric(unlist(strsplit(data[1], " "))[-1])
+1701872324777:# Remove empty strings
+1701872324796:data_clean <- data[data != ""]
+1701872324828:# Extract map names and their corresponding indices
+1701872324847:map_names <- data_clean[grepl("map:", data_clean)]
+1701872324870:map_indices <- match(map_names, data_clean)
+1701872324902:# Split data into different maps
+1701872324923:map_list <- lapply(1:length(map_names), function(i) {
+1701872324942:start_index <- map_indices[i] + 1
+1701872324959:end_index <- ifelse(i < length(map_names), map_indices[i + 1] - 1, length(data_clean))
+1701872324978:as.data.frame(do.call(rbind, lapply(data_clean[start_index:end_index], function(x) as.numeric(strsplit(x, " ")[[1]]))), stringsAsFactors = FALSE)
+1701872324998:})
+1701872325043:names(map_list) <- gsub(" map:", "", map_names)
+1701872334723:# Part 2
+1701872334746:#### Reverse the order of the process.
+1701872334769:# Start from 0, look for match at end
+1701872334791:# Set column names for each dataframe
+1701872334825:# Set column names for each dataframe
+1701872334845:map_list <- lapply(map_list, setNames, c("start", "dest", "range"))
+1701872334879:seeds <- as.numeric(unlist(strsplit(data[1], " "))[-1])
+1701872334900:seeds.new <- c()
+1701872334934:for(i in 1:(length(seeds)/2)){
+1701872334957:seeds.new[[i]] <- c(seeds[(i*2)-1],
+1701872334981:(seeds[(i*2)-1] + seeds[(i*2)] - 1))
+1701872335006:}
+1701872335077:# Making paralellized
+1701872335100:cores=detectCores()
+1701872344542:library(parallel)
+1701872351278:library(doParallel)
+1701872361823:# Set column names for each dataframe
+1701872361847:map_list <- lapply(map_list, setNames, c("start", "dest", "range"))
+1701872361878:seeds <- as.numeric(unlist(strsplit(data[1], " "))[-1])
+1701872361900:seeds.new <- c()
+1701872361933:for(i in 1:(length(seeds)/2)){
+1701872361955:seeds.new[[i]] <- c(seeds[(i*2)-1],
+1701872361976:(seeds[(i*2)-1] + seeds[(i*2)] - 1))
+1701872361997:}
+1701872362022:# Making paralellized
+1701872362042:cores=detectCores()
+1701872362066:cl <- makeCluster(cores[1]-2)
+1701872363362:registerDoParallel(cl)
+1701872363405:# Make the if statment look for a greater/less than combo
+1701872363426:timer.start <- Sys.time()
+1701872363456:foreach(i = 1:10^8) %dopar% {
+1701872363480:location <- i
+1701872363501:print(i)
+1701872363523:for(rule_groups in rev(1:length(map_list))){
+1701872363540:for(rule in 1:nrow(map_list[[rule_groups]])){
+1701872363560:# Get rule parameters
+1701872363578:# Start is where we'll start to look for our 'i' value
+1701872363597:start <- map_list[[rule_groups]][rule, 'start']
+1701872363617:# End is the tail end of where we'll look
+1701872363638:end <- start + map_list[[rule_groups]][rule, 'range'] - 1
+1701872363660:# Delta is how much we'll add to 'i' if its between start and end
+1701872363681:delta <- map_list[[rule_groups]][rule, 'dest'] - start
+1701872363714:#print(paste("Checking if", i, "falls between", start, "and", end))
+1701872363745:if(i >= start & i <= end){
+1701872363764:i <<- (i + delta)
+1701872363781:#print(paste("It does!", "Adding", delta, "and", i-delta, "to get", i))
+1701872363801:break # exit the rule level if a condition is met
+1701872363820:}
+1701872363839:}
+1701872363859:}
+1701872363879:if(any(sapply(seeds.new, function(range) i >= range[1] && i <= range[2]))){
+1701872363900:print(paste("The lowest number is", location, "which comes from location", i ))
+1701872363922:answer2 <- location
+1701872363944:stop(paste("The lowest number is", location, "which comes from location", i ))
+1701872363966:}
+1701872363994:}
+1701954269952:# Advent 7
+1701954269967:data <- c(
+1701954269977:'32T3K 765',
+1701954269988:'T55J5 684',
+1701954269997:'KK677 28',
+1701954270005:'KTJJT 220',
+1701954270015:'QQQJA 483')
+1701954347938:df <- data.frame(hand = sapply(strsplit(data), " "), "[[", 1)
+1701954354949:df <- data.frame(hand = sapply(str_split(data), " "), "[[", 1)
+1701954363555:sapply(str_split(data), " ")
+1701954378767:df <- data.frame(hand = sapply(str_split(data,, " "), "[[", 1)
+1701954383467:str_split(data,, " ")
+1701954389273:strsplit(data,, " ")
+1701954395445:strsplit(data, " ")
+1701954397940:df <- data.frame(hand = sapply(strsplit(data, " "), "[[", 1)
+1701954401058:df <- data.frame(hand = sapply(strsplit(data, " "), "[[", 1))
+1701954402781:View(df)
+1701954419051:df <- data.frame(hand = sapply(strsplit(data, " "), "[[", 1),
+1701954419064:bet  = sapply(strsplit(data, " "), "[[", 2))
+1701954753593:value.df <- data.frame(cards = cards, value = rev(seq(1, length(cards), 1)))
+1701954755930:#
+1701954762404:# Make df to convert cards to value tier
+1701954762414:cards <- c('A', 'K', 'Q', 'J', 'T', '9', '8', '7', '6', '5', '4', '3', '2')
+1701954763002:value.df <- data.frame(cards = cards, value = rev(seq(1, length(cards), 1)))
+1701954765385:value.df
+1701954907536:data.frame(do.call("rbind", strsplit(as.character(df$hand), "",
+1701954907546:fixed = TRUE)))
+1701954942393:# Parse data
+1701954942404:hand = sapply(strsplit(data, " "), "[[", 1)
+1701954943977:hand
+1701954950380:data.frame(do.call("rbind", strsplit(as.character(hand), "",
+1701954950394:fixed = TRUE)))
+1701954979645:df$bet <- sapply(strsplit(data, " "), "[[", 2)
+1701954982464:df <- data.frame(do.call("rbind", strsplit(as.character(hand), "",
+1701954982475:fixed = TRUE)))
+1701954982814:df$bet <- sapply(strsplit(data, " "), "[[", 2)
+1701954984916:df
+1701955113789:# Parse data
+1701955113804:df <- data.frame(do.call("rbind", strsplit(as.character(hand), "",
+1701955113817:fixed = TRUE)))
+1701955116682:#
+1701955116692:stringr::str_replace_all(df, setNames(value.df$value, value.df$cards))
+1701955331241:sapply(df, setNames(value.df$value, value.df$cards)))
+1701955333441:sapply(df, setNames(value.df$value, value.df$cards))
+1701955356903:sapply(df, function(x), setNames(x, value.df$value, value.df$cards))
+1701955360161:sapply(df, function(x) setNames(x, value.df$value, value.df$cards))
+1701955383107:sapply(df, function(x){ setNames(x, value.df$value, value.df$cards)})
+1701955428650:sapply(df, function(x){stringr::str_replace_all(x, setNames(value.df$value, value.df$cards))})
+1701955435373:sapply(df, function(x){stringr::str_replace_all(x, setNames(value.df$value, value.df$cards))})
+1701955464254:lapply(1:row(df), function(x){stringr::str_replace_all(df[x,], setNames(value.df$value, value.df$cards))})
+1701955508012:setNames(value.df$value, value.df$cards)
+1701955518380:# Parse data
+1701955518392:df <- data.frame(do.call("rbind", strsplit(as.character(hand), "",
+1701955518403:fixed = TRUE)))
+1701955522723:df
+1701955527773:lapply(1:row(df), function(x){stringr::str_replace_all(df[x,], setNames(value.df$value, value.df$cards))})
+1701955530273:apply(1:row(df), function(x){stringr::str_replace_all(df[x,], setNames(value.df$value, value.df$cards))})
+1701955532273:sapply(1:row(df), function(x){stringr::str_replace_all(df[x,], setNames(value.df$value, value.df$cards))})
+1701955618185:value.df
+1701955621634:df
+1701955699541:# Replace characters in df with corresponding values from value.df
+1701955699551:df_converted <- apply(df, 2, function(column) {
+1701955699561:# Use 'match' to find the positions of 'df' elements in 'value.df'
+1701955699571:matched_positions <- match(column, value.df$cards)
+1701955699584:# Replace the positions with the corresponding values from 'value.df'
+1701955699593:value.df$value[matched_positions]
+1701955699601:})
+1701955700193:# Convert the result back to a data frame
+1701955700208:df_converted <- as.data.frame(df_converted)
+1701955701910:View(df_converted)
+1701955806730:data <- c(
+1701955806742:'32T3K 765',
+1701955806753:'T55J5 684',
+1701955806764:'KK677 28',
+1701955806775:'KTJJT 220',
+1701955806786:'QQQJA 483')
+1701955806805:# Parse data
+1701955806816:df <- data.frame(do.call("rbind", strsplit(as.character(hand), "",
+1701955806826:fixed = TRUE)))
+1701955806837:df$bet <- sapply(strsplit(data, " "), "[[", 2)
+1701955806855:# Make df to convert cards to value tier
+1701955806864:cards <- c('A', 'K', 'Q', 'J', 'T', '9', '8', '7', '6', '5', '4', '3', '2')
+1701955806883:value.df <- data.frame(cards = cards, value = rev(seq(1, length(cards), 1)))
+1701955806901:# Replace characters in df, using value.df as a dictionary
+1701955806911:df<- apply(df, 2, function(column) {
+1701955806921:# Use 'match' to find the positions of 'df' elements in 'value.df'
+1701955806932:matched_positions <- match(column, value.df$cards)
+1701955806943:# Replace the positions with the corresponding values from 'value.df'
+1701955806954:value.df$value[matched_positions]
+1701955806965:}) |> as.data.frame()
+1701955806984:# Add bets
+1701955806995:df$bet <- sapply(strsplit(data, " "), "[[", 2)
+1701955807011:# Add hand #
+1701955807021:df$hand <- seq(1,nrow(df), 1)
+1701955812535:df
+1701955869723:library(dplyr)
+1701955912227:df |>
+1701955912239:select(-c(bet, hand)) |>
+1701955912250:table()
+1701955959475:df |>
+1701955959486:select(-c(bet, hand)) |>
+1701955959497:rowwise()
+1701955965223:df |>
+1701955965236:select(-c(bet, hand)) |>
+1701955965247:rowwise() |>
+1701955965257:table()
+1701956051901:# Using apply() to apply table() to each row
+1701956051916:row_tables <- apply(df, 1, table)
+1701956058322:library(dplyr)
+1701956058331:data <- c(
+1701956058340:'32T3K 765',
+1701956058349:'T55J5 684',
+1701956058358:'KK677 28',
+1701956058368:'KTJJT 220',
+1701956058378:'QQQJA 483')
+1701956058396:# Parse data
+1701956058406:df <- data.frame(do.call("rbind", strsplit(as.character(hand), "",
+1701956058416:fixed = TRUE)))
+1701956058427:df$bet <- sapply(strsplit(data, " "), "[[", 2)
+1701956058442:# Make df to convert cards to value tier
+1701956058451:cards <- c('A', 'K', 'Q', 'J', 'T', '9', '8', '7', '6', '5', '4', '3', '2')
+1701956058462:value.df <- data.frame(cards = cards, value = rev(seq(1, length(cards), 1)))
+1701956058475:# Replace characters in df, using value.df as a dictionary
+1701956058484:df<- apply(df, 2, function(column) {
+1701956058494:# Use 'match' to find the positions of 'df' elements in 'value.df'
+1701956058504:matched_positions <- match(column, value.df$cards)
+1701956058514:# Replace the positions with the corresponding values from 'value.df'
+1701956058525:value.df$value[matched_positions]
+1701956058535:}) |> as.data.frame()
+1701956058563:# Using apply() to apply table() to each row
+1701956058573:row_tables <- apply(df, 1, table)
+1701956060196:row_tables
+1701956309434:# Parse data
+1701956309445:df <- data.frame(do.call("rbind", strsplit(as.character(hand), "",
+1701956309455:fixed = TRUE)))
+1701956310764:df
+1701956318132:# Make df to convert cards to value tier
+1701956318143:cards <- c('A', 'K', 'Q', 'J', 'T', '9', '8', '7', '6', '5', '4', '3', '2')
+1701956318422:value.df <- data.frame(cards = cards, value = rev(seq(1, length(cards), 1)))
+1701956322360:# Replace characters in df, using value.df as a dictionary
+1701956322372:df<- apply(df, 2, function(column) {
+1701956322384:# Use 'match' to find the positions of 'df' elements in 'value.df'
+1701956322394:matched_positions <- match(column, value.df$cards)
+1701956322406:# Replace the positions with the corresponding values from 'value.df'
+1701956322415:value.df$value[matched_positions]
+1701956322424:}) |> as.data.frame()
+1701956323975:df
+1701956528216:# Custom function to check for specific occurrences
+1701956528226:check_occurrences <- function(row, num_occurrences) {
+1701956528242:freq_table <- table(row)
+1701956528253:return(any(freq_table == num_occurrences))
+1701956528263:}
+1701956528833:# Using dplyr to mutate and add new columns
+1701956528846:df <- df %>%
+1701956528858:rowwise() %>%
+1701956528868:mutate(
+1701956528879:three = as.integer(check_occurrences(c_across(everything()), 3)),
+1701956528889:two = as.integer(check_occurrences(c_across(everything()), 2))
+1701956528898:# You can add more lines here for different occurrences
+1701956528907:) %>%
+1701956528916:ungroup
+1701956531963:df
+1701956625445:# Using dplyr to mutate and add new columns
+1701956625458:df <- df %>%
+1701956625467:rowwise() %>%
+1701956625478:mutate(
+1701956625490:five =  as.integer(check_occurrences(c_across(everything()), 5)),
+1701956625500:four =  as.integer(check_occurrences(c_across(everything()), 4)),
+1701956625510:three = as.integer(check_occurrences(c_across(everything()), 3)),
+1701956625521:two = as.integer(check_occurrences(c_across(everything()), 2))
+1701956625532:# You can add more lines here for different occurrences
+1701956625543:) %>%
+1701956625554:ungroup
+1701956643716:# Add bets
+1701956643727:df$bet <- sapply(strsplit(data, " "), "[[", 2)
+1701956644571:# Add hand #
+1701956644584:df$hand <- seq(1,nrow(df), 1)
+1701956759147:df |>
+1701956759161:arrange(five, four)
+1701956768157:df |>
+1701956768165:arrange(five, four, three)
+1701956806380:df |>
+1701956806393:arrange(five, four, three, two)
+1701956889890:df <- df |>
+1701956889908:arrange(five, four, three, two) %>%
+1701956889920:group_by(three, two)
+1701956892731:df
+1701956986065:data <- c(
+1701956986080:'32T3K 765',
+1701956986093:'T55J5 684',
+1701956986102:'KK677 28',
+1701956986113:'KTJJT 220',
+1701956986125:'QQQJA 483')
+1701956986474:# Parse data
+1701956986493:df <- data.frame(do.call("rbind", strsplit(as.character(hand), "",
+1701956986505:fixed = TRUE)))
+1701956988113:# Make df to convert cards to value tier
+1701956988130:cards <- c('A', 'K', 'Q', 'J', 'T', '9', '8', '7', '6', '5', '4', '3', '2')
+1701956988342:value.df <- data.frame(cards = cards, value = rev(seq(1, length(cards), 1)))
+1701956988953:# Replace characters in df, using value.df as a dictionary
+1701956988970:df <- apply(df, 2, function(column) {
+1701956988984:# Use 'match' to find the positions of 'df' elements in 'value.df'
+1701956988997:matched_positions <- match(column, value.df$cards)
+1701956989009:# Replace the positions with the corresponding values from 'value.df'
+1701956989021:value.df$value[matched_positions]
+1701956989031:}) |> as.data.frame()
+1701956991812:df
+1701957000832:# Custom function to check for specific occurrences
+1701957000849:check_occurrences <- function(row, num_occurrences) {
+1701957000859:freq_table <- table(row)
+1701957000872:return(any(freq_table == num_occurrences))
+1701957000884:}
+1701957001501:# Using dplyr to mutate and add new columns
+1701957001512:df <- df %>%
+1701957001533:rowwise() %>%
+1701957001543:mutate(
+1701957001550:five =  as.integer(check_occurrences(c_across(everything()), 5)),
+1701957001558:four =  as.integer(check_occurrences(c_across(everything()), 4)),
+1701957001565:three = as.integer(check_occurrences(c_across(everything()), 3)),
+1701957001572:two =   as.integer(check_occurrences(c_across(everything()), 2))
+1701957001580:# You can add more lines here for different occurrences
+1701957001590:) %>%
+1701957001599:ungroup
+1701957004261:df
+1701957133728:data <- c(
+1701957133738:'32T3K 765',
+1701957133747:'T55J5 684',
+1701957133756:'KK677 28',
+1701957133765:'KTJJT 220',
+1701957133775:'QQQJA 483')
+1701957133792:# Parse data
+1701957133802:df <- data.frame(do.call("rbind", strsplit(as.character(hand), "",
+1701957133812:fixed = TRUE)))
+1701957133822:# Make df to convert cards to value tier
+1701957133832:cards <- c('A', 'K', 'Q', 'J', 'T', '9', '8', '7', '6', '5', '4', '3', '2')
+1701957133843:value.df <- data.frame(cards = cards, value = rev(seq(1, length(cards), 1)))
+1701957133861:# Replace characters in df, using value.df as a dictionary
+1701957133870:df <- apply(df, 2, function(column) {
+1701957133881:# Use 'match' to find the positions of 'df' elements in 'value.df'
+1701957133892:matched_positions <- match(column, value.df$cards)
+1701957133901:# Replace the positions with the corresponding values from 'value.df'
+1701957133912:value.df$value[matched_positions]
+1701957133921:}) |> as.data.frame()
+1701957133952:# Custom function to check for specific occurrences
+1701957133961:check_occurrences <- function(row, num_occurrences) {
+1701957133973:freq_table <- table(row)
+1701957133984:return(any(freq_table == num_occurrences))
+1701957133995:}
+1701957134013:# Using dplyr to mutate and add new columns
+1701957134024:df <- df %>%
+1701957134036:rowwise() %>%
+1701957134048:mutate(
+1701957134059:five =  as.integer(check_occurrences(c_across(c(X1,X2,X3,X4,X5)), 5)),
+1701957134070:four =  as.integer(check_occurrences(c_across(c(X1,X2,X3,X4,X5))), 4)),
+1701957146973:# Using dplyr to mutate and add new columns
+1701957146986:df <- df %>%
+1701957146999:rowwise() %>%
+1701957147010:mutate(
+1701957147021:five =  as.integer(check_occurrences(c_across(c(X1,X2,X3,X4,X5)), 5)),
+1701957147032:four =  as.integer(check_occurrences(c_across(c(X1,X2,X3,X4,X5)), 4)),
+1701957147043:three = as.integer(check_occurrences(c_across(c(X1,X2,X3,X4,X5)), 3)),
+1701957147053:two =   as.integer(check_occurrences(c_across(c(X1,X2,X3,X4,X5)), 2))
+1701957147063:# You can add more lines here for different occurrences
+1701957147072:) %>%
+1701957147081:ungroup
+1701957149125:df
+1701957174196:# Custom function to check for specific occurrences
+1701957174210:check_occurrences <- function(row, num_occurrences) {
+1701957174223:freq_table <- table(row)
+1701957174234:return(any(freq_table == num_occurrences))
+1701957174245:}
+1701957191020:check_occurrences(df[1,])
+1701957198009:check_occurrences(df[1,], 1)
+1701957211005:# Custom function to check for specific occurrences
+1701957211018:check_occurrences <- function(row, num_occurrences) {
+1701957211029:freq_table <- table(row)
+1701957211040:return(freq_table)
+1701957211049:}
+1701957211592:check_occurrences(df[1,], 1)
+1701957232269:data <- c(
+1701957232282:'32T3K 765',
+1701957232293:'T55J5 684',
+1701957232304:'KK677 28',
+1701957232315:'KTJJT 220',
+1701957232326:'QQQJA 483')
+1701957232492:# Parse data
+1701957232503:df <- data.frame(do.call("rbind", strsplit(as.character(hand), "",
+1701957232515:fixed = TRUE)))
+1701957232679:# Make df to convert cards to value tier
+1701957232691:cards <- c('A', 'K', 'Q', 'J', 'T', '9', '8', '7', '6', '5', '4', '3', '2')
+1701957233151:value.df <- data.frame(cards = cards, value = rev(seq(1, length(cards), 1)))
+1701957233529:# Replace characters in df, using value.df as a dictionary
+1701957233540:df <- apply(df, 2, function(column) {
+1701957233552:# Use 'match' to find the positions of 'df' elements in 'value.df'
+1701957233563:matched_positions <- match(column, value.df$cards)
+1701957233571:# Replace the positions with the corresponding values from 'value.df'
+1701957233580:value.df$value[matched_positions]
+1701957233588:}) |> as.data.frame()
+1701957233988:# Custom function to check for specific occurrences
+1701957234003:check_occurrences <- function(row, num_occurrences) {
+1701957234016:freq_table <- table(row)
+1701957234030:return(freq_table)
+1701957234042:}
+1701957234708:check_occurrences(df[1,], 1)
+1701957241257:df
+1701957249479:check_occurrences(df[3,], 1)
+1701957257946:check_occurrences(df[3,])
+1701957275715:df[3,]
+1701957297766:check_occurrences(df[4,])
+1701957350666:# Custom function to check for specific occurrences
+1701957350685:check_occurrences <- function(row, num_occurrences) {
+1701957350696:freq_table <- table(as.list(row))
+1701957350706:return(freq_table)
+1701957350716:}
+1701957351191:check_occurrences(df[4,])
+1701957359740:# Custom function to check for specific occurrences
+1701957359755:check_occurrences <- function(row, num_occurrences) {
+1701957359769:freq_table <- table(c(row))
+1701957359780:return(freq_table)
+1701957359788:}
+1701957360225:check_occurrences(df[4,])
+1701957369775:# Custom function to check for specific occurrences
+1701957369788:check_occurrences <- function(row, num_occurrences) {
+1701957369802:freq_table <- table(unlist(row))
+1701957369813:return(freq_table)
+1701957369821:}
+1701957370138:check_occurrences(df[4,])
+1701957396735:# Custom function to check for specific occurrences
+1701957396751:check_occurrences <- function(row, num_occurrences) {
+1701957396766:freq_table <- table(table(unlist(row)))
+1701957396776:return(freq_table)
+1701957396791:}
+1701957397333:check_occurrences(df[4,])
+1701957531254:df[4,]
+1701957590549:# Parse data
+1701957590558:df <- data.frame(do.call("rbind", strsplit(as.character(hand), "",
+1701957590566:fixed = TRUE)))
+1701957590576:# Make df to convert cards to value tier
+1701957590586:cards <- c('A', 'K', 'Q', 'J', 'T', '9', '8', '7', '6', '5', '4', '3', '2')
+1701957590598:value.df <- data.frame(cards = cards, value = rev(seq(1, length(cards), 1)))
+1701957590617:# Replace characters in df, using value.df as a dictionary
+1701957590627:df <- apply(df, 2, function(column) {
+1701957590638:# Use 'match' to find the positions of 'df' elements in 'value.df'
+1701957590649:matched_positions <- match(column, value.df$cards)
+1701957590659:# Replace the positions with the corresponding values from 'value.df'
+1701957590670:value.df$value[matched_positions]
+1701957590680:}) |> as.data.frame()
+1701957590712:# Custom function to check for specific occurrences
+1701957590722:check_occurrences <- function(row) {
+1701957590733:freq_table <- table(table(unlist(row)))
+1701957590743:return(freq_table)
+1701957590754:}
+1701957590771:# Apply the function to each row and convert the list output to a data frame row
+1701957590782:df_occurrences <- purrr::map_dfr(df, ~check_occurrences(.x))
+1701957590829:# Bind the new data frame to the original one
+1701957590838:df <- df %>% bind_cols(df_occurrences)
+1701957592499:View(df_converted)
+1701957593930:View(df)
+1701957653650:check_occurrences(df[4,])
+1701957658681:# Parse data
+1701957658693:df <- data.frame(do.call("rbind", strsplit(as.character(hand), "",
+1701957658703:fixed = TRUE)))
+1701957658871:# Make df to convert cards to value tier
+1701957658890:cards <- c('A', 'K', 'Q', 'J', 'T', '9', '8', '7', '6', '5', '4', '3', '2')
+1701957659091:value.df <- data.frame(cards = cards, value = rev(seq(1, length(cards), 1)))
+1701957659555:# Replace characters in df, using value.df as a dictionary
+1701957659568:df <- apply(df, 2, function(column) {
+1701957659581:# Use 'match' to find the positions of 'df' elements in 'value.df'
+1701957659594:matched_positions <- match(column, value.df$cards)
+1701957659605:# Replace the positions with the corresponding values from 'value.df'
+1701957659616:value.df$value[matched_positions]
+1701957659626:}) |> as.data.frame()
+1701957659804:# Custom function to check for specific occurrences
+1701957659816:check_occurrences <- function(row) {
+1701957659827:freq_table <- table(table(unlist(row)))
+1701957659836:return(freq_table)
+1701957659847:}
+1701957660411:check_occurrences(df[4,])
+1701957667213:View(df_occurrences)
+1701957675231:check_occurrences(df[3,])
+1701957793689:check_occurrences <- function(row) {
+1701957793702:# Count the frequency of each value
+1701957793724:freq_table <- table(unlist(row))
+1701957793740:# Count the frequency of frequencies
+1701957793749:freq_of_freq <- table(freq_table)
+1701957793766:# Create a named vector where names are frequencies and values are their counts
+1701957793775:named_vector <- as.integer(freq_of_freq)
+1701957793783:names(named_vector) <- as.character(names(freq_of_freq))
+1701957793796:return(named_vector)
+1701957793804:}
+1701957796096:# Apply the function to each row and expand the results into new columns
+1701957796109:df_expanded <- df %>%
+1701957796123:rowwise() %>%
+1701957796132:mutate(across(everything(), check_occurrences, .names = "freq_{.col}")) %>%
+1701957796142:ungroup()
+1701957798225:View(df_expanded)
+1701957904910:View(df)
+1701957919982:View(df)
+1701958054079:View(df)
+1701958124203:# Custom function to check for specific occurrences
+1701958124216:check_occurrences <- function(row) {
+1701958124228:freq_table <- table(table(unlist(row))) %>%
+1701958124245:return(freq_table)
+1701958124255:}
+1701958132826:apply(df, 1, check_occurrences)
+1701958145991:sapplyapply(df, 1, check_occurrences)
+1701958150467:sapply(df, 1, check_occurrences)
+1701958155030:apply(df, 1, check_occurrences)
+1701958157489:apply(df, 2, check_occurrences)
+1701958358124:df.test <- apply(df, 2, check_occurrences)
+1701958379522:combined_T <- df.test %>%
+1701958379533:reduce(full_join) %>%
+1701958379544:mutate(across(everything(), ~replace_na(., 0)))
+1701958395414:# Advent 7
+1701958395481:library(tidyverse)
+1701958399797:combined_T <- df.test %>%
+1701958399808:reduce(full_join) %>%
+1701958399819:mutate(across(everything(), ~replace_na(., 0)))
+1701958421845:df.test <- apply(df, 2, check_occurrences)
+1701958424414:# Custom function to check for specific occurrences
+1701958424428:check_occurrences <- function(row) {
+1701958424440:freq_table <- table(table(unlist(row))) %>% as.data.frame()
+1701958424459:return(freq_table)
+1701958424469:}
+1701958425105:df.test <- apply(df, 2, check_occurrences)
+1701958427141:df.test
+1701958447123:df.test <- apply(df, 2, check_occurrences)
+1701958448634:# Custom function to check for specific occurrences
+1701958448647:check_occurrences <- function(row) {
+1701958448659:freq_table <- table(table(unlist(row))) %>% as.data.frame() %>% t()
+1701958448675:return(freq_table)
+1701958448684:}
+1701958449169:df.test <- apply(df, 2, check_occurrences)
+1701958451219:df.test
+1701958470381:combined_T <- df.test %>%
+1701958470393:reduce(full_join) %>%
+1701958470406:mutate(across(everything(), ~replace_na(., 0)))
+1701958486314:# Custom function to check for specific occurrences
+1701958486327:check_occurrences <- function(row) {
+1701958486340:freq_table <- table(table(unlist(row))) %>% t() %>% as.data.frame()
+1701958486361:return(freq_table)
+1701958486371:}
+1701958486660:df.test <- apply(df, 2, check_occurrences)
+1701958487763:combined_T <- df.test %>%
+1701958487778:reduce(full_join) %>%
+1701958487790:mutate(across(everything(), ~replace_na(., 0)))
+1701958489744:View(combined_T)
+1701958500780:df.test %>%
+1701958500791:reduce(full_join
+1701958509330:df.test %>%
+1701958509343:reduce(full_join)
+1701958558195:do.call("rbind", df.test)
+1701958570850:do.call("rbind", df.test)
+1701958573891:df.test
+1701958585899:# Custom function to check for specific occurrences
+1701958585915:check_occurrences <- function(row) {
+1701958585927:freq_table <- table(table(unlist(row))) %>% as.data.frame()
+1701958585941:return(freq_table)
+1701958585954:}
+1701958586248:df.test <- apply(df, 2, check_occurrences)
+1701958587727:df.test
+1701958619850:data <- c(
+1701958619862:'32T3K 765',
+1701958619874:'T55J5 684',
+1701958619884:'KK677 28',
+1701958619893:'KTJJT 220',
+1701958619903:'QQQJA 483')
+1701958620050:# Parse data
+1701958620066:df <- data.frame(do.call("rbind", strsplit(as.character(hand), "",
+1701958620080:fixed = TRUE)))
+1701958620229:# Make df to convert cards to value tier
+1701958620243:cards <- c('A', 'K', 'Q', 'J', 'T', '9', '8', '7', '6', '5', '4', '3', '2')
+1701958620826:value.df <- data.frame(cards = cards, value = rev(seq(1, length(cards), 1)))
+1701958621257:# Replace characters in df, using value.df as a dictionary
+1701958621269:df <- apply(df, 2, function(column) {
+1701958621280:# Use 'match' to find the positions of 'df' elements in 'value.df'
+1701958621290:matched_positions <- match(column, value.df$cards)
+1701958621300:# Replace the positions with the corresponding values from 'value.df'
+1701958621310:value.df$value[matched_positions]
+1701958621320:}) |> as.data.frame()
+1701958623820:df
+1701958632270:df.test <- apply(df, 2, check_occurrences)
+1701958634120:df.test
+1701958647984:# Custom function to check for specific occurrences
+1701958647998:check_occurrences <- function(row) {
+1701958648009:freq_table <- table(table(unlist(row))) %>% as.data.frame()
+1701958648028:return(freq_table)
+1701958648037:}
+1701958648864:df.test <- apply(df, 2, check_occurrences)
+1701958650945:df.test
+1701958662119:# Custom function to check for specific occurrences
+1701958662134:check_occurrences <- function(row) {
+1701958662147:freq_table <- table(unlist(row)) %>% as.data.frame()
+1701958662166:return(freq_table)
+1701958662180:}
+1701958662804:df.test <- apply(df, 2, check_occurrences)
+1701958664713:df.test
+1701958686974:# Custom function to check for specific occurrences
+1701958686989:check_occurrences <- function(row) {
+1701958687002:freq_table <- table(unlist(row))$Freq %>% table() %>% as.data.frame()
+1701958687018:return(freq_table)
+1701958687029:}
+1701958687583:df.test <- apply(df, 2, check_occurrences)
+1701958695979:# Custom function to check for specific occurrences
+1701958695988:check_occurrences <- function(row) {
+1701958695998:freq_table <- table(unlist(row))[,2] %>% table() %>% as.data.frame()
+1701958696011:return(freq_table)
+1701958696019:}
+1701958696604:df.test <- apply(df, 2, check_occurrences)
+1701958725308:# Custom function to check for specific occurrences
+1701958725321:check_occurrences <- function(row) {
+1701958733164:# Custom function to check for specific occurrences
+1701958733176:check_occurrences <- function(row) {
+1701958733189:freq_table <- as.data.frame(table(unlist(row)))$Freq %>% table() %>% as.data.frame()
+1701958733208:return(freq_table)
+1701958733216:}
+1701958733778:df.test <- apply(df, 2, check_occurrences)
+1701958735672:View(df.test)
+1701958739945:df.test
+1701958775684:# Custom function to check for specific occurrences
+1701958775693:check_occurrences <- function(row) {
+1701958775705:freq_table <- as.data.frame(table(unlist(row)))$Freq %>% t(table()) %>% as.data.frame()
+1701958775719:return(freq_table)
+1701958775729:}
+1701958776220:df.test <- apply(df, 2, check_occurrences)
+1701958799300:# Custom function to check for specific occurrences
+1701958799313:check_occurrences <- function(row) {
+1701958799324:freq_table <- as.data.frame(table(unlist(row)))$Freq %>% table(.) %>% t() %>% as.data.frame()
+1701958799339:return(freq_table)
+1701958799347:}
+1701958799702:df.test <- apply(df, 2, check_occurrences)
+1701958802021:df.test
+1701958829976:table(df[3,])
+1701958841780:table(unlist(df[3,]))
+1701958874752:table(unlist(df[3,])) %>% unlist()
+1701958883089:table(unlist(df[3,]))[1]
+1701958897162:table(unlist(df[3,])) %>% table()
+1701958905466:table(unlist(df[3,])) %>% table()[1]
+1701958918593:test <- table(unlist(df[3,])) %>% table()
+1701958920926:test
+1701958925020:test[1]
+1701958931049:test[2]
+1701958947291:# Custom function to check for specific occurrences
+1701958947304:check_occurrences <- function(row) {
+1701958947318:freq_table <- table(unlist(row))) %>% table(.)
+1701958951817:# Custom function to check for specific occurrences
+1701958951831:check_occurrences <- function(row) {
+1701958951843:freq_table <- table(unlist(row)) %>% table(.)
+1701958951857:return(freq_table)
+1701958951864:}
+1701958953911:df.test <- apply(df, 2, check_occurrences)
+1701958955360:df.test
+1701958962289:do.call("rbind", df.test)
+1701958997940:# Custom function to check for specific occurrences
+1701958997953:check_occurrences <- function(row) {
+1701958997966:freq_table <- table(unlist(row)) %>% table(.)
+1701958997979:return(freq_table)
+1701958997986:}
+1701958999922:df.test <- apply(df, 2, check_occurrences)
+1701959007735:df.test <- apply(df, 2, check_occurrences)
+1701959008102:do.call("rbind", df.test)
+1701959021019:test <- table(unlist(df[3,])) %>% table() %>% as.data.frame()
+1701959022909:test
+1701959070427:frequency(df[3,])
+1701959075361:frequency(df[2,])
+1701959084042:frequency(df[4,], 3)
+1701959087101:frequency(df[4,], 1)
+1701959089923:df[4,]
+1701959093900:frequency(df[4,], 10)
+1701959101081:frequency(unlist(df[4,]), 10)
+1701959145285:# Custom function to check for specific occurrences
+1701959145297:check_occurrences <- function(row) {
+1701959145308:freq_table <- table(unlist(row)) %>% table(.) %>% as.data.frame()
+1701959145318:colnames(freq_table) <- freq_table[1,]
+1701959145327:return(freq_table[-1,])
+1701959145337:}
+1701959149686:df.test <- apply(df, 2, check_occurrences)
+1701959150332:do.call("rbind", df.test)
+1701959152686:df.test
+1701959174214:# Custom function to check for specific occurrences
+1701959174225:check_occurrences <- function(row) {
+1701959174236:freq_table <- table(unlist(row)) %>% table(.) %>% as.data.frame()
+1701959174247:return(freq_table[-1,])
+1701959174257:}
+1701959174917:test <- table(unlist(df[3,])) %>% table() %>% as.data.frame()
+1701959175439:df.test <- apply(df, 2, check_occurrences)
+1701959176746:do.call("rbind", df.test)
+1701959191938:# Custom function to check for specific occurrences
+1701959191948:check_occurrences <- function(row) {
+1701959191958:freq_table <- table(unlist(row)) %>% table(.) %>% as.data.frame()
+1701959191967:return(freq_table)
+1701959191974:}
+1701959192228:test <- table(unlist(df[3,])) %>% table() %>% as.data.frame()
+1701959192692:df.test <- apply(df, 2, check_occurrences)
+1701959194209:do.call("rbind", df.test)
+1701959207958:# Custom function to check for specific occurrences
+1701959207971:check_occurrences <- function(row) {
+1701959207981:freq_table <- table(unlist(row)) %>% table(.) %>% as.data.frame() %>% t()
+1701959207991:return(freq_table)
+1701959208000:}
+1701959208704:test <- table(unlist(df[3,])) %>% table() %>% as.data.frame()
+1701959208987:df.test <- apply(df, 2, check_occurrences)
+1701959210164:do.call("rbind", df.test)
+1701959227937:do.call("rbind.fill", df.test)
+1701959272804:do.call("rbind.fill", df.test, fill = T)
+1701959320543:library(data.table)
+1701959333201:do.call("rbindlist", df.test, fill = T)
+1701959336688:do.call("rbindlist", df.test)
+1701959349753:?rbindlist
+1701959372946:test <- table(unlist(df[3,])) %>% table()
+1701959374950:test
+1701959384983:# Custom function to check for specific occurrences
+1701959384997:check_occurrences <- function(row) {
+1701959385008:freq_table <- table(unlist(row)) %>% table()
+1701959385015:return(freq_table)
+1701959385023:}
+1701959400446:rbindlist(df.testm fill = 0)
+1701959406590:rbindlist(df.test, fill = 0)
+1701959427274:rbindlist(df.test)
+1701959444196:table(unlist(df[3,])) %>% table() %>% as.list()
+1701959452354:# Custom function to check for specific occurrences
+1701959452365:check_occurrences <- function(row) {
+1701959452378:freq_table <- table(unlist(row)) %>% table() %>% as.list()
+1701959452390:return(freq_table)
+1701959452399:}
+1701959453820:df.test <- apply(df, 2, check_occurrences)
+1701959454201:rbindlist(df.test)
+1701959460861:freq_table <- table(unlist(row)) %>% table() %>% as.data.frame()
+1701959466903:table(unlist(df[3,])) %>% table() %>% as.data.frame()
+1701959638335:# Using dplyr to mutate and add new columns
+1701959638350:df <- df %>%
+1701959638359:rowwise() %>%
+1701959638370:mutate(
+1701959638379:five =  as.integer(check_occurrences(c_across(c(X1,X2,X3,X4,X5)), 5)),
+1701959638388:four =  as.integer(check_occurrences(c_across(c(X1,X2,X3,X4,X5)), 4)),
+1701959638396:three = as.integer(check_occurrences(c_across(c(X1,X2,X3,X4,X5)), 3)),
+1701959638403:two =   as.integer(check_occurrences(c_across(c(X1,X2,X3,X4,X5)), 2))
+1701959638412:# You can add more lines here for different occurrences
+1701959638419:) %>%
+1701959638428:ungroup
+1701959660332:table(unlist(df[3,])) %>% table() %>% as.data.frame()
+1701959668758:unlist(df[3,])
+1701959671375:table(unlist(df[3,])) %>% table() %>% as.data.frame()
+1701959673658:table(unlist(df[3,]))
+1701959689702:table(unlist(df[3,])) %>% c() %>% table() %>% as.data.frame()
+1701959693345:table(unlist(df[3,])) %>% c()
+1701959706223:table(unlist(df[3,])) %>% unlist() %>% table() %>% as.data.frame()
+1701959720388:table(unlist(df[3,])) %>% class()
+1701959728186:table(unlist(df[3,])) %>% as.list()
+1701959734170:table(unlist(df[3,])) %>% as.list() %>% table()
+1701959748950:table(unlist(df[3,])) %>% as.vector() %>% table() %>% as.data.frame()
+1701959766101:table(unlist(df[3,])) %>% unlist() %>% table() %>% as.data.frame()
+1701959779461:table(unlist(df[3,]))  %>% as.matrix( )%>% table() %>% as.data.frame()
+1701959810449:df
+1701959830136:df
+1701959912724:data <- c(
+1701959912735:'32T3K 765',
+1701959912746:'T55J5 684',
+1701959912757:'KK677 28',
+1701959912768:'KTJJT 220',
+1701959912780:'QQQJA 483')
+1701959913317:# Parse data
+1701959913331:df <- data.frame(do.call("rbind", strsplit(as.character(hand), "",
+1701959913346:fixed = TRUE)))
+1701959913626:# Make df to convert cards to value tier
+1701959913638:cards <- c('A', 'K', 'Q', 'J', 'T', '9', '8', '7', '6', '5', '4', '3', '2')
+1701959913852:value.df <- data.frame(cards = cards, value = rev(seq(1, length(cards), 1)))
+1701959914524:# Replace characters in df, using value.df as a dictionary
+1701959914537:df <- apply(df, 2, function(column) {
+1701959914548:# Use 'match' to find the positions of 'df' elements in 'value.df'
+1701959914559:matched_positions <- match(column, value.df$cards)
+1701959914569:# Replace the positions with the corresponding values from 'value.df'
+1701959914580:value.df$value[matched_positions]
+1701959914591:}) |> as.data.frame()
+1701959916802:df
+1701959940456:apply(df, 1, table)
+1701959989684:apply(apply(df, 1, table), 1, table)
+1701959993296:apply(apply(df, 1, table), 2, table)
+1701960004785:lapply(apply(df, 1, table), table)
+1701960019140:lapply(apply(df, 1, table), table) %>% rbind()
+1701960084073:do.call('rbind', df.list )
+1701960085899:df.list <- lapply(apply(df, 1, table), table)
+1701960086162:do.call('rbind', df.list )
+1701960104668:rbindlist(df.list)
+1701960151414:df.list <- lapply(apply(df, 1, table),function(x){table(x) %>% as.list()})
+1701960152104:rbindlist(df.list)
+1701960164221:rbindlist(df.list, fill = T)
+1701960183352:df.list <- lapply(apply(df, 1, table),function(x){table(x) %>% as.list()}) %>%
+1701960183364:rbindlist(fill = T)
+1701960185564:df.list
+1701960203484:df <- lapply(apply(df, 1, table),function(x){table(x) %>% as.list()}) %>%
+1701960203496:rbindlist(fill = T) %>%
+1701960203507:cbind(df)
+1701960205523:df
+1701960223108:# Parse data
+1701960223118:df <- data.frame(do.call("rbind", strsplit(as.character(hand), "",
+1701960223126:fixed = TRUE)))
+1701960223135:# Make df to convert cards to value tier
+1701960223142:cards <- c('A', 'K', 'Q', 'J', 'T', '9', '8', '7', '6', '5', '4', '3', '2')
+1701960223150:value.df <- data.frame(cards = cards, value = rev(seq(1, length(cards), 1)))
+1701960223163:# Replace characters in df, using value.df as a dictionary
+1701960223170:df <- apply(df, 2, function(column) {
+1701960223177:# Use 'match' to find the positions of 'df' elements in 'value.df'
+1701960223184:matched_positions <- match(column, value.df$cards)
+1701960223193:# Replace the positions with the corresponding values from 'value.df'
+1701960223200:value.df$value[matched_positions]
+1701960223209:}) |> as.data.frame()
+1701960223232:df <- lapply(apply(df, 1, table),function(x){table(x) %>% as.list()}) %>%
+1701960223241:rbindlist(fill = T) %>%
+1701960223250:cbind(df, .)
+1701960225453:View(df)
+1701960304814:df <- df |>
+1701960304829:arrange('3', '2', '1') %>%
+1701960304847:group_by('3', '2', '1')
+1701960307560:df
+1701960318254:data <- c(
+1701960318264:'32T3K 765',
+1701960318273:'T55J5 684',
+1701960318282:'KK677 28',
+1701960318292:'KTJJT 220',
+1701960318304:'QQQJA 483')
+1701960318327:# Parse data
+1701960318339:df <- data.frame(do.call("rbind", strsplit(as.character(hand), "",
+1701960318351:fixed = TRUE)))
+1701960318367:# Make df to convert cards to value tier
+1701960318383:cards <- c('A', 'K', 'Q', 'J', 'T', '9', '8', '7', '6', '5', '4', '3', '2')
+1701960318396:value.df <- data.frame(cards = cards, value = rev(seq(1, length(cards), 1)))
+1701960318414:# Replace characters in df, using value.df as a dictionary
+1701960318424:df <- apply(df, 2, function(column) {
+1701960318436:# Use 'match' to find the positions of 'df' elements in 'value.df'
+1701960318448:matched_positions <- match(column, value.df$cards)
+1701960318457:# Replace the positions with the corresponding values from 'value.df'
+1701960318467:value.df$value[matched_positions]
+1701960318477:}) |> as.data.frame()
+1701960318496:# Get duplicates
+1701960318507:df <- lapply(apply(df, 1, table),function(x){table(x) %>% as.list()}) %>%
+1701960318517:rbindlist(fill = T) %>%
+1701960318526:cbind(df, .)
+1701960318546:# Add bets
+1701960318555:df$bet <- sapply(strsplit(data, " "), "[[", 2)
+1701960318571:# Add hand #
+1701960318579:df$hand <- seq(1,nrow(df), 1)
+1701960318594:df <- df |>
+1701960318603:arrange('3', '2', '1') %>%
+1701960318613:group_by('3', '2', '1')
+1701960320538:View(df)
+1701960329395:df <- data.frame(do.call("rbind", strsplit(as.character(hand), "",
+1701960329407:fixed = TRUE)))
+1701960329418:# Make df to convert cards to value tier
+1701960329429:cards <- c('A', 'K', 'Q', 'J', 'T', '9', '8', '7', '6', '5', '4', '3', '2')
+1701960329440:value.df <- data.frame(cards = cards, value = rev(seq(1, length(cards), 1)))
+1701960329459:# Replace characters in df, using value.df as a dictionary
+1701960329469:df <- apply(df, 2, function(column) {
+1701960329480:# Use 'match' to find the positions of 'df' elements in 'value.df'
+1701960329490:matched_positions <- match(column, value.df$cards)
+1701960329500:# Replace the positions with the corresponding values from 'value.df'
+1701960329511:value.df$value[matched_positions]
+1701960329521:}) |> as.data.frame()
+1701960329541:# Get duplicates
+1701960329551:df <- lapply(apply(df, 1, table),function(x){table(x) %>% as.list()}) %>%
+1701960329561:rbindlist(fill = T) %>%
+1701960329571:cbind(df, .)
+1701960329591:# Add bets
+1701960329603:df$bet <- sapply(strsplit(data, " "), "[[", 2)
+1701960329622:# Add hand #
+1701960329632:df$hand <- seq(1,nrow(df), 1)
+1701960331259:View(df)
+1701960342791:df |>
+1701960342802:arrange('3', '2', '1')
+1701960395099:df |>
+1701960395109:arrange('3', '2', '1') %>%
+1701960395120:group_by('3')
+1701960423892:df |>
+1701960423902:arrange('3', '2', '1') %>%
+1701960423911:group_by(`3`)
+1701960460548:df |>
+1701960460559:arrange(`3`, `2`, `1`) %>%
+1701960460573:group_by(`3`)
+1701960486758:df[is.na(df)] <- 0
+1701960488137:df |>
+1701960488151:arrange(`3`, `2`, `1`) %>%
+1701960488162:group_by(`3`)
+1701960505506:?arragne
+1701960507532:?arrange
+1701960528065:df |>
+1701960528077:arrange(`3`, `2`, `1`, desc) %>%
+1701960528089:group_by(`3`)
+1701960549979:df
+1701960637562:df |>
+1701960637575:arrange(`3`, `2`, `1`, X1, X2, X3, X4, X5)
+1701960668607:df |>
+1701960668622:arrange(`3`, `2`, `1`, X1, X2, X3, X4, X5, decreasing = TRUE)
+1701960712195:df.ordered$rank <- seq(1,nrow(df.ordered), 1)
+1701960714461:df.ordered <- df |>
+1701960714474:arrange(`3`, `2`, `1`, X1, X2, X3, X4, X5, decreasing = TRUE)
+1701960714689:df.ordered$rank <- seq(1,nrow(df.ordered), 1)
+1701960716413:df.ordered
+1701960788266:answer1 <- df.ordered %>%
+1701960788277:mutate(score = bet*rank) %>%
+1701960788288:pull(score) %>%
+1701960788304:sum()
+1701960807431:answer1 <- df.ordered %>%
+1701960807441:mutate(score = as.numeric(bet)*rank) %>%
+1701960807450:pull(score) %>%
+1701960807460:sum()
+1701960809732:answer1
+1701960814052:answer1
+1701960861864:data <- readLines("data/input_7.txt")
+1701960862907:# Parse data
+1701960862918:df <- data.frame(do.call("rbind", strsplit(as.character(hand), "",
+1701960862930:fixed = TRUE)))
+1701960863176:# Make df to convert cards to value tier
+1701960863187:cards <- c('A', 'K', 'Q', 'J', 'T', '9', '8', '7', '6', '5', '4', '3', '2')
+1701960863577:value.df <- data.frame(cards = cards, value = rev(seq(1, length(cards), 1)))
+1701960863972:# Replace characters in df, using value.df as a dictionary
+1701960863985:df <- apply(df, 2, function(column) {
+1701960863996:# Use 'match' to find the positions of 'df' elements in 'value.df'
+1701960864007:matched_positions <- match(column, value.df$cards)
+1701960864018:# Replace the positions with the corresponding values from 'value.df'
+1701960864028:value.df$value[matched_positions]
+1701960864038:}) |> as.data.frame()
+1701960864280:# Get duplicates
+1701960864294:df <- lapply(apply(df, 1, table),function(x){table(x) %>% as.list()}) %>%
+1701960864305:rbindlist(fill = T) %>%
+1701960864316:cbind(df, .)
+1701960865021:# Add bets
+1701960865032:df$bet <- sapply(strsplit(data, " "), "[[", 2)
+1701960865610:# Add hand #
+1701960865625:df$hand <- seq(1,nrow(df), 1)
+1701960930703:# Add bets
+1701960930717:hand <- apply(strsplit(data, " "), "[[", 1)
+1701960938006:# Add bets
+1701960938016:hand <- lapply(strsplit(data, " "), "[[", 1)
+1701960939717:# Parse data
+1701960939729:df <- data.frame(do.call("rbind", strsplit(as.character(hand), "",
+1701960939740:fixed = TRUE)))
+1701960940366:# Make df to convert cards to value tier
+1701960940381:cards <- c('A', 'K', 'Q', 'J', 'T', '9', '8', '7', '6', '5', '4', '3', '2')
+1701960940579:value.df <- data.frame(cards = cards, value = rev(seq(1, length(cards), 1)))
+1701960940764:# Replace characters in df, using value.df as a dictionary
+1701960940779:df <- apply(df, 2, function(column) {
+1701960940789:# Use 'match' to find the positions of 'df' elements in 'value.df'
+1701960940799:matched_positions <- match(column, value.df$cards)
+1701960940808:# Replace the positions with the corresponding values from 'value.df'
+1701960940817:value.df$value[matched_positions]
+1701960940828:}) |> as.data.frame()
+1701960941176:# Get duplicates
+1701960941190:df <- lapply(apply(df, 1, table),function(x){table(x) %>% as.list()}) %>%
+1701960941200:rbindlist(fill = T) %>%
+1701960941210:cbind(df, .)
+1701960943602:# Add bets
+1701960943614:df$bet <- sapply(strsplit(data, " "), "[[", 2)
+1701960944203:# Add hand #
+1701960944217:df$hand <- seq(1,nrow(df), 1)
+1701960945764:df[is.na(df)] <- 0
+1701960946112:df.ordered <- df |>
+1701960946123:arrange(`3`, `2`, `1`, X1, X2, X3, X4, X5, decreasing = TRUE)
+1701960946733:#Set order
+1701960946745:df.ordered$rank <- seq(1,nrow(df.ordered), 1)
+1701960947427:answer1 <- df.ordered %>%
+1701960947439:mutate(score = as.numeric(bet)*rank) %>%
+1701960947450:pull(score) %>%
+1701960947462:sum()
+1701960948834:answer1
+1701960967873:df
+1701960986265:df.ordered <- df |>
+1701960986276:arrange(`5`, `4`, `3`, `2`, `1`, X1, X2, X3, X4, X5, decreasing = TRUE)
+1701960986893:#Set order
+1701960986905:df.ordered$rank <- seq(1,nrow(df.ordered), 1)
+1701960987301:answer1 <- df.ordered %>%
+1701960987314:mutate(score = as.numeric(bet)*rank) %>%
+1701960987326:pull(score) %>%
+1701960987336:sum()
+1701960988078:answer1
+1701961346696:# Part 2
+1701961346706:# Make Jokers raise the value of the max in 1:5
+1701961346723:df[apply(df, 1, function(x) any(x == 10)), ]
+1701961349912:df
+1701961585611:apply(df[,c(`2`,`3`,`4`,`5`)], 1, function(x) max(x == 10))
+1701961601182:df[,c(`2`,`3`,`4`,`5`)]
+1701961610148:colnames(df)
+1701961630606:apply(df[,as.character(c(2:5))], 1, function(x) max(x == 10))
+1701961635112:apply(df[,as.character(c(2:5))], 1, function(x) max())
+1701961640372:df[,as.character(c(2:5))]
+1701961666056:df[apply(df[,as.character(c(2:5))], 1, function(x) max())]
+1701961706112:df.hands <- df[,as.character(c(2:5))]
+1701961724876:df.hands[,apply(df.hands, 1, function(x) max())]
+1701961733102:apply(df.hands, 1, function(x) max())
+1701961742227:df[,as.character(c(2:5))]
+1701961814247:df.hands
+1701961865220:apply(df, 1, function(x) any(x == 10))
+1701961906017:df.jokers
+1701961908785:# Part 2
+1701961908797:# Make Jokers raise the value of the max in 1:5
+1701961908807:df.jokers <- df[apply(df, 1, function(x) any(x == 10)), ]
+1701961910681:df.jokers
+1701962031587:df.jokers %>%
+1701962031600:mutate(
+1701962031611:five = case_when(
+1701962031621:"5" != 0 ~ "5" + 1
+1701962031631:)
+1701962031641:)
+1701962050474:df.jokers %>%
+1701962050488:mutate(
+1701962050501:five = case_when(
+1701962050512:`5` != 0 ~ `5` + 1
+1701962050523:)
+1701962050534:)
+1701962097880:df.jokers %>%
+1701962097890:mutate(
+1701962097905:five = case_when(
+1701962097916:`5` != 0 ~ `5` + 1),
+1701962097927:four = case_when(
+1701962097938:`4` != 0 ~ `4` + 1),
+1701962097949:three = case_when(
+1701962097960:`3` != 0 ~ `3` + 1),
+1701962097970:)
+1701962282912:df.jokers %>%
+1701962282931:mutate(
+1701962282940:five = case_when(
+1701962282950:`5` != 0 ~ `5` + 1),
+1701962282962:four = case_when(
+1701962282971:`4` != 0 % is.na(five) ~ `4` + 1),
+1701962292017:df.jokers %>%
+1701962292033:mutate(
+1701962292044:five = case_when(
+1701962292052:`5` != 0 ~ `5` + 1),
+1701962292059:four = case_when(
+1701962292067:`4` != 0 & is.na(five) ~ `4` + 1),
+1701962292075:three = case_when(
+1701962292083:`3` != 0 ~ `3` + 1),
+1701962292090:two   = case_when(
+1701962292097:`2` != 0 ~ `2` + 1)
+1701962292105:one   = case_when(
+1701962303263:df.jokers %>%
+1701962303279:mutate(
+1701962303291:five = case_when(
+1701962303303:`5` != 0 ~ `5` + 1),
+1701962303313:four = case_when(
+1701962303323:`4` != 0 & is.na(five) ~ `4` + 1),
+1701962303337:three = case_when(
+1701962303347:`3` != 0 ~ `3` + 1),
+1701962303357:two   = case_when(
+1701962303369:`2` != 0 ~ `2` + 1),
+1701962303378:one   = case_when(
+1701962303389:`1` == 5 ~ `5` - 1)
+1701962303399:)
+1701962430723:df.jokers %>%
+1701962430734:mutate(
+1701962430754:five = case_when(
+1701962430768:`5` != 0 ~ `5` + 1),
+1701962430779:four = case_when(
+1701962430791:`4` != 0 & five == `5` ~ `4` + 1,
+1701962430801:),
+1701962430811:three = case_when(
+1701962430821:`3` != 0 ~ `3` + 1),
+1701962430833:two   = case_when(
+1701962430845:`2` != 0 ~ `2` + 1),
+1701962430855:one   = case_when(
+1701962430864:`1` == 5 ~ `1` - 1)
+1701962430874:)
+1701962566046:df.jokers %>%
+1701962566064:mutate(
+1701962566078:five = case_when(
+1701962566088:`5` != 0 ~ `5` + 1,
+1701962566099:`5` == 0 ~ 0),
+1701962566110:four = case_when(
+1701962566121:`4` != 0 & five  == `5` ~ `4` + 1,
+1701962566132:`4` == 0 ~ 0),
+1701962566143:three = case_when(
+1701962566152:`3` != 0 & four  == `4` ~ `3` + 1,
+1701962566161:`3` == 0 ~ 0),
+1701962566171:two   = case_when(
+1701962566181:`2` != 0 & three == `3` ~ `2` + 1,
+1701962566192:`2` == 0 ~ 0),
+1701962566204:one   = case_when(
+1701962566214:`1` == 5 ~ `1` - 1)
+1701962566224:)
+1701963448060:df.jokers[,as.character(c(2:5)) ]
+1701963472128:df.hands <- df.jokers[,as.character(c(2:5))]
+1701963621238:df.jokers
+1701963736025:df.hands <- df.jokers[,c(1:5))]
+1701963740007:df.hands <- df.jokers[,c(1:5)]
+1701963741782:df.hands
+1701963771278:table(df[1,])
+1701963780399:table(unlist(df[1,]))
+1701963787711:table(unlist(df.hands[1,]))
+1701963813546:table(unlist(df.hands[1,])) %>% reorder(names(.))
+1701963818624:table(unlist(df.hands[1,]))
+1701963868110:table(c(2,2,4,4,10))
+1701963892187:table(c(2,2,4,4,10)) %>% subset(. == max(.))
+1701963907285:table(c(2,2,4,4,10)) %>% subset(. == max(.)) %>% subset(., max(names(.)))
+1701963921107:table(c(2,2,4,4,10)) %>% subset(. == max(.)) %>% subset(names(.) == max(names(.)))
+1701963944434:target.value <- table(c(2,2,4,4,10)) %>% subset(. == max(.)) %>% subset(names(.) == max(names(.))) %>% names()
+1701963946157:target.value
+1701963974230:df.hands
+1701963982982:df.jokers
+1701964006540:target.value <- table(df.hands[133,]) %>% subset(. == max(.)) %>% subset(names(.) == max(names(.))) %>% names()
+1701964009679:df.hands[133,]
+1701964021750:target.value <- table(unlist(df.hands[133,]) %>% subset(. == max(.)) %>% subset(names(.) == max(names(.))) %>% names()
+1701964021785:df.jokers %>%
+1701964027514:target.value <- table(unlist(df.hands[133,])) %>% subset(. == max(.)) %>% subset(names(.) == max(names(.))) %>% names()
+1701964029737:target.value
+1701964034708:df.hands[133,]
+1701964062312:df.hands[142,]
+1701964084497:View(df.hands)
+1701964094910:df.hands["142",])
+1701964098999:df.hands["142",]
+1701964104216:table(unlist(df.hands["142",]))
+1701964107236:target.value <- table(unlist(df.hands["142",])) %>% subset(. == max(.)) %>% subset(names(.) == max(names(.))) %>% names()
+1701964109222:target.value
+1701964166582:df.hands["142",which(df.hands["142",)] == 10] <- target.value
+1701964170255:df.hands["142",which(df.hands["142",)] == 10]) <- target.value
+1701964206301:df.hands["142",which(df.hands["142",] == 10)]
+1701964208842:df.hands["142",which(df.hands["142",] == 10)] <- target.value
+1701964210853:df.hands
+1701964278087:df.hands <- df.jokers[,c(1:5)]
+1701964278593:for(i in 1:nrow(df.hands)){
+1701964278605:target.value <- table(unlist(df.hands[i,])) %>% subset(. == max(.)) %>% subset(names(.) == max(names(.))) %>% names()
+1701964278616:df.hands[i,which(df.hands[i,] == 10)] <- target.value
+1701964278627:}
+1701964402169:df.hands <- df.jokers[,c(1:5)]
+1701964402181:# Make temp df with jokers converted to best cards
+1701964402189:for(i in 1:nrow(df.hands)){
+1701964402199:target.value <- table(unlist(df.hands[i,])) %>% subset(. == max(.)) %>% subset(names(.) == max(names(.))) %>% names()
+1701964402209:df.hands[i,which(df.hands[i,] == 10)] <- target.value
+1701964402221:}
+1701964402338:# Get duplicates
+1701964402348:df.hands <- lapply(apply(df.hands, 1, table),function(x){table(x) %>% as.list()}) %>%
+1701964402358:rbindlist(fill = T) %>%
+1701964402368:cbind(df.jokers, .)
+1701964404739:df.hands
+1701964435496:df.hands <- df.jokers[,c(1:5)]
+1701964435513:# Make temp df with jokers converted to best cards
+1701964435522:for(i in 1:nrow(df.hands)){
+1701964435532:target.value <- table(unlist(df.hands[i,])) %>% subset(. == max(.)) %>% subset(names(.) == max(names(.))) %>% names()
+1701964435542:df.hands[i,which(df.hands[i,] == 10)] <- target.value
+1701964435553:}
+1701964435662:# Get duplicates
+1701964435671:df.hands <- lapply(apply(df.hands, 1, table),function(x){table(x) %>% as.list()}) %>%
+1701964435682:rbindlist(fill = T) %>%
+1701964435693:cbind(df.jokers[,-c(as.character(1:5))], .)
+1701964451836:df.jokers
+1701964479087:df.hands <- df.jokers[,c(1:5)]
+1701964479102:# Make temp df with jokers converted to best cards
+1701964479111:for(i in 1:nrow(df.hands)){
+1701964479120:target.value <- table(unlist(df.hands[i,])) %>% subset(. == max(.)) %>% subset(names(.) == max(names(.))) %>% names()
+1701964479130:df.hands[i,which(df.hands[i,] == 10)] <- target.value
+1701964479141:}
+1701964483403:df.hands
+1701964493090:lapply(apply(df.hands, 1, table),function(x){table(x) %>% as.list()}) %>%
+1701964493103:rbindlist(fill = T) %>%
+1701964493114:cbind(df.jokers[,c(1:5, 11,12)], .)
+1701964498791:# Get duplicates
+1701964498804:df.hands <- lapply(apply(df.hands, 1, table),function(x){table(x) %>% as.list()}) %>%
+1701964498815:rbindlist(fill = T) %>%
+1701964498827:cbind(df.jokers[,c(1:5, 11,12)], .)
+1701964585911:df.hands
+1701964606628:df[!apply(df, 1, function(x) any(x == 10)), ]
+1701964661880:df.2[is.na(df.2)] <- 0
+1701964663528:# Get duplicates and add back id and bet info
+1701964663545:df.2 <- lapply(apply(df.hands, 1, table),function(x){table(x) %>% as.list()}) %>%
+1701964663557:rbindlist(fill = T) %>%
+1701964663567:cbind(df.jokers[,c(1:5, 11,12)], .)
+1701964664360:df.2[is.na(df.2)] <- 0
+1701964668922:# Make Jokers raise the value of the max in 1:5
+1701964668931:df.jokers <- df[apply(df, 1, function(x) any(x == 10)), ]
+1701964668956:# Find most common numbers
+1701964668966:# if there are two twos, reference the higher
+1701964668975:df.hands <- df.jokers[,c(1:5)]
+1701964668990:# Make temp df with jokers converted to best cards
+1701964668999:for(i in 1:nrow(df.hands)){
+1701964669011:target.value <- table(unlist(df.hands[i,])) %>% subset(. == max(.)) %>% subset(names(.) == max(names(.))) %>% names()
+1701964669020:df.hands[i,which(df.hands[i,] == 10)] <- target.value
+1701964669028:}
+1701964669159:# Get duplicates and add back id and bet info
+1701964669169:df.2 <- lapply(apply(df.hands, 1, table),function(x){table(x) %>% as.list()}) %>%
+1701964669179:rbindlist(fill = T) %>%
+1701964669188:cbind(df.jokers[,c(1:5, 11,12)], .)
+1701964669245:df.2[is.na(df.2)] <- 0
+1701964671799:df.2
+1701964740650:# Make Jokers raise the value of the max in 1:5
+1701964740660:df.jokers <- df[apply(df, 1, function(x) any(x == 10)), ]
+1701964740686:# Find most common numbers
+1701964740697:# if there are two twos, reference the higher
+1701964740707:df.hands <- df.jokers[,c(1:5)]
+1701964740727:# Make temp df with jokers converted to best cards
+1701964740737:for(i in 1:nrow(df.hands)){
+1701964740746:target.value <- table(unlist(df.hands[i,])) %>% subset(. == max(.)) %>% subset(names(.) == max(names(.))) %>% names()
+1701964740756:df.hands[i,which(df.hands[i,] == 10)] <- target.value
+1701964740767:}
+1701964740894:# Get duplicates and add back id and bet info
+1701964740903:df.2 <- lapply(apply(df.hands, 1, table),function(x){table(x) %>% as.list()}) %>%
+1701964740913:rbindlist(fill = T) %>%
+1701964740923:cbind(df.jokers[,c(1:5)], .) %>%
+1701964740931:cbind(df.jokers[,c(11,12)],.)
+1701964741187:df.2[is.na(df.2)] <- 0
+1701964744042:df.2
+1701964777146:# Get duplicates and add back id and bet info
+1701964777158:df.2 <- lapply(apply(df.hands, 1, table),function(x){table(x) %>% as.list()}) %>%
+1701964777172:rbindlist(fill = T) %>%
+1701964777184:cbind(df.jokers[,c(1:5)], .) %>%
+1701964777195:cbind(df.jokers[,c(11,12)],.) %>%
+1701964777205:rbind(df[!apply(df, 1, function(x) any(x == 10)), ])
+1701964778886:df.2[is.na(df.2)] <- 0
+1701964991505:# Part 2
+1701964991516:# Make Jokers raise the value of the max in 1:5
+1701964991525:df.jokers <- df[apply(df, 1, function(x) any(x == 10)), ]
+1701964991552:# Find most common numbers
+1701964991562:# if there are two twos, reference the higher
+1701964991571:df.hands <- df.jokers[,c(1:5)]
+1701964991579:# Make temp df with jokers converted to best cards
+1701964991586:for(i in 1:nrow(df.hands)){
+1701964991594:target.value <- table(unlist(df.hands[i,])) %>% subset(. == max(.)) %>% subset(names(.) == max(names(.))) %>% names()
+1701964991601:df.hands[i,which(df.hands[i,] == 10)] <- target.value
+1701964991609:}
+1701964991709:# Get duplicates and add back id and bet info
+1701964991719:df.2 <- lapply(apply(df.hands, 1, table),function(x){table(x) %>% as.list()}) %>%
+1701964991728:rbindlist(fill = T) %>%
+1701964991736:cbind(df.jokers[,c(1:5)], .)
+1701964994389:df.2
+1701965020798:df.2[df.2 == 10] <- 0
+1701965021272:df.2[is.na(df.2)] <- 0
+1701965031119:df.2 <- df.2 %>%
+1701965031129:cbind(df.jokers[,c(11,12)],.) %>%
+1701965031138:rbind(df[!apply(df, 1, function(x) any(x == 10)), ])
+1701965033488:df.2
+1701965050231:# Make Jokers raise the value of the max in 1:5
+1701965050240:df.jokers <- df[apply(df, 1, function(x) any(x == 10)), ]
+1701965050262:# Find most common numbers
+1701965050269:# if there are two twos, reference the higher
+1701965050276:df.hands <- df.jokers[,c(1:5)]
+1701965050284:# Make temp df with jokers converted to best cards
+1701965050291:for(i in 1:nrow(df.hands)){
+1701965050298:target.value <- table(unlist(df.hands[i,])) %>% subset(. == max(.)) %>% subset(names(.) == max(names(.))) %>% names()
+1701965050305:df.hands[i,which(df.hands[i,] == 10)] <- target.value
+1701965050312:}
+1701965050439:# Get duplicates and add back id and bet info
+1701965050450:df.2 <- lapply(apply(df.hands, 1, table),function(x){table(x) %>% as.list()}) %>%
+1701965050459:rbindlist(fill = T) %>%
+1701965050469:cbind(df.jokers[,c(1:5)], .)
+1701965050521:df.2[df.2 == 10] <- 0
+1701965050534:df.2[is.na(df.2)] <- 0
+1701965050544:df.2 <- df.2 %>%
+1701965050552:cbind(df.jokers[,c(11,12)]) %>%
+1701965050563:rbind(df[!apply(df, 1, function(x) any(x == 10)), ])
+1701965052299:df.2
+1701965065274:df.2[is.na(df.2)] <- 0
+1701965070208:df.ordered.2 <- df.2 |>
+1701965070218:arrange(`5`, `4`, `3`, `2`, `1`, X1, X2, X3, X4, X5, decreasing = TRUE)
+1701965080618:#Set order
+1701965080631:df.ordered.2$rank <- seq(1,nrow(df.ordered.2), 1)
+1701965089344:answer2 <- df.ordered.2 %>%
+1701965089356:mutate(score = as.numeric(bet)*rank) %>%
+1701965089364:pull(score) %>%
+1701965089371:sum()
+1701965092853:answer2
+1701965106412:data <- c(
+1701965106426:'32T3K 765',
+1701965106439:'T55J5 684',
+1701965106450:'KK677 28',
+1701965106460:'KTJJT 220',
+1701965106471:'QQQJA 483')
+1701965112524:# Add bets
+1701965112531:hand <- lapply(strsplit(data, " "), "[[", 1)
+1701965112538:# Parse data
+1701965112547:df <- data.frame(do.call("rbind", strsplit(as.character(hand), "",
+1701965112555:fixed = TRUE)))
+1701965112563:# Make df to convert cards to value tier
+1701965112571:cards <- c('A', 'K', 'Q', 'J', 'T', '9', '8', '7', '6', '5', '4', '3', '2')
+1701965112579:value.df <- data.frame(cards = cards, value = rev(seq(1, length(cards), 1)))
+1701965112594:# Replace characters in df, using value.df as a dictionary
+1701965112604:df <- apply(df, 2, function(column) {
+1701965112614:# Use 'match' to find the positions of 'df' elements in 'value.df'
+1701965112623:matched_positions <- match(column, value.df$cards)
+1701965112634:# Replace the positions with the corresponding values from 'value.df'
+1701965112643:value.df$value[matched_positions]
+1701965112655:}) |> as.data.frame()
+1701965112688:# Get duplicates
+1701965112697:df <- lapply(apply(df, 1, table),function(x){table(x) %>% as.list()}) %>%
+1701965112705:rbindlist(fill = T) %>%
+1701965112714:cbind(df, .)
+1701965112734:# Add bets
+1701965112741:df$bet <- sapply(strsplit(data, " "), "[[", 2)
+1701965112754:# Add hand #
+1701965112762:df$hand <- seq(1,nrow(df), 1)
+1701965112776:df[is.na(df)] <- 0
+1701965112784:df.ordered <- df |>
+1701965112792:arrange(`5`, `4`, `3`, `2`, `1`, X1, X2, X3, X4, X5, decreasing = TRUE)
+1701965122030:data <- c(
+1701965122043:'32T3K 765',
+1701965122055:'T55J5 684',
+1701965122066:'KK677 28',
+1701965122078:'KTJJT 220',
+1701965122092:'QQQJA 483')
+1701965124871:# Add bets
+1701965124885:hand <- lapply(strsplit(data, " "), "[[", 1)
+1701965126524:hand
+1701965128746:# Parse data
+1701965128758:df <- data.frame(do.call("rbind", strsplit(as.character(hand), "",
+1701965128770:fixed = TRUE)))
+1701965130689:df
+1701965133425:# Make df to convert cards to value tier
+1701965133439:cards <- c('A', 'K', 'Q', 'J', 'T', '9', '8', '7', '6', '5', '4', '3', '2')
+1701965133938:value.df <- data.frame(cards = cards, value = rev(seq(1, length(cards), 1)))
+1701965134740:# Replace characters in df, using value.df as a dictionary
+1701965134801:df <- apply(df, 2, function(column) {
+1701965134895:# Use 'match' to find the positions of 'df' elements in 'value.df'
+1701965135002:matched_positions <- match(column, value.df$cards)
+1701965135151:# Replace the positions with the corresponding values from 'value.df'
+1701965135237:value.df$value[matched_positions]
+1701965135309:}) |> as.data.frame()
+1701965136758:df
+1701965144237:df
+1701965145789:# Get duplicates
+1701965145800:df <- lapply(apply(df, 1, table),function(x){table(x) %>% as.list()}) %>%
+1701965145810:rbindlist(fill = T) %>%
+1701965145822:cbind(df, .)
+1701965146937:df
+1701965150892:# Add bets
+1701965150909:df$bet <- sapply(strsplit(data, " "), "[[", 2)
+1701965151761:# Add hand #
+1701965151772:df$hand <- seq(1,nrow(df), 1)
+1701965152379:df[is.na(df)] <- 0
+1701965152938:df.ordered <- df |>
+1701965152951:arrange(`5`, `4`, `3`, `2`, `1`, X1, X2, X3, X4, X5, decreasing = TRUE)
+1701965173944:View(df.2)
+1701965199383:df.ordered <- df |>
+1701965199396:#arrange(`5`, `4`, `3`, `2`, `1`, X1, X2, X3, X4, X5, decreasing = TRUE)
+1701965199408:arrange(`3`, `2`, `1`, X1, X2, X3, X4, X5, decreasing = TRUE)
+1701965201034:#Set order
+1701965201044:df.ordered$rank <- seq(1,nrow(df.ordered), 1)
+1701965201713:answer1 <- df.ordered %>%
+1701965201724:mutate(score = as.numeric(bet)*rank) %>%
+1701965201735:pull(score) %>%
+1701965201746:sum()
+1701965202557:answer1
+1701965207148:# Part 2
+1701965207160:# Make Jokers raise the value of the max in 1:5
+1701965207170:df.jokers <- df[apply(df, 1, function(x) any(x == 10)), ]
+1701965207188:# Find most common numbers
+1701965207197:# if there are two twos, reference the higher
+1701965207208:df.hands <- df.jokers[,c(1:5)]
+1701965207217:# Make temp df with jokers converted to best cards
+1701965207226:for(i in 1:nrow(df.hands)){
+1701965207235:target.value <- table(unlist(df.hands[i,])) %>% subset(. == max(.)) %>% subset(names(.) == max(names(.))) %>% names()
+1701965207244:df.hands[i,which(df.hands[i,] == 10)] <- target.value
+1701965207253:}
+1701965207284:# Get duplicates and add back id and bet info
+1701965207294:df.2 <- lapply(apply(df.hands, 1, table),function(x){table(x) %>% as.list()}) %>%
+1701965207303:rbindlist(fill = T) %>%
+1701965207311:cbind(df.jokers[,c(1:5)], .)
+1701965207325:df.2[df.2 == 10] <- 0
+1701965207333:df.2[is.na(df.2)] <- 0
+1701965207341:df.2 <- df.2 %>%
+1701965207348:cbind(df.jokers[,c(11,12)]) %>%
+1701965207356:rbind(df[!apply(df, 1, function(x) any(x == 10)), ])
+1701965231947:df.ordered.2 <- df.2 |>
+1701965231957:#arrange(`5`, `4`, `3`, `2`, `1`, X1, X2, X3, X4, X5, decreasing = TRUE)
+1701965231971:arrange(`4`, `3`, `2`, `1`, X1, X2, X3, X4, X5, decreasing = TRUE)
+1701965237814:df.ordered.2 <- df.2 |>
+1701965237825:#arrange(`5`, `4`, `3`, `2`, `1`, X1, X2, X3, X4, X5, decreasing = TRUE)
+1701965237841:arrange(`4`, `2`, `1`, X1, X2, X3, X4, X5, decreasing = TRUE)
+1701965241117:#Set order
+1701965241128:df.ordered.2$rank <- seq(1,nrow(df.ordered.2), 1)
+1701965244380:answer2 <- df.ordered.2 %>%
+1701965244395:mutate(score = as.numeric(bet)*rank) %>%
+1701965244403:pull(score) %>%
+1701965244412:sum()
+1701965249061:answer2
+1701965251019:df.ordered.2
+1701965259764:df.jokers
+1701965267494:# Part 2
+1701965267503:# Make Jokers raise the value of the max in 1:5
+1701965267512:df.jokers <- df[apply(df, 1, function(x) any(x == 10)), ]
+1701965267529:# Find most common numbers
+1701965267538:# if there are two twos, reference the higher
+1701965267546:df.hands <- df.jokers[,c(1:5)]
+1701965267555:# Make temp df with jokers converted to best cards
+1701965267563:for(i in 1:nrow(df.hands)){
+1701965267573:target.value <- table(unlist(df.hands[i,])) %>% subset(. == max(.)) %>% subset(names(.) == max(names(.))) %>% names()
+1701965267582:df.hands[i,which(df.hands[i,] == 10)] <- target.value
+1701965267592:}
+1701965267615:# Get duplicates and add back id and bet info
+1701965267624:df.2 <- lapply(apply(df.hands, 1, table),function(x){table(x) %>% as.list()}) %>%
+1701965267633:rbindlist(fill = T) %>%
+1701965267641:cbind(df.jokers[,c(1:5)], .)
+1701965267726:df.2[df.2 == 10] <- 0
+1701965267735:df.2[is.na(df.2)] <- 0
+1701965267744:df.2 <- df.2 %>%
+1701965267753:cbind(df.jokers[,c(11,12)]) %>%
+1701965267761:rbind(df[!apply(df, 1, function(x) any(x == 10)), ])
+1701965272777:df.jokers
+1701965317127:# Make Jokers raise the value of the max in 1:5
+1701965317137:df.jokers <- df[apply(df, 1, function(x) any(x == 10)), ]
+1701965317153:# Find most common numbers
+1701965317161:# if there are two twos, reference the higher
+1701965317170:df.hands <- df.jokers[,c(1:5)]
+1701965317178:# Make temp df with jokers converted to best cards
+1701965317185:for(i in 1:nrow(df.hands)){
+1701965317192:target.value <- table(unlist(df.hands[i,])) %>% subset(. == max(.)) %>% subset(names(.) == max(names(.))) %>% names()
+1701965317200:df.hands[i,which(df.hands[i,] == 10)] <- target.value
+1701965317207:}
+1701965317231:# Get duplicates and add back id and bet info
+1701965317240:df.2 <- lapply(apply(df.hands, 1, table),function(x){table(x) %>% as.list()}) %>%
+1701965317249:rbindlist(fill = T) %>%
+1701965317260:cbind(df.jokers[,c(1:5)], .)
+1701965317271:df.2[df.2 == 10] <- 0
+1701965317280:df.2[is.na(df.2)] <- 0
+1701965317291:df.2 <- df.2 %>%
+1701965317301:cbind(df.jokers[,c("bet", "hand")]) %>%
+1701965317310:rbind(df[!apply(df, 1, function(x) any(x == 10)), ])
+1701965321927:df.2
+1701965342518:df
+1701965346846:df.2 %>%
+1701965346858:cbind(df.jokers[,c("bet", "hand")])
+1701965375191:df[!apply(df, 1, function(x) any(x == 10)), ]
+1701965381018:df[!apply(df, 1, function(x) any(x == 10))
+1701965389075:df[!apply(df, 1, function(x) any(x == 10)), ]
+1701965408392:apply(df, 1, function(x) any(x == 10)),-`3`]
+1701965411831:df[!apply(df, 1, function(x) any(x == 10)),-`3`]
+1701965423349:df[!apply(df, 1, function(x) any(x == 10)),-"3"]
+1701965455975:df[!apply(df, 1, function(x) any(x == 10)),c(1:7, 9,10)]
+1701965495749:df.2 <- merge(df.2, df)
+1701965497512:df.2
+1701965509988:df.jokers <- df[apply(df, 1, function(x) any(x == 10)), ]
+1701965510008:# Find most common numbers
+1701965510016:# if there are two twos, reference the higher
+1701965510026:df.hands <- df.jokers[,c(1:5)]
+1701965510035:# Make temp df with jokers converted to best cards
+1701965510043:for(i in 1:nrow(df.hands)){
+1701965510051:target.value <- table(unlist(df.hands[i,])) %>% subset(. == max(.)) %>% subset(names(.) == max(names(.))) %>% names()
+1701965510058:df.hands[i,which(df.hands[i,] == 10)] <- target.value
+1701965510065:}
+1701965510086:# Get duplicates and add back id and bet info
+1701965510093:df.2 <- lapply(apply(df.hands, 1, table),function(x){table(x) %>% as.list()}) %>%
+1701965510100:rbindlist(fill = T) %>%
+1701965510107:cbind(df.jokers[,c(1:5)], .)
+1701965510117:df.2[df.2 == 10] <- 0
+1701965510126:df.2[is.na(df.2)] <- 0
+1701965510134:df.2 <- df.2 %>%
+1701965510141:cbind(df.jokers[,c("bet", "hand")])
+1701965510151:df.2 <- merge(df.2, df, by = "hand")
+1701965512593:df.2
+1701965525085:# Make Jokers raise the value of the max in 1:5
+1701965525097:df.jokers <- df[apply(df, 1, function(x) any(x == 10)), ]
+1701965525118:# Find most common numbers
+1701965525128:# if there are two twos, reference the higher
+1701965525139:df.hands <- df.jokers[,c(1:5)]
+1701965525150:# Make temp df with jokers converted to best cards
+1701965525161:for(i in 1:nrow(df.hands)){
+1701965525173:target.value <- table(unlist(df.hands[i,])) %>% subset(. == max(.)) %>% subset(names(.) == max(names(.))) %>% names()
+1701965525183:df.hands[i,which(df.hands[i,] == 10)] <- target.value
+1701965525195:}
+1701965525220:# Get duplicates and add back id and bet info
+1701965525230:df.2 <- lapply(apply(df.hands, 1, table),function(x){table(x) %>% as.list()}) %>%
+1701965525241:rbindlist(fill = T) %>%
+1701965525252:cbind(df.jokers[,c(1:5)], .)
+1701965525265:df.2[df.2 == 10] <- 0
+1701965525276:df.2[is.na(df.2)] <- 0
+1701965525287:df.2 <- df.2 %>%
+1701965525297:cbind(df.jokers[,c("bet", "hand")])
+1701965525308:df.2 <- join(df.2, df, by = "hand")
+1701965540578:df.jokers <- df[apply(df, 1, function(x) any(x == 10)), ]
+1701965540596:# Find most common numbers
+1701965540604:# if there are two twos, reference the higher
+1701965540613:df.hands <- df.jokers[,c(1:5)]
+1701965540623:# Make temp df with jokers converted to best cards
+1701965540632:for(i in 1:nrow(df.hands)){
+1701965540639:target.value <- table(unlist(df.hands[i,])) %>% subset(. == max(.)) %>% subset(names(.) == max(names(.))) %>% names()
+1701965540646:df.hands[i,which(df.hands[i,] == 10)] <- target.value
+1701965540655:}
+1701965540679:# Get duplicates and add back id and bet info
+1701965540688:df.2 <- lapply(apply(df.hands, 1, table),function(x){table(x) %>% as.list()}) %>%
+1701965540698:rbindlist(fill = T) %>%
+1701965540707:cbind(df.jokers[,c(1:5)], .)
+1701965540719:df.2[df.2 == 10] <- 0
+1701965540729:df.2[is.na(df.2)] <- 0
+1701965540738:df.2 <- df.2 %>%
+1701965540748:cbind(df.jokers[,c("bet", "hand")])
+1701965543939:left_join(df.2, df, by = "hand")
+1701965554373:right_join(df.2, df, by = "hand")
+1701965565980:inner_join(df.2, df, by = "hand")
+1701965579507:outer_join(df.2, df, by = "hand")
+1701965587014:inner_join(df.2, df, by = "hand")
+1701965616342:inner_join(df.2, df[!apply(df, 1, function(x) any(x == 10)), ], by = "hand")
+1701965624628:right_join(df.2, df[!apply(df, 1, function(x) any(x == 10)), ], by = "hand")
+1701965633683:left_join(df.2, df[!apply(df, 1, function(x) any(x == 10)), ], by = "hand")
+1701965650280:merge(df.2, df[!apply(df, 1, function(x) any(x == 10)), ], by = "hand")
+1701965671733:merge(df.2, df[!apply(df, 1, function(x) any(x == 10)), ])
+1701965673626:df.2
+1701965685314:df[!apply(df, 1, function(x) any(x == 10)), ]
+1701965761508:df.2
+1701966289629:df.2
+1701966294525:df
+1701966346642:df.2
+1701966369281:df.2[,c("3","4")] <- 0
+1701966371421:df.2
+1701966379791:# Make Jokers raise the value of the max in 1:5
+1701966379800:df.jokers <- df[apply(df, 1, function(x) any(x == 10)), ]
+1701966379818:# Find most common numbers
+1701966379826:# if there are two twos, reference the higher
+1701966379834:df.hands <- df.jokers[,c(1:5)]
+1701966379841:# Make temp df with jokers converted to best cards
+1701966379849:for(i in 1:nrow(df.hands)){
+1701966379856:target.value <- table(unlist(df.hands[i,])) %>% subset(. == max(.)) %>% subset(names(.) == max(names(.))) %>% names()
+1701966379863:df.hands[i,which(df.hands[i,] == 10)] <- target.value
+1701966379870:}
+1701966379892:# Get duplicates and add back id and bet info
+1701966379904:df.2 <- lapply(apply(df.hands, 1, table),function(x){table(x) %>% as.list()}) %>%
+1701966379915:rbindlist(fill = T) %>%
+1701966379926:cbind(df.jokers[,c(1:5)], .)
+1701966379943:df.2[df.2 == 10] <- 0
+1701966379954:df.2[is.na(df.2)] <- 0
+1701966379965:df.2 <- df.2 %>%
+1701966379977:cbind(df.jokers[,c("bet", "hand")])
+1701966379995:df.2[,c("3",)] <- 0
+1701966383603:df.2[,c("3")] <- 0
+1701966385728:df.2
+1701966399149:df[,c("4")] <- 0
+1701966402366:df.2 <- merge(df.2, df[!apply(df, 1, function(x) any(x == 10)), ])
+1701966404445:df.2
+1701966421413:# Make Jokers raise the value of the max in 1:5
+1701966421422:df.jokers <- df[apply(df, 1, function(x) any(x == 10)), ]
+1701966421440:# Find most common numbers
+1701966421450:# if there are two twos, reference the higher
+1701966421461:df.hands <- df.jokers[,c(1:5)]
+1701966421471:# Make temp df with jokers converted to best cards
+1701966421481:for(i in 1:nrow(df.hands)){
+1701966421493:target.value <- table(unlist(df.hands[i,])) %>% subset(. == max(.)) %>% subset(names(.) == max(names(.))) %>% names()
+1701966421503:df.hands[i,which(df.hands[i,] == 10)] <- target.value
+1701966421513:}
+1701966421538:# Get duplicates and add back id and bet info
+1701966421548:df.2 <- lapply(apply(df.hands, 1, table),function(x){table(x) %>% as.list()}) %>%
+1701966421558:rbindlist(fill = T) %>%
+1701966421568:cbind(df.jokers[,c(1:5)], .)
+1701966421581:df.2[df.2 == 10] <- 0
+1701966421594:df.2[is.na(df.2)] <- 0
+1701966421604:df.2 <- df.2 %>%
+1701966421615:cbind(df.jokers[,c("bet", "hand")])
+1701966421632:df.2[,c("3")] <- 0
+1701966421641:df[,c("4")] <- 0
+1701966421651:df.2 <- rbind(df.2, df[!apply(df, 1, function(x) any(x == 10)), ])
+1701966423918:df.2
+1701966466290:df.2
+1701966481037:# Make Jokers raise the value of the max in 1:5
+1701966481049:df.jokers <- df[apply(df, 1, function(x) any(x == 10)), ]
+1701966481071:# Find most common numbers
+1701966481083:# if there are two twos, reference the higher
+1701966481096:df.hands <- df.jokers[,c(1:5)]
+1701966481110:# Make temp df with jokers converted to best cards
+1701966481122:for(i in 1:nrow(df.hands)){
+1701966481136:target.value <- table(unlist(df.hands[i,])) %>% subset(. == max(.)) %>% subset(names(.) == max(names(.))) %>% names()
+1701966481148:df.hands[i,which(df.hands[i,] == 10)] <- target.value
+1701966481162:}
+1701966482818:df.jokers
+1701966500454:# Add bets
+1701966500465:hand <- lapply(strsplit(data, " "), "[[", 1)
+1701966500474:# Parse data
+1701966500482:df <- data.frame(do.call("rbind", strsplit(as.character(hand), "",
+1701966500491:fixed = TRUE)))
+1701966500504:# Make df to convert cards to value tier
+1701966500517:cards <- c('A', 'K', 'Q', 'J', 'T', '9', '8', '7', '6', '5', '4', '3', '2')
+1701966500527:value.df <- data.frame(cards = cards, value = rev(seq(1, length(cards), 1)))
+1701966500542:# Replace characters in df, using value.df as a dictionary
+1701966500551:df <- apply(df, 2, function(column) {
+1701966500559:# Use 'match' to find the positions of 'df' elements in 'value.df'
+1701966500568:matched_positions <- match(column, value.df$cards)
+1701966500579:# Replace the positions with the corresponding values from 'value.df'
+1701966500590:value.df$value[matched_positions]
+1701966500600:}) |> as.data.frame()
+1701966500618:# Get duplicates
+1701966500628:df <- lapply(apply(df, 1, table),function(x){table(x) %>% as.list()}) %>%
+1701966500639:rbindlist(fill = T) %>%
+1701966500650:cbind(df, .)
+1701966500671:# Add bets
+1701966500681:df$bet <- sapply(strsplit(data, " "), "[[", 2)
+1701966500699:# Add hand #
+1701966500710:df$hand <- seq(1,nrow(df), 1)
+1701966500728:df[is.na(df)] <- 0
+1701966500738:df.ordered <- df |>
+1701966500749:#arrange(`5`, `4`, `3`, `2`, `1`, X1, X2, X3, X4, X5, decreasing = TRUE)
+1701966500759:arrange(`3`, `2`, `1`, X1, X2, X3, X4, X5, decreasing = TRUE)
+1701966500781:#Set order
+1701966500791:df.ordered$rank <- seq(1,nrow(df.ordered), 1)
+1701966500803:answer1 <- df.ordered %>%
+1701966500810:mutate(score = as.numeric(bet)*rank) %>%
+1701966500817:pull(score) %>%
+1701966500825:sum()
+1701966500835:answer1
+1701966500842:251106089
+1701966500860:# Part 2
+1701966500871:# Make Jokers raise the value of the max in 1:5
+1701966500881:df.jokers <- df[apply(df, 1, function(x) any(x == 10)), ]
+1701966502512:df.jokers
+1701966508789:# Find most common numbers
+1701966508798:# if there are two twos, reference the higher
+1701966508806:df.hands <- df.jokers[,c(1:5)]
+1701966508813:# Make temp df with jokers converted to best cards
+1701966508821:for(i in 1:nrow(df.hands)){
+1701966508829:target.value <- table(unlist(df.hands[i,])) %>% subset(. == max(.)) %>% subset(names(.) == max(names(.))) %>% names()
+1701966508838:df.hands[i,which(df.hands[i,] == 10)] <- target.value
+1701966508846:}
+1701966508868:# Get duplicates and add back id and bet info
+1701966508876:df.2 <- lapply(apply(df.hands, 1, table),function(x){table(x) %>% as.list()}) %>%
+1701966508887:rbindlist(fill = T) %>%
+1701966508897:cbind(df.jokers[,c(1:5)], .)
+1701966510767:df.2
+1701966533315:df.2[df.2 == 10] <- 0
+1701966534379:df.2[is.na(df.2)] <- 0
+1701966535203:df.2 <- df.2 %>%
+1701966535216:cbind(df.jokers[,c("bet", "hand")])
+1701966536395:df.2[,c("3")] <- 0
+1701966536819:df[,c("4")] <- 0
+1701966537458:df.2 <- rbind(df.2, df[!apply(df, 1, function(x) any(x == 10)), ])
+1701966538629:df.2[is.na(df.2)] <- 0
+1701966544760:df.2
+1701966568937:df.jokers
+1701966581322:# Find most common numbers
+1701966581334:# if there are two twos, reference the higher
+1701966581344:df.hands <- df.jokers[,c(1:5)]
+1701966581735:# Make temp df with jokers converted to best cards
+1701966581746:for(i in 1:nrow(df.hands)){
+1701966581757:target.value <- table(unlist(df.hands[i,])) %>% subset(. == max(.)) %>% subset(names(.) == max(names(.))) %>% names()
+1701966581767:df.hands[i,which(df.hands[i,] == 10)] <- target.value
+1701966581777:}
+1701966585965:df.hands
+1701966590378:# Get duplicates and add back id and bet info
+1701966590391:df.2 <- lapply(apply(df.hands, 1, table),function(x){table(x) %>% as.list()}) %>%
+1701966590401:rbindlist(fill = T) %>%
+1701966590412:cbind(df.jokers[,c(1:5)], .)
+1701966592072:df.2
+1701966603814:lapply(apply(df.hands, 1, table),function(x){table(x) %>% as.list()})
+1701966627576:apply(df.hands, 1, table)
+1701966638846:df.hands
+1701966650947:df.hands
+1701966655261:apply(df.hands, 1, table)
+1701966678131:apply(df.hands, 2, table)
+1701966687789:apply(df.hands, 1, table)
+1701966715060:df.hands <- as.numeric(df.hands)
+1701966739760:# Make Jokers raise the value of the max in 1:5
+1701966739770:df.jokers <- df[apply(df, 1, function(x) any(x == 10)), ]
+1701966739788:# Find most common numbers
+1701966739797:# if there are two twos, reference the higher
+1701966739808:df.hands <- df.jokers[,c(1:5)]
+1701966739820:# Make temp df with jokers converted to best cards
+1701966739830:for(i in 1:nrow(df.hands)){
+1701966739842:target.value <- table(unlist(df.hands[i,])) %>% subset(. == max(.)) %>% subset(names(.) == max(names(.))) %>% names()
+1701966739853:df.hands[i,which(df.hands[i,] == 10)] <- as.numeric(target.value)
+1701966739863:}
+1701966742378:df.hands
+1701966747733:apply(df.hands, 1, table)
+1701966759468:df.hands
+1701966769602:apply(df.hands, 1, table)
+1701966779784:lapply(apply(df.hands, 1, table),function(x){table(x) %>% as.list()}) %>%
+1701966779796:rbindlist(fill = T)
+1701966796785:apply(df.hands, 2, table)
+1701966805447:lapply(apply(df.hands, 1, table),function(x){table(x) %>% as.list()})
+1701967478050:apply(df.hands, 1, table)
+1702063704073:data <- c(
+1702063704087:'32T3K 765',
+1702063704099:'T55J5 684',
+1702063704110:'KK677 28',
+1702063704119:'KTJJT 220',
+1702063704129:'QQQJA 483')
+1702063706933:# Add bets
+1702063706946:hand <- lapply(strsplit(data, " "), "[[", 1)
+1702063709134:hand
+1702063712083:# Parse data
+1702063712094:df <- data.frame(do.call("rbind", strsplit(as.character(hand), "",
+1702063712111:fixed = TRUE)))
+1702063715048:hand
+1702063725936:cards
+1702063729065:value.df <- data.frame(cards = cards, value = rev(seq(1, length(cards), 1)))
+1702063732446:# Replace characters in df, using value.df as a dictionary
+1702063732462:df <- apply(df, 2, function(column) {
+1702063732475:# Use 'match' to find the positions of 'df' elements in 'value.df'
+1702063732484:matched_positions <- match(column, value.df$cards)
+1702063732495:# Replace the positions with the corresponding values from 'value.df'
+1702063732505:value.df$value[matched_positions]
+1702063732514:}) |> as.data.frame()
+1702063733676:# Get duplicates
+1702063733687:df <- lapply(apply(df, 1, table),function(x){table(x) %>% as.list()}) %>%
+1702063733707:rbindlist(fill = T) %>%
+1702063733716:cbind(df, .)
+1702063734377:# Add bets
+1702063734396:df$bet <- sapply(strsplit(data, " "), "[[", 2)
+1702063735497:# Add hand #
+1702063735504:df$hand <- seq(1,nrow(df), 1)
+1702063745447:# Parse data
+1702063745468:df <- data.frame(do.call("rbind", strsplit(as.character(hand), "",
+1702063745479:fixed = TRUE)))
+1702063749368:df
+1702063753819:apply(df, 2, function(column) {
+1702063753833:# Use 'match' to find the positions of 'df' elements in 'value.df'
+1702063753846:matched_positions <- match(column, value.df$cards)
+1702063753858:# Replace the positions with the corresponding values from 'value.df'
+1702063753868:value.df$value[matched_positions]
+1702063753879:}) |> as.data.frame()
+1702063756966:# Replace characters in df, using value.df as a dictionary
+1702063756976:df <- apply(df, 2, function(column) {
+1702063756995:# Use 'match' to find the positions of 'df' elements in 'value.df'
+1702063757009:matched_positions <- match(column, value.df$cards)
+1702063757022:# Replace the positions with the corresponding values from 'value.df'
+1702063757034:value.df$value[matched_positions]
+1702063757046:}) |> as.data.frame()
+1702063760385:lapply(apply(df, 1, table),function(x){table(x) %>% as.list()}) %>%
+1702063760395:rbindlist(fill = T) %>%
+1702063760403:cbind(df, .)
+1702063774853:lapply(apply(df, 1, table),function(x){table(x) %>% as.list()})
+1702063789840:# Part 2
+1702063789849:# Make Jokers raise the value of the max in 1:5
+1702063789859:df.jokers <- df[apply(df, 1, function(x) any(x == 10)), ]
+1702063790674:# Find most common numbers
+1702063790688:# if there are two twos, reference the higher
+1702063790700:df.hands <- df.jokers[,c(1:5)]
+1702063793666:# Make temp df with jokers converted to best cards
+1702063793687:for(i in 1:nrow(df.hands)){
+1702063793699:target.value <- table(unlist(df.hands[i,])) %>% subset(. == max(.)) %>% subset(names(.) == max(names(.))) %>% names()
+1702063793712:df.hands[i,which(df.hands[i,] == 10)] <- as.numeric(target.value)
+1702063793723:}
+1702063797423:lapply(apply(df.hands, 1, table),function(x){table(x) %>% as.list()})
+1702063804938:lapply(apply(df.hands, 1, table),function(x){table(x) %>% as.list()}) %>%
+1702063804950:rbindlist(fill = T)
+1702063844269:apply(df.hands, 1, table)
+1702063853401:apply(df, 1, table)
+1702063863867:df
+1702063870150:df.hands
+1702063875114:str(df)
+1702063881708:str(df.hands)
+1702063916677:class(Df)
+1702063921125:class(df)
+1702063927357:type.of(df)
+1702063931682:typeof(df)
+1702063937548:typeof(df.hands)
+1702063950761:apply(df.hands, 1, table)
+1702063958453:apply(df.hands, 2, table)
+1702063966106:lapply(apply(df.hands, 1, table),function(x){table(x) %>% as.list()}) %>%
+1702063966119:rbindlist(fill = T)
+1702063980863:apply(df.hands, 1, table)
+1702064084861:apply(df.hands, 1, table)
+1702064089067:lapply(apply(df.hands, 1, table),function(x){table(x) %>% as.list()}) %>%
+1702064089078:rbindlist(fill = T)
+1702064142263:df.jokers
+1702064148801:df.hands
+1702064157908:View(df.hands)
+1702064162045:View(df.2)
+1702064195037:### Fixing apply function
+1702064195048:apply(df.hands, 1, table)
+1702064198777:df.hands
+1702064215113:apply(apply(df.hands, 1, table), function(x){table(x) %>% as.list()})
+1702064228319:apply(apply(df.hands, 1, table),1,  function(x){table(x) %>% as.list()})
+1702064239415:apply(apply(df.hands, 2, table),1,  function(x){table(x) %>% as.list()})
+1702064255254:apply(apply(df.hands, 2, table),2,  function(x){table(x) %>% as.list()})
+1702064265669:apply(apply(df.hands, 1, table),2,  function(x){table(x) %>% as.list()})
+1702064271746:apply(apply(df.hands, 1, table),2,  function(x){table(x) %>% as.list()}) %>%
+1702064271756:rbindlist(fill = T)
+1702064284122:apply(apply(df.hands, 1, table),2,  function(x){table(x) %>% as.list()}) %>%
+1702064284132:rbindlist(fill = T) %>%
+1702064284142:cbind(df.jokers[,c(1:5)], .)
+1702064315104:# Get duplicates and add back id and bet info
+1702064315116:df.2 <- apply(apply(df.hands, 1, table),2,  function(x){table(x) %>% as.list()}) %>%
+1702064315128:rbindlist(fill = T) %>%
+1702064315136:cbind(df.jokers[,c(1:5)], .)
+1702064316064:df.2[df.2 == 10] <- 0
+1702064316497:df.2[is.na(df.2)] <- 0
+1702064316974:df.2 <- df.2 %>%
+1702064316990:cbind(df.jokers[,c("bet", "hand")])
+1702064320612:df.2
+1702064323966:df.jokers
+1702064334114:# Add bets
+1702064334126:hand <- lapply(strsplit(data, " "), "[[", 1)
+1702064334136:# Parse data
+1702064334145:df <- data.frame(do.call("rbind", strsplit(as.character(hand), "",
+1702064334155:fixed = TRUE)))
+1702064334166:# Make df to convert cards to value tier
+1702064334177:cards <- c('A', 'K', 'Q', 'J', 'T', '9', '8', '7', '6', '5', '4', '3', '2')
+1702064334188:value.df <- data.frame(cards = cards, value = rev(seq(1, length(cards), 1)))
+1702064334206:# Replace characters in df, using value.df as a dictionary
+1702064334217:df <- apply(df, 2, function(column) {
+1702064334227:# Use 'match' to find the positions of 'df' elements in 'value.df'
+1702064334237:matched_positions <- match(column, value.df$cards)
+1702064334248:# Replace the positions with the corresponding values from 'value.df'
+1702064334258:value.df$value[matched_positions]
+1702064334268:}) |> as.data.frame()
+1702064334287:# Get duplicates
+1702064334295:df <- lapply(apply(df, 1, table),function(x){table(x) %>% as.list()}) %>%
+1702064334307:rbindlist(fill = T) %>%
+1702064334316:cbind(df, .)
+1702064334336:# Add bets
+1702064334346:df$bet <- sapply(strsplit(data, " "), "[[", 2)
+1702064334366:# Add hand #
+1702064334376:df$hand <- seq(1,nrow(df), 1)
+1702064334393:df[is.na(df)] <- 0
+1702064334405:df.ordered <- df |>
+1702064334417:#arrange(`5`, `4`, `3`, `2`, `1`, X1, X2, X3, X4, X5, decreasing = TRUE)
+1702064334427:arrange(`3`, `2`, `1`, X1, X2, X3, X4, X5, decreasing = TRUE)
+1702064334461:#Set order
+1702064334471:df.ordered$rank <- seq(1,nrow(df.ordered), 1)
+1702064334490:answer1 <- df.ordered %>%
+1702064334502:mutate(score = as.numeric(bet)*rank) %>%
+1702064334512:pull(score) %>%
+1702064334522:sum()
+1702064338431:# Make Jokers raise the value of the max in 1:5
+1702064338443:df.jokers <- df[apply(df, 1, function(x) any(x == 10)), ]
+1702064338460:# Find most common numbers
+1702064338470:# if there are two twos, reference the higher
+1702064338480:df.hands <- df.jokers[,c(1:5)]
+1702064338491:# Make temp df with jokers converted to best cards
+1702064338502:for(i in 1:nrow(df.hands)){
+1702064338513:target.value <- table(unlist(df.hands[i,])) %>% subset(. == max(.)) %>% subset(names(.) == max(names(.))) %>% names()
+1702064338525:df.hands[i,which(df.hands[i,] == 10)] <- as.numeric(target.value)
+1702064338534:}
+1702064338552:df.hands <- as.numeric(df.hands)
+1702064350472:df.hands
+1702064362361:df.hands
+1702064370367:apply
+1702064372394:# Get duplicates and add back id and bet info
+1702064372407:df.2 <- apply(apply(df.hands, 1, table),2,  function(x){table(x) %>% as.list()}) %>%
+1702064372418:rbindlist(fill = T) %>%
+1702064372428:cbind(df.jokers[,c(1:5)], .)
+1702064373251:df.2[df.2 == 10] <- 0
+1702064373919:df.2[is.na(df.2)] <- 0
+1702064374280:df.2 <- df.2 %>%
+1702064374293:cbind(df.jokers[,c("bet", "hand")])
+1702064376416:df.2
+1702064399746:rbind(df.2, df[!apply(df, 1, function(x) any(x == 10)), ])
+1702064404655:df.2
+1702064406793:df
+1702064516004:left_join(df,df.2, by = "hand")
+1702064536385:df
+1702064554477:left_join(df,df.2, by = c("hand","X1"))
+1702064607421:left_join(df,df.2, by = c(colnames(df)[which(colnames(df) %in% colnames(df))]))
+1702064614847:colnames(df)[which(colnames(df) %in% colnames(df))]
+1702064623038:left_join(df,df.2, by = c(colnames(df)[which(colnames(df) %in% colnames(df.2))]))
+1702064647718:df
+1702064659732:right_join(df,df.2, by = c(colnames(df)[which(colnames(df) %in% colnames(df.2))]))
+1702064675012:left_join(df,df.2, by = c(colnames(df)[which(colnames(df) %in% colnames(df.2))]))
+1702064736370:left_join(df[which(!df$hand %in% df.2$hand),],df.2, by = c(colnames(df)[which(colnames(df) %in% colnames(df.2))]))
+1702064743930:right_join(df[which(!df$hand %in% df.2$hand),],df.2, by = c(colnames(df)[which(colnames(df) %in% colnames(df.2))]))
+1702064749354:join(df[which(!df$hand %in% df.2$hand),],df.2, by = c(colnames(df)[which(colnames(df) %in% colnames(df.2))]))
+1702064756336:merge(df[which(!df$hand %in% df.2$hand),],df.2, by = c(colnames(df)[which(colnames(df) %in% colnames(df.2))]))
+1702064763305:full_join(df[which(!df$hand %in% df.2$hand),],df.2, by = c(colnames(df)[which(colnames(df) %in% colnames(df.2))]))
+1702064779230:df.2 <- full_join(df[which(!df$hand %in% df.2$hand),],df.2, by = c(colnames(df)[which(colnames(df) %in% colnames(df.2))]))
+1702064817391:df.ordered.2 <- df.2 |>
+1702064817402:#arrange(`5`, `4`, `3`, `2`, `1`, X1, X2, X3, X4, X5, decreasing = TRUE)
+1702064817420:arrange(`4`, `2`, `1`, X1, X2, X3, X4, X5, decreasing = TRUE)
+1702064819825:df.ordered.2
+1702064832419:#Set order
+1702064832429:df.ordered.2$rank <- seq(1,nrow(df.ordered.2), 1)
+1702064833163:answer2 <- df.ordered.2 %>%
+1702064833173:mutate(score = as.numeric(bet)*rank) %>%
+1702064833189:pull(score) %>%
+1702064833201:sum()
+1702064833662:answer2
+1702065354692:answer2
+1702065357052:df.ordered.2
+1702065403688:df.ordered.2 <- df.2 |>
+1702065403696:#arrange(`5`, `4`, `3`, `2`, `1`, X1, X2, X3, X4, X5, decreasing = TRUE)
+1702065403706:arrange(`4`, `2`, `1`, X1, X2, X3, X4, X5, decreasing = TRUE)
+1702065407660:df.2
+1702065428742:df.2 |>
+1702065428754:arrange(`4`, `2`, `1`, X1, X2, X3, X4, X5, decreasing = TRUE)
+1702065463205:df.ordered.2 <- df.2 |>
+1702065463222:arrange(`4`, `3`,`2`, `1`, X1, X2, X3, X4, X5, decreasing = TRUE)
+1702065465347:df.ordered.2
+1702065483976:str(df.ordered.2)
+1702065509337:df.2[is.na(df.2)] <- 0
+1702065511556:df.ordered.2 <- df.2 |>
+1702065511564:arrange(`4`, `3`,`2`, `1`, X1, X2, X3, X4, X5, decreasing = TRUE)
+1702065514645:df.ordered.2
+1702065523173:df.ordered.2 <- df.2 |>
+1702065523189:arrange(`4`, `3`,`2`, `1`, X1, X2, X3, X4, X5, decreasing = TRUE)
+1702065525962:df.ordered.2
+1702065532351:df.ordered.2 <- df.2 |>
+1702065532365:arrange(`4`, `3`,`2`, `1`, X1, X2, X3, X4, X5)
+1702065535362:df.ordered.2
+1702065547899:df.ordered.2 <- df.2 |>
+1702065547911:arrange(`4`)
+1702065551946:df.ordered.2
+1702065563027:df.ordered.2 <- df.2 |>
+1702065563039:arrange(`4`, decreasing = TRUE)
+1702065567946:df.ordered.2 <- #
+1702065567958:df.2 |>
+1702065567970:arrange(`4`, decreasing = TRUE)
+1702065573752:df.2 |>
+1702065573761:arrange(`4`, decreasing = TRUE)
+1702065585921:colnames(df.2)
+1702065600527:df.2 |>
+1702065600540:arrange(4, decreasing = TRUE)
+1702065603788:df.2 |>
+1702065603803:arrange("4", decreasing = TRUE)
+1702065612922:df.2 |>
+1702065612935:arrange(`4`, decreasing = TRUE)
+1702065626081:df.2 |>
+1702065626093:arrange(X1, decreasing = TRUE)
+1702065635562:df.2 |>
+1702065635574:arrange(X1)
+1702065643995:?arrange
+1702065678651:df.2 |>
+1702065678671:arrange(X1, desc)
+1702065706525:df.2 |>
+1702065706542:arrange(X1, desc = T)
+1702065713004:df.2 |>
+1702065713017:arrange(X2, desc = T)
+1702065718739:df.2 |>
+1702065718762:arrange(X3, desc = T)
+1702065749856:# Turn jokers into 0s
+1702065749866:as.numeric(df.2$X1)
+1702065762434:# Turn jokers into 0s
+1702065762447:as.numeric(df.2[,c(1:3)])
+1702065768578:# Turn jokers into 0s
+1702065768590:numeric(df.2[,c(1:3)])
+1702065778342:df.ordered.2
+1702065786777:View(df.2)
+1702066202457:df.2 |>
+1702066202469:arrange(desc(X3))
+1702066230605:df.2 |>
+1702066230618:arrange(desc(X3, X1))
+1702066252789:df.2 |>
+1702066252799:arrange(X3, decreasing = TRUE)
+1702066271894:df.2 |>
+1702066271907:arrange(desc(`4`))
+1702066336825:df.2 |>
+1702066336834:arrange(desc(`4`), desc(`3`), desc(`2`),
+1702066336842:desc(`1`), desc(X1),  desc(X2),
+1702066336858:desc(X3),  desc(X4),  desc(X5))
+1702066350056:df.ordered.2  <- df.2 |>
+1702066350069:arrange(desc(`4`), desc(`3`), desc(`2`),
+1702066350086:desc(`1`), desc(X1),  desc(X2),
+1702066350097:desc(X3),  desc(X4),  desc(X5))
+1702066351522:#Set order
+1702066351533:df.ordered.2$rank <- seq(1,nrow(df.ordered.2), 1)
+1702066351881:answer2 <- df.ordered.2 %>%
+1702066351895:mutate(score = as.numeric(bet)*rank) %>%
+1702066351904:pull(score) %>%
+1702066351915:sum()
+1702066352348:answer2
+1702066357889:df.ordered.2  <- df.2 |>
+1702066357902:arrange(desc(`4`), desc(`3`), desc(`2`),
+1702066357916:desc(`1`), desc(X1),  desc(X2),
+1702066357927:desc(X3),  desc(X4),  desc(X5))
+1702066365626:#Set order
+1702066365635:df.ordered.2$rank <- seq(1,nrow(df.ordered.2), 1)
+1702066365852:answer2 <- df.ordered.2 %>%
+1702066365862:mutate(score = as.numeric(bet)*rank) %>%
+1702066365875:pull(score) %>%
+1702066365886:sum()
+1702066368276:df.ordered.2
+1702066394405:df.ordered.2  <- df.2 |>
+1702066394416:arrange(desc(`4`), desc(`3`), desc(`2`),
+1702066394427:desc(`1`))#, desc(X1),  desc(X2),
+1702066398725:df.ordered.2
+1702066417375:df.ordered.2  <- df.2 |>
+1702066417388:arrange(desc(`4`), desc(`3`), desc(`2`),
+1702066417399:desc(`1`), desc(X1),  desc(X2),
+1702066417406:desc(X3),  desc(X4),  desc(X5))
+1702066419130:#Set order
+1702066419143:df.ordered.2$rank <- seq(1,nrow(df.ordered.2), 1)
+1702066420932:df.ordered.2
+1702066477519:#Set order
+1702066477532:df.ordered.2$rank <- rev(seq(1,nrow(df.ordered.2), 1))
+1702066478169:answer2 <- df.ordered.2 %>%
+1702066478184:mutate(score = as.numeric(bet)*rank) %>%
+1702066478195:pull(score) %>%
+1702066478205:sum()
+1702066478871:answer2
+1702066483954:data <- readLines("data/input_7.txt")
+1702066506207:data <- readLines("data/input_7.txt")
+1702066506228:# Add bets
+1702066506237:hand <- lapply(strsplit(data, " "), "[[", 1)
+1702066506250:# Parse data
+1702066506259:df <- data.frame(do.call("rbind", strsplit(as.character(hand), "",
+1702066506271:fixed = TRUE)))
+1702066506283:# Make df to convert cards to value tier
+1702066506293:cards <- c('A', 'K', 'Q', 'J', 'T', '9', '8', '7', '6', '5', '4', '3', '2')
+1702066506304:value.df <- data.frame(cards = cards, value = rev(seq(1, length(cards), 1)))
+1702066506320:# Replace characters in df, using value.df as a dictionary
+1702066506330:df <- apply(df, 2, function(column) {
+1702066506340:# Use 'match' to find the positions of 'df' elements in 'value.df'
+1702066506350:matched_positions <- match(column, value.df$cards)
+1702066506360:# Replace the positions with the corresponding values from 'value.df'
+1702066506370:value.df$value[matched_positions]
+1702066506380:}) |> as.data.frame()
+1702066506399:# Get duplicates
+1702066506410:df <- lapply(apply(df, 1, table),function(x){table(x) %>% as.list()}) %>%
+1702066506418:rbindlist(fill = T) %>%
+1702066506426:cbind(df, .)
+1702066506677:# Add bets
+1702066506687:df$bet <- sapply(strsplit(data, " "), "[[", 2)
+1702066506707:# Add hand #
+1702066506717:df$hand <- seq(1,nrow(df), 1)
+1702066536343:# Part 2
+1702066536354:# Make Jokers raise the value of the max in 1:5
+1702066536365:df.jokers <- df[apply(df, 1, function(x) any(x == 10)), ]
+1702066536393:# Find most common numbers
+1702066536401:# if there are two twos, reference the higher
+1702066536410:df.hands <- df.jokers[,c(1:5)]
+1702066536418:# Make temp df with jokers converted to best cards
+1702066536429:for(i in 1:nrow(df.hands)){
+1702066536438:target.value <- table(unlist(df.hands[i,])) %>% subset(. == max(.)) %>% subset(names(.) == max(names(.))) %>% names()
+1702066536446:df.hands[i,which(df.hands[i,] == 10)] <- as.numeric(target.value)
+1702066536453:}
+1702066536965:# Get duplicates and add back id and bet info
+1702066536974:df.2 <- apply(apply(df.hands, 1, table),2,  function(x){table(x) %>% as.list()}) %>%
+1702066536982:rbindlist(fill = T) %>%
+1702066536992:cbind(df.jokers[,c(1:5)], .)
+1702066547022:# Part 2
+1702066547029:# Make Jokers raise the value of the max in 1:5
+1702066547043:df.jokers <- df[apply(df, 1, function(x) any(x == 10)), ]
+1702066551050:df.jokers
+1702066558380:# Part 2
+1702066558394:# Make Jokers raise the value of the max in 1:5
+1702066558404:df.jokers <- df[apply(df, 1, function(x) any(x == 10)), ]
+1702066560519:df.jokers
+1702066573025:data <- readLines("data/input_7.txt")
+1702066573043:# Add bets
+1702066573050:hand <- lapply(strsplit(data, " "), "[[", 1)
+1702066573058:# Parse data
+1702066573066:df <- data.frame(do.call("rbind", strsplit(as.character(hand), "",
+1702066573073:fixed = TRUE)))
+1702066573083:# Make df to convert cards to value tier
+1702066573091:cards <- c('A', 'K', 'Q', 'J', 'T', '9', '8', '7', '6', '5', '4', '3', '2')
+1702066573098:value.df <- data.frame(cards = cards, value = rev(seq(1, length(cards), 1)))
+1702066573115:# Replace characters in df, using value.df as a dictionary
+1702066573125:df <- apply(df, 2, function(column) {
+1702066573134:# Use 'match' to find the positions of 'df' elements in 'value.df'
+1702066573144:matched_positions <- match(column, value.df$cards)
+1702066573157:# Replace the positions with the corresponding values from 'value.df'
+1702066573169:value.df$value[matched_positions]
+1702066573179:}) |> as.data.frame()
+1702066573209:# Get duplicates
+1702066573218:df <- lapply(apply(df, 1, table),function(x){table(x) %>% as.list()}) %>%
+1702066573228:rbindlist(fill = T) %>%
+1702066573238:cbind(df, .)
+1702066573393:# Add bets
+1702066573402:df$bet <- sapply(strsplit(data, " "), "[[", 2)
+1702066573418:# Add hand #
+1702066573428:df$hand <- seq(1,nrow(df), 1)
+1702066577286:df
+1702066583131:df[is.na(df)] <- 0
+1702066586957:df
+1702066590242:# Part 2
+1702066590252:# Make Jokers raise the value of the max in 1:5
+1702066590264:df.jokers <- df[apply(df, 1, function(x) any(x == 10)), ]
+1702066592220:df.jokers
+1702066602775:# Find most common numbers
+1702066602793:# if there are two twos, reference the higher
+1702066602814:df.hands <- df.jokers[,c(1:5)]
+1702066603176:# Make temp df with jokers converted to best cards
+1702066603188:for(i in 1:nrow(df.hands)){
+1702066603202:target.value <- table(unlist(df.hands[i,])) %>% subset(. == max(.)) %>% subset(names(.) == max(names(.))) %>% names()
+1702066603211:df.hands[i,which(df.hands[i,] == 10)] <- as.numeric(target.value)
+1702066603221:}
+1702066606083:df.hands
+1702066617173:apply(apply(df.hands, 1, table),2,  function(x){table(x) %>% as.list()})
+1702066625316:apply(df.hands, 1, table)
+1702066636570:lapply(apply(df.hands, 1, table),function(x){table(x) %>% as.list()}) %>%
+1702066636581:rbindlist(fill = T)
+1702066642550:# Get duplicates and add back id and bet info
+1702066642564:df.2 <- lapply(apply(df.hands, 1, table),function(x){table(x) %>% as.list()}) %>%
+1702066642574:rbindlist(fill = T) %>%
+1702066642586:cbind(df.jokers[,c(1:5)], .)
+1702066644464:df.2
+1702066654053:df.2[df.2 == 10] <- 0
+1702066654682:df.2[is.na(df.2)] <- 0
+1702066656593:df.2 <- df.2 %>%
+1702066656607:cbind(df.jokers[,c("bet", "hand")])
+1702066659677:# Merge them back together
+1702066659689:df.2 <- full_join(df[which(!df$hand %in% df.2$hand),],df.2, by = c(colnames(df)[which(colnames(df) %in% colnames(df.2))]))
+1702066660552:df.2[is.na(df.2)] <- 0
+1702066661135:df.ordered.2  <- df.2 |>
+1702066661145:arrange(desc(`5`), desc(`4`), desc(`3`), desc(`2`),
+1702066661209:desc(`1`), desc(X1),  desc(X2),
+1702066661222:desc(X3),  desc(X4),  desc(X5))
+1702066661834:#Set order
+1702066661847:df.ordered.2$rank <- rev(seq(1,nrow(df.ordered.2), 1))
+1702066662563:answer2 <- df.ordered.2 %>%
+1702066662580:mutate(score = as.numeric(bet)*rank) %>%
+1702066662588:pull(score) %>%
+1702066662597:sum()
+1702066663977:answer2
+1702066681232:df.ordered.2
+1702066798454:answer2 <- df.ordered.2 %>%
+1702066798467:mutate(score = as.numeric(bet)*rank) %>%
+1702066798481:pull(score) %>%
+1702066798491:sum()
+1702066798989:answer2
+1702066986412:# Add bets
+1702066986421:hand <- lapply(strsplit(data, " "), "[[", 1)
+1702066986433:# Parse data
+1702066986443:df <- data.frame(do.call("rbind", strsplit(as.character(hand), "",
+1702066986453:fixed = TRUE)))
+1702066986463:# Make df to convert cards to value tier
+1702066986472:cards <- c('A', 'K', 'Q', 'J', 'T', '9', '8', '7', '6', '5', '4', '3', '2')
+1702066986481:value.df <- data.frame(cards = cards, value = rev(seq(1, length(cards), 1)))
+1702066986498:# Replace characters in df, using value.df as a dictionary
+1702066986507:df <- apply(df, 2, function(column) {
+1702066986516:# Use 'match' to find the positions of 'df' elements in 'value.df'
+1702066986526:matched_positions <- match(column, value.df$cards)
+1702066986535:# Replace the positions with the corresponding values from 'value.df'
+1702066986544:value.df$value[matched_positions]
+1702066986553:}) |> as.data.frame()
+1702066986573:# Get duplicates
+1702066986582:df <- lapply(apply(df, 1, table),function(x){table(x) %>% as.list()}) %>%
+1702066986591:rbindlist(fill = T) %>%
+1702066986600:cbind(df, .)
+1702066986796:# Add bets
+1702066986804:df$bet <- sapply(strsplit(data, " "), "[[", 2)
+1702066986820:# Add hand #
+1702066986829:df$hand <- seq(1,nrow(df), 1)
+1702066986843:df[is.na(df)] <- 0
+1702066986850:df.ordered <- df |>
+1702066986859:arrange(`5`, `4`, `3`, `2`, `1`, X1, X2, X3, X4, X5, decreasing = TRUE)
+1702066986877:#arrange(`3`, `2`, `1`, X1, X2, X3, X4, X5, decreasing = TRUE)
+1702066986883:#Set order
+1702066986890:df.ordered$rank <- seq(1,nrow(df.ordered), 1)
+1702066986906:answer1 <- df.ordered %>%
+1702066986914:mutate(score = as.numeric(bet)*rank) %>%
+1702066986924:pull(score) %>%
+1702066986932:sum()
+1702066986945:answer1
+1702066986954:251106089
+1702066986974:# Part 2
+1702066986982:# Make Jokers raise the value of the max in 1:5
+1702066986991:df.jokers <- df[apply(df, 1, function(x) any(x == 10)), ]
+1702066987014:# Find most common numbers
+1702066987023:# if there are two twos, reference the higher
+1702066987031:df.hands <- df.jokers[,c(1:5)]
+1702066987040:# Make temp df with jokers converted to best cards
+1702066987049:for(i in 1:nrow(df.hands)){
+1702066987058:target.value <- table(unlist(df.hands[i,])) %>% subset(. == max(.)) %>% subset(names(.) == max(names(.))) %>% names()
+1702066987067:df.hands[i,which(df.hands[i,] == 10)] <- as.numeric(target.value)
+1702066987077:}
+1702066987193:# Get duplicates and add back id and bet info
+1702066987202:df.2 <- lapply(apply(df.hands, 1, table),function(x){table(x) %>% as.list()}) %>%
+1702066987213:rbindlist(fill = T) %>%
+1702066987223:cbind(df.jokers[,c(1:5)], .)
+1702066987291:df.2[df.2 == 10] <- 0
+1702066987301:df.2[is.na(df.2)] <- 0
+1702066987311:df.2 <- df.2 %>%
+1702066987324:cbind(df.jokers[,c("bet", "hand")])
+1702066987345:# Merge them back together
+1702066987354:df.2 <- full_join(df[which(!df$hand %in% df.2$hand),],df.2, by = c(colnames(df)[which(colnames(df) %in% colnames(df.2))]))
+1702066987376:df.2[is.na(df.2)] <- 0
+1702066987386:# Turn jokers into 0s
+1702066987405:df.ordered.2  <- df.2 |>
+1702066987416:arrange(desc(`5`), desc(`4`), desc(`3`), desc(`2`),
+1702066987428:desc(`1`), desc(X1),  desc(X2),
+1702066987439:desc(X3),  desc(X4),  desc(X5))
+1702066987460:#arrange(`5`, `4`, `3`, `2`, `1`, X1, X2, X3, X4, X5, decreasing = TRUE)
+1702066987475:#Set order
+1702066987483:df.ordered.2$rank <- rev(seq(1,nrow(df.ordered.2), 1))
+1702066987496:answer2 <- df.ordered.2 %>%
+1702066987506:mutate(score = as.numeric(bet)*rank) %>%
+1702066987515:pull(score) %>%
+1702066987524:sum()
+1702066987534:answer2
+1702067050096:df.ordered.2
+1702067060968:View(df.ordered.2)
+1702067078051:View(df)
+1702067214816:data <- readLines("data/input_7.txt")
+1702067214837:# Add bets
+1702067214846:hand <- lapply(strsplit(data, " "), "[[", 1)
+1702067214857:# Parse data
+1702067214869:df <- data.frame(do.call("rbind", strsplit(as.character(hand), "",
+1702067214880:fixed = TRUE)))
+1702067214892:# Make df to convert cards to value tier
+1702067214900:cards <- c('A', 'K', 'Q', 'J', 'T', '9', '8', '7', '6', '5', '4', '3', '2')
+1702067214907:value.df <- data.frame(cards = cards, value = rev(seq(1, length(cards), 1)))
+1702067214919:# Replace characters in df, using value.df as a dictionary
+1702067214929:df <- apply(df, 2, function(column) {
+1702067214939:# Use 'match' to find the positions of 'df' elements in 'value.df'
+1702067214950:matched_positions <- match(column, value.df$cards)
+1702067214960:# Replace the positions with the corresponding values from 'value.df'
+1702067214969:value.df$value[matched_positions]
+1702067214983:}) |> as.data.frame()
+1702067221836:# Add bets
+1702067221846:df$bet <- sapply(strsplit(data, " "), "[[", 2)
+1702067221862:# Add hand #
+1702067221871:df$hand <- seq(1,nrow(df), 1)
+1702067226200:df
+1702067233557:# Make Jokers raise the value of the max in 1:5
+1702067233568:df.jokers <- df[apply(df, 1, function(x) any(x == 10)), ]
+1702067233601:# Find most common numbers
+1702067233610:# if there are two twos, reference the higher
+1702067233618:df.hands <- df.jokers[,c(1:5)]
+1702067233626:# Make temp df with jokers converted to best cards
+1702067233632:for(i in 1:nrow(df.hands)){
+1702067233639:target.value <- table(unlist(df.hands[i,])) %>% subset(. == max(.)) %>% subset(names(.) == max(names(.))) %>% names()
+1702067233645:df.hands[i,which(df.hands[i,] == 10)] <- as.numeric(target.value)
+1702067233653:}
+1702067233767:# Get duplicates and add back id and bet info
+1702067233775:df.2 <- lapply(apply(df.hands, 1, table),function(x){table(x) %>% as.list()}) %>%
+1702067233783:rbindlist(fill = T) %>%
+1702067233793:cbind(df.jokers[,c(1:5)], .)
+1702067233857:df.2[df.2 == 10] <- 0
+1702067233957:df.2[is.na(df.2)] <- 0
+1702067233967:df.2 <- df.2 %>%
+1702067233976:cbind(df.jokers[,c("bet", "hand")])
+1702067233994:# Merge them back together
+1702067234004:df.2 <- full_join(df[which(!df$hand %in% df.2$hand),],df.2, by = c(colnames(df)[which(colnames(df) %in% colnames(df.2))]))
+1702067234024:df.2[is.na(df.2)] <- 0
+1702067234034:# Turn jokers into 0s
+1702067234050:df.ordered.2  <- df.2 |>
+1702067234060:arrange(desc(`5`), desc(`4`), desc(`3`), desc(`2`),
+1702067234070:desc(`1`), desc(X1),  desc(X2),
+1702067234080:desc(X3),  desc(X4),  desc(X5))
+1702067234100:#arrange(`5`, `4`, `3`, `2`, `1`, X1, X2, X3, X4, X5, decreasing = TRUE)
+1702067234117:#Set order
+1702067234127:df.ordered.2$rank <- rev(seq(1,nrow(df.ordered.2), 1))
+1702067234145:answer2 <- df.ordered.2 %>%
+1702067234155:mutate(score = as.numeric(bet)*rank) %>%
+1702067234164:pull(score) %>%
+1702067234175:sum()
+1702067234190:answer2
+1702067394206:data <- c('RL',
+1702067394217:'AAA = (BBB, CCC)',
+1702067394229:'BBB = (DDD, EEE)',
+1702067394239:'CCC = (ZZZ, GGG)',
+1702067394247:'DDD = (DDD, DDD)',
+1702067394256:'EEE = (EEE, EEE)',
+1702067394268:'GGG = (GGG, GGG)',
+1702067394276:'ZZZ = (ZZZ, ZZZ)')
+1702067413196:pattern <- data[[1]]
+1702067427396:nodes <- data[-1]
+1702067460201:str_split(nodes, "(")
+1702067473815:nodes
+1702067566331:# Applying the regex to extract the parts
+1702067566343:extracted_parts <- str_extract_all(nodes, "(\\w+) = \\((\\w+), (\\w+)\\)")
+1702067568061:View(extracted_parts)
+1702067586449:# Applying the regex to extract the parts
+1702067586464:extracted_parts <- str_extract_all(nodes, "(\\w+))")
+1702067601137:# Applying the regex to extract the parts
+1702067601147:extracted_parts <- str_extract_all(nodes, "\\w+")
+1702067603679:View(extracted_parts)
+1702067698741:str_replace_all(pattern, c("R" = 3, "L" = 2))
+1702067709655:str_replace_all(pattern, c("R" = "3", "L" = "2"))
+1702067734519:# Use regex to detect word character sequences
+1702067734533:nodes.extracted <- str_extract_all(nodes, "\\w+")
+1702067735098:pattern.number <- str_replace_all(pattern, c("R" = "3", "L" = "2"))
+1702067794117:print(i)
+1702067795154:for(i in nodes.extracted){
+1702067795167:print(i)
+1702067795179:}
+1702067812887:steps <- 0
+1702067962068:pattern.iteration <- 1
+1702067962407:for(i in nodes.extracted){
+1702067962435:i[[pattern.number[[pattern.iteration]]]]
+1702067962462:}
+1702067992670:nodes.extracted <- str_extract_all(nodes, "\\w+")
+1702067992694:# Turn left/right into usable indexes
+1702067992711:pattern.number <- str_replace_all(pattern, c("R" = "3", "L" = "2"))
+1702067992751:steps <- 0
+1702067992765:pattern.iteration <- 1
+1702067992775:for(i in nodes.extracted){
+1702067992786:i[[as.numeric(pattern.number[[pattern.iteration]])]]
+1702067992799:}
+1702068010304:nodes.extracted[[pattern.number]]
+1702068015978:nodes.extracted[[pattern.number[[pattern.iteration]]]]
+1702068020430:pattern.number[[pattern.iteration]]
+1702068041695:# Turn left/right into usable indexes
+1702068041725:pattern.number <- str_replace_all(pattern, c("R" = "3", "L" = "2")) %>%
+1702068041748:str_split(.,"")
+1702068044953:pattern.number
+1702068087237:pattern.number <- pattern.number[[1]]
+1702068089332:pattern.number
+1702068092498:steps <- 0
+1702068092741:pattern.iteration <- 1
+1702068093132:for(i in nodes.extracted){
+1702068093158:i[[as.numeric(pattern.number[[pattern.iteration]])]]
+1702068093175:}
+1702068097564:nodes.extracted[[pattern.number[[pattern.iteration]]]]
+1702068099536:pattern.number
+1702068101492:pattern.iteration
+1702068106018:pattern.number[[pattern.iteration]]
+1702068123075:# Turn left/right into usable indexes
+1702068123102:pattern.number <- str_replace_all(pattern, c("R" = "3", "L" = "2")) %>%
+1702068123130:str_split(.,"") %>%
+1702068123155:as.numeric()
+1702068123504:pattern.number <- pattern.number[[1]]
+1702068132553:# Turn left/right into usable indexes
+1702068132581:pattern.number <- str_replace_all(pattern, c("R" = "3", "L" = "2")) %>%
+1702068132603:str_split(.,"")
+1702068132995:pattern.number <- pattern.number[[1]] %>% as.numeric()
+1702068134783:pattern.number
+1702068136783:steps <- 0
+1702068137009:pattern.iteration <- 1
+1702068137317:for(i in nodes.extracted){
+1702068137340:i[[as.numeric(pattern.number[[pattern.iteration]])]]
+1702068137359:}
+1702068138691:nodes.extracted[[pattern.number[[pattern.iteration]]]]
+1702068145933:pattern.number[[pattern.iteration]]
+1702068149119:nodes.extracted
+1702133958686:pattern <- data[[1]]
+1702133958696:nodes <- data[-1]
+1702133958705:# Use regex to detect word character sequences
+1702133958715:nodes.extracted <- str_extract_all(nodes, "\\w+")
+1702133958728:# Turn left/right into usable indexes
+1702133958739:pattern.number <- str_replace_all(pattern, c("R" = "3", "L" = "2")) %>%
+1702133958750:str_split(.,"")
+1702133958768:pattern.number <- pattern.number[[1]] %>% as.numeric()
+1702133958783:steps <- 0
+1702133958792:pattern.iteration <- 1
+1702133958805:for(i in nodes.extracted){
+1702133958816:i[[as.numeric(pattern.number[[pattern.iteration]])]]
+1702133958828:}
+1702133958856:nodes.extracted[[pattern.number[[pattern.iteration]]]]
+1702133961395:pattern
+1702133964096:nodes
+1702133966702:nodes.extracted
+1702133975993:# Use regex to detect word character sequences
+1702133976012:nodes.extracted <- str_extract_all(nodes, "\\w+")[2:3]
+1702133977970:nodes.extracted
+1702133999432:str_extract_all
+1702134002435:# Turn left/right into usable indexes
+1702134002449:pattern.number <- str_replace_all(pattern, c("R" = "3", "L" = "2")) %>%
+1702134002464:str_split(.,"")
+1702134003590:pattern.number
+1702134008210:pattern.number <- pattern.number[[1]] %>% as.numeric()
+1702134010365:steps <- 0
+1702134010687:pattern.iteration <- 1
+1702134011056:for(i in nodes.extracted){
+1702134011069:i[[as.numeric(pattern.number[[pattern.iteration]])]]
+1702134011080:}
+1702134016954:nodes.extracted[[pattern.number[[pattern.iteration]]]]
+1702134020010:pattern.number
+1702134029192:pattern.iteration
+1702134036819:nodes.extracted
+1702134113724:names(nodes.extracted) <- lapply(str_extract_all(nodes, "\\w+"), "[[", 1)
+1702134117820:nodes.extracted
+1702134121362:# Use regex to detect word character sequences
+1702134121376:nodes.extracted <- str_extract_all(nodes, "\\w+")
+1702134121614:# Turn left/right into usable indexes
+1702134121629:pattern.number <- str_replace_all(pattern, c("R" = "3", "L" = "2")) %>%
+1702134121639:str_split(.,"")
+1702134121792:pattern.number <- pattern.number[[1]] %>% as.numeric()
+1702134122509:names(nodes.extracted) <- lapply(str_extract_all(nodes, "\\w+"), "[[", 1)
+1702134124591:nodes.extracted
+1702134134087:nodes.extracted
+1702134140817:print(i)
+1702134143249:pattern.iteration <- 1
+1702134143527:for(i in nodes.extracted){
+1702134143552:print(i)
+1702134143579:i[[as.numeric(pattern.number[[pattern.iteration]])]]
+1702134143595:}
+1702134183723:pattern.number
+1702134288440:nodes.extracted[[1]]
+1702134290822:current_node
+1702134383864:names(nodes.extracted)
+1702134398740:current_node
+1702134400516:current_node <- nodes.extracted[[1]]
+1702134401933:current_node
+1702134491216:steps + 1 / length(steps)
+1702134495197:length(steps)
+1702134510055:length(pattern.number)
+1702134514100:steps + 1 / length(pattern.number)
+1702134602011:# Track which step we're on
+1702134602050:steps <- steps + 1 / length(pattern.number) %% 1
+1702134604145:steps
+1702134607485:length(pattern.number) %% 1
+1702134610267:length(pattern.number)
+1702134613854:length(pattern.number) %% 2
+1702134621771:# Track which step we're on
+1702134621780:steps <- steps + 1 / length(pattern.number) %% 1
+1702134710452:for(i in 1:10){
+1702134710466:print(pattern.number[[i]])
+1702134710477:}
+1702134872228:for(i in 1:10){
+1702134872240:index <- (i - 1) %% length(pattern.number) + 1
+1702134872252:# Access the element
+1702134872261:current_element <- pattern.number[index]
+1702134872271:print(current_element)
+1702134872287:}
+1702134941448:current_node <- nodes.extracted[[1]]
+1702134942345:current_node
+1702135021187:names(nodes.extracted) <- lapply(str_extract_all(nodes, "\\w+"), "[[", 1)
+1702135021198:steps <- 0
+1702135021208:pattern.iteration <- 1
+1702135021219:current_node <- nodes.extracted[[1]]
+1702135021230:while(next_node != "ZZZ"){
+1702135021241:# Track which step we're on
+1702135021252:index <- (i - 1) %% length(pattern.number) + 1
+1702135021261:# Access the element
+1702135021270:current_element <- pattern.number[index]
+1702135021279:# apply steps to current itteration -> find next
+1702135021287:next_node <- current_node[[current_element]]
+1702135021295:current_node <- nodes.extracted[[next_node]]
+1702135021303:steps <- steps + 1
+1702135021313:}
+1702135068177:current_node[["ZZZ"]]
+1702135070992:current_node <- nodes.extracted[[1]]
+1702135072218:current_node
+1702135074769:current_node[["CCC"]]
+1702135078675:current_node["CCC"]
+1702135082025:current_node["CCC"]
+1702135088563:current_node[[2]]
+1702135090726:current_node[[3]]
+1702135140116:steps <- 0
+1702135140129:pattern.iteration <- 1
+1702135140154:current_node <- nodes.extracted[[1]]
+1702135140172:while(next_node != "ZZZ"){
+1702135140182:steps <- steps + 1
+1702135140193:# Track which step we're on
+1702135140204:index <- (steps - 1) %% length(pattern.number) + 1
+1702135140214:# Access the element
+1702135140224:current_element <- pattern.number[index]
+1702135140235:# apply steps to current itteration -> find next
+1702135140245:next_node <- current_node[[current_element]]
+1702135140254:current_node <- nodes.extracted[[next_node]]
+1702135140270:}
+1702135163846:steps <- 0
+1702135163857:pattern.iteration <- 1
+1702135163867:current_node <- nodes.extracted[[1]]
+1702135163883:while(next_node != "ZZZ"){
+1702135163895:steps <- steps + 1
+1702135163904:print(steps)
+1702135163914:# Track which step we're on
+1702135163924:index <- (steps - 1) %% length(pattern.number) + 1
+1702135163933:print(index)
+1702135163945:# Access the element
+1702135163955:current_element <- pattern.number[index]
+1702135163964:print(current_element)
+1702135163974:# apply steps to current itteration -> find next
+1702135163983:next_node <- current_node[[current_element]]
+1702135163990:current_node <- nodes.extracted[[next_node]]
+1702135164001:}
+1702135186802:next_node = NA
+1702135187140:while(next_node != "ZZZ"){
+1702135187159:steps <- steps + 1
+1702135187169:print(steps)
+1702135187181:# Track which step we're on
+1702135187192:index <- (steps - 1) %% length(pattern.number) + 1
+1702135187203:print(index)
+1702135187213:# Access the element
+1702135187224:current_element <- pattern.number[index]
+1702135187234:print(current_element)
+1702135187244:# apply steps to current itteration -> find next
+1702135187257:next_node <- current_node[[current_element]]
+1702135187267:current_node <- nodes.extracted[[next_node]]
+1702135187284:}
+1702135200919:next_node = 111
+1702135201127:while(next_node != "ZZZ"){
+1702135201144:steps <- steps + 1
+1702135201162:print(steps)
+1702135201173:# Track which step we're on
+1702135201183:index <- (steps - 1) %% length(pattern.number) + 1
+1702135201192:print(index)
+1702135201201:# Access the element
+1702135201210:current_element <- pattern.number[index]
+1702135201220:print(current_element)
+1702135201229:# apply steps to current itteration -> find next
+1702135201239:next_node <- current_node[[current_element]]
+1702135201248:current_node <- nodes.extracted[[next_node]]
+1702135201264:}
+1702135262774:names(nodes.extracted) <- lapply(str_extract_all(nodes, "\\w+"), "[[", 1)
+1702135262783:steps <- 0
+1702135262791:pattern.iteration <- 1
+1702135262799:current_node <- nodes.extracted[[1]]
+1702135262808:next_node = 111
+1702135262818:while(next_node != "ZZZ"){
+1702135262826:steps <- steps + 1
+1702135262836:print(steps)
+1702135262845:# Track which step we're on
+1702135262854:index <- (steps - 1) %% length(pattern.number) + 1
+1702135262863:print(index)
+1702135262872:# Access the element
+1702135262882:current_element <- pattern.number[index]
+1702135262890:print(current_element)
+1702135262899:# apply steps to current itteration -> find next
+1702135262906:next_node <- current_node[[current_element]]
+1702135262913:print(next_node)
+1702135262921:current_node <- nodes.extracted[[next_node]]
+1702135262947:}
+1702135328090:data <- c('LLR',
+1702135328102:'AAA = (BBB, BBB)',
+1702135328116:'BBB = (AAA, ZZZ)',
+1702135328134:'ZZZ = (ZZZ, ZZZ)')
+1702135328506:pattern <- data[[1]]
+1702135328892:nodes <- data[-1]
+1702135329385:# Use regex to detect word character sequences
+1702135329403:nodes.extracted <- str_extract_all(nodes, "\\w+")
+1702135329960:# Turn left/right into usable indexes
+1702135329974:pattern.number <- str_replace_all(pattern, c("R" = "3", "L" = "2")) %>%
+1702135329985:str_split(.,"")
+1702135330591:pattern.number <- pattern.number[[1]] %>% as.numeric()
+1702135331285:names(nodes.extracted) <- lapply(str_extract_all(nodes, "\\w+"), "[[", 1)
+1702135331580:steps <- 0
+1702135331805:pattern.iteration <- 1
+1702135332033:current_node <- nodes.extracted[[1]]
+1702135332969:next_node = 111
+1702135333194:while(next_node != "ZZZ"){
+1702135333204:steps <- steps + 1
+1702135333216:print(steps)
+1702135333227:# Track which step we're on
+1702135333236:index <- (steps - 1) %% length(pattern.number) + 1
+1702135333246:print(index)
+1702135333256:# Access the element
+1702135333267:current_element <- pattern.number[index]
+1702135333276:print(current_element)
+1702135333287:# apply steps to current itteration -> find next
+1702135333298:next_node <- current_node[[current_element]]
+1702135333309:print(next_node)
+1702135333320:current_node <- nodes.extracted[[next_node]]
+1702135333345:}
+1702135367335:data <- readLines("data/input_8.txt")
+1702135372810:pattern <- data[[1]]
+1702135372819:nodes <- data[-1]
+1702135372829:# Use regex to detect word character sequences
+1702135372837:nodes.extracted <- str_extract_all(nodes, "\\w+")
+1702135372846:# Turn left/right into usable indexes
+1702135372854:pattern.number <- str_replace_all(pattern, c("R" = "3", "L" = "2")) %>%
+1702135372864:str_split(.,"")
+1702135372880:pattern.number <- pattern.number[[1]] %>% as.numeric()
+1702135372896:# Make nodes names the first value
+1702135372911:names(nodes.extracted) <- lapply(str_extract_all(nodes, "\\w+"), "[[", 1)
+1702135386773:pattern
+1702135397614:data
+1702135435808:data <- data[which(data != "")]
+1702135438004:data
+1702135446364:pattern <- data[[1]]
+1702135446554:nodes <- data[-1]
+1702135446725:# Use regex to detect word character sequences
+1702135446739:nodes.extracted <- str_extract_all(nodes, "\\w+")
+1702135446922:# Turn left/right into usable indexes
+1702135446936:pattern.number <- str_replace_all(pattern, c("R" = "3", "L" = "2")) %>%
+1702135446947:str_split(.,"")
+1702135447576:pattern.number <- pattern.number[[1]] %>% as.numeric()
+1702135448039:names(nodes.extracted) <- lapply(str_extract_all(nodes, "\\w+"), "[[", 1)
+1702135448388:steps <- 0
+1702135448612:pattern.iteration <- 1
+1702135448827:current_node <- nodes.extracted[[1]]
+1702135449085:next_node = 111
+1702135449434:while(next_node != "ZZZ"){
+1702135449446:steps <- steps + 1
+1702135449458:print(steps)
+1702135449469:# Track which step we're on
+1702135449482:index <- (steps - 1) %% length(pattern.number) + 1
+1702135449492:print(index)
+1702135449502:# Access the element
+1702135449512:current_element <- pattern.number[index]
+1702135449525:print(current_element)
+1702135449536:# apply steps to current itteration -> find next
+1702135449545:next_node <- current_node[[current_element]]
+1702135449555:print(next_node)
+1702135449562:current_node <- nodes.extracted[[next_node]]
+1702135449575:}
+1702135505908:nodes.extracted[["AAA"]]
+1702135513073:current_node <- nodes.extracted[["AAA"]]
+1702135518005:names(nodes.extracted) <- lapply(str_extract_all(nodes, "\\w+"), "[[", 1)
+1702135518014:steps <- 0
+1702135518023:pattern.iteration <- 1
+1702135518030:current_node <- nodes.extracted[["AAA"]]
+1702135518037:next_node = 111
+1702135518045:while(next_node != "ZZZ"){
+1702135518053:steps <- steps + 1
+1702135518060:print(steps)
+1702135518068:# Track which step we're on
+1702135518077:index <- (steps - 1) %% length(pattern.number) + 1
+1702135518085:print(index)
+1702135518098:# Access the element
+1702135518107:current_element <- pattern.number[index]
+1702135518118:print(current_element)
+1702135518130:# apply steps to current itteration -> find next
+1702135518140:next_node <- current_node[[current_element]]
+1702135518152:print(next_node)
+1702135518163:current_node <- nodes.extracted[[next_node]]
+1702135518181:}
+1702135960171:data <- c('LR',
+1702135960183:'11A = (11B, XXX)',
+1702135960194:'11B = (XXX, 11Z)',
+1702135960205:'11Z = (11B, XXX)',
+1702135960219:'22A = (22B, XXX)',
+1702135960237:'22B = (22C, 22C)',
+1702135960250:'22C = (22Z, 22Z)',
+1702135960261:'22Z = (22B, 22B)',
+1702135960273:'XXX = (XXX, XXX)')
+1702135961917:# Function to encapsulate the while loop logic
+1702135961929:process_node <- function(start_node) {
+1702135961940:steps <- 0
+1702135961951:pattern_iteration <- 1
+1702135961963:current_node <- nodes.extracted[[start_node]]
+1702135961973:next_node <- "111" # Initial value
+1702135961992:while(next_node != "ZZZ" && !is.null(current_node)) {
+1702135962002:steps <- steps + 1
+1702135962012:index <- (steps - 1) %% length(pattern.number) + 1
+1702135962022:current_element <- pattern.number[index]
+1702135962033:next_node <- current_node[[current_element]] %>% unlist %>% .[1]
+1702135962044:current_node <- nodes.extracted[[next_node]]
+1702135962054:}
+1702135962073:return(steps)
+1702135962083:}
+1702135962783:# Create a list of nodes ending with 'A'
+1702135962796:nodes_ending_with_A <- names(nodes.extracted)[grepl("A$", names(nodes.extracted))]
+1702135963316:# Apply the function to each node in the list
+1702135963330:steps_record <- lapply(nodes_ending_with_A, process_node)
+1702136008686:data <- c('LR',
+1702136008696:'11A = (11B, XXX)',
+1702136008706:'11B = (XXX, 11Z)',
+1702136008714:'11Z = (11B, XXX)',
+1702136008722:'22A = (22B, XXX)',
+1702136008730:'22B = (22C, 22C)',
+1702136008739:'22C = (22Z, 22Z)',
+1702136008747:'22Z = (22B, 22B)',
+1702136008755:'XXX = (XXX, XXX)')
+1702136008769:data <- data[which(data != "")]
+1702136008777:pattern <- data[[1]]
+1702136008785:nodes <- data[-1]
+1702136008793:# Use regex to detect word character sequences
+1702136008802:nodes.extracted <- str_extract_all(nodes, "\\w+")
+1702136008809:# Turn left/right into usable indexes
+1702136008817:pattern.number <- str_replace_all(pattern, c("R" = "3", "L" = "2")) %>%
+1702136008825:str_split(.,"")
+1702136008836:pattern.number <- pattern.number[[1]] %>% as.numeric()
+1702136008850:# Make nodes names the first value
+1702136008857:names(nodes.extracted) <- lapply(str_extract_all(nodes, "\\w+"), "[[", 1)
+1702136011070:View(nodes.extracted)
+1702136013797:View(extracted_parts)
+1702136035290:# Make nodes names the first value
+1702136035300:names(nodes.extracted) <- lapply(str_extract_all(nodes, "\\w+"), "[[", 1)
+1702136037511:# Function to encapsulate the while loop logic
+1702136037521:process_node <- function(start_node) {
+1702136037534:steps <- 0
+1702136037543:pattern_iteration <- 1
+1702136037551:current_node <- nodes.extracted[[start_node]]
+1702136037558:next_node <- "111" # Initial value
+1702136037571:while(next_node != "ZZZ" && !is.null(current_node)) {
+1702136037580:steps <- steps + 1
+1702136037591:index <- (steps - 1) %% length(pattern.number) + 1
+1702136037601:current_element <- pattern.number[index]
+1702136037610:next_node <- current_node[[current_element]] %>% unlist %>% .[1]
+1702136037619:current_node <- nodes.extracted[[next_node]]
+1702136037628:}
+1702136037644:return(steps)
+1702136037654:}
+1702136038456:# Create a list of nodes ending with 'A'
+1702136038469:nodes_ending_with_A <- names(nodes.extracted)[grepl("A$", names(nodes.extracted))]
+1702136039532:# Apply the function to each node in the list
+1702136039546:steps_record <- lapply(nodes_ending_with_A, process_node)
+1702136064216:nodes_ending_with_A
+1702136150792:data <- c('LR',
+1702136150802:'11A = (11B, XXX)',
+1702136150812:'11B = (XXX, 11Z)',
+1702136150822:'11Z = (11B, XXX)',
+1702136150834:'22A = (22B, XXX)',
+1702136150844:'22B = (22C, 22C)',
+1702136150853:'22C = (22Z, 22Z)',
+1702136150864:'22Z = (22B, 22B)',
+1702136150873:'XXX = (XXX, XXX)')
+1702136150889:data <- data[which(data != "")]
+1702136150898:pattern <- data[[1]]
+1702136150908:nodes <- data[-1]
+1702136150918:# Use regex to detect word character sequences
+1702136150927:nodes.extracted <- str_extract_all(nodes, "\\w+")
+1702136150936:# Turn left/right into usable indexes
+1702136150945:pattern.number <- str_replace_all(pattern, c("R" = "3", "L" = "2")) %>%
+1702136150956:str_split(.,"")
+1702136150974:pattern.number <- pattern.number[[1]] %>% as.numeric()
+1702136150991:# Make nodes names the first value
+1702136151002:names(nodes.extracted) <- lapply(str_extract_all(nodes, "\\w+"), "[[", 1)
+1702136151013:# Function to encapsulate the while loop logic
+1702136151024:process_node <- function(start_node) {
+1702136151034:steps <- 0
+1702136151045:pattern_iteration <- 1
+1702136151058:current_node <- nodes.extracted[[start_node]]
+1702136151069:next_node <- "111" # Initial value
+1702136151086:while(!(next_node %in% nodes_ending_with_Z) && !is.null(current_node)) {
+1702136151096:steps <- steps + 1
+1702136151106:index <- (steps - 1) %% length(pattern.number) + 1
+1702136151116:current_element <- pattern.number[index]
+1702136151126:next_node <- current_node[[current_element]] %>% unlist %>% .[1]
+1702136151137:current_node <- nodes.extracted[[next_node]]
+1702136151148:}
+1702136151166:return(steps)
+1702136151176:}
+1702136151197:# Create a list of nodes ending with 'A'
+1702136151208:nodes_ending_with_A <- names(nodes.extracted)[grepl("A$", names(nodes.extracted))]
+1702136151219:nodes_ending_with_Z <- names(nodes.extracted)[grepl("Z$", names(nodes.extracted))]
+1702136156037:# Apply the function to each node in the list
+1702136156048:steps_record <- lapply(nodes_ending_with_A, process_node)
+1702136156841:# Convert the list to a named vector
+1702136156853:steps_record <- setNames(unlist(steps_record), nodes_ending_with_A)
+1702136157522:# Output the results
+1702136157541:steps_record
+1702136196130:steps_record
+1702136201208:# Apply the function to each node in the list
+1702136201219:steps_record <- lapply(nodes_ending_with_A, process_node)
+1702136202104:steps_record
+1702136209451:# Convert the list to a named vector
+1702136209463:steps_record <- unlist(steps_record)
+1702136211170:steps_record
+1702136220499:lcm_vector(steps_record)
+1702136222705:lcm_vector <- function(x) Reduce(lcm, x)
+1702136223042:lcm_vector(steps_record)
+1702136231729:# Convert the list to a named vector
+1702136231741:steps_record <- unlist(steps_record)
+1702136233383:steps_record
+1702136235103:lcm_vector <- function(x) Reduce(lcm, x)
+1702136235363:lcm_vector(steps_record)
+1702136240004:lcm
+1702136317688:lcm_of_steps <- if (length(steps_values) > 1) {
+1702136317700:Reduce(gtools::lcm, steps_values)
+1702136317710:} else {
+1702136317721:steps_values[1]
+1702136317732:}
+1702136331100:# Convert the list to a named vector
+1702136331113:steps_record <- unlist(steps_record)
+1702136331492:lcm_of_steps <- if (length(steps_record) > 1) {
+1702136331504:Reduce(gtools::lcm, steps_record)
+1702136331515:} else {
+1702136331525:steps_record[1]
+1702136331535:}
+1702136341496:library(gtools)
+1702136422916:install.packages("gtools")
+1702136427986:library(gtools)
+1702136455942:Reduce(lcm, steps_record)
+1702136465009:steps_record
+1702136466698:find_lcm <- function(numbers) {
+1702136466710:# Reduce the list using the lcm function from gtools
+1702136466720:Reduce(lcm, numbers)
+1702136466730:}
+1702136467138:# Example usage
+1702136467150:numbers <- c(12, 18, 24)  # Example list of numbers
+1702136467697:lcm_result <- find_lcm(numbers)
+1702136488355:steps_record[3] <- 4
+1702136490568:find_lcm <- function(numbers) {
+1702136490581:# Reduce the list using the lcm function from gtools
+1702136490593:Reduce(lcm, numbers)
+1702136490605:}
+1702136490793:# Example usage
+1702136490804:numbers <- c(12, 18, 24)  # Example list of numbers
+1702136491277:lcm_result <- find_lcm(numbers)
+1702136498662:# Apply the function to each node in the list
+1702136498673:steps_record <- lapply(nodes_ending_with_A, process_node)
+1702136498688:# Convert the list to a named vector
+1702136498697:steps_record <- unlist(steps_record)
+1702136498707:steps_record
+1702136528657:install.packages("numbers")
+1702136537526:library(numbers)
+1702136552997:numbers::mLCM(c(20,50,75))
+1702136556567:numbers::mLCM(steps_record)
+1702136571829:data <- c('LLR',
+1702136571841:'AAA = (BBB, BBB)',
+1702136571851:'BBB = (AAA, ZZZ)',
+1702136571860:'ZZZ = (ZZZ, ZZZ)')
+1702136573212:data <- readLines("data/input_8.txt")
+1702136577850:data <- data[which(data != "")]
+1702136577860:pattern <- data[[1]]
+1702136577870:nodes <- data[-1]
+1702136577880:# Use regex to detect word character sequences
+1702136577889:nodes.extracted <- str_extract_all(nodes, "\\w+")
+1702136577899:# Turn left/right into usable indexes
+1702136577910:pattern.number <- str_replace_all(pattern, c("R" = "3", "L" = "2")) %>%
+1702136577920:str_split(.,"")
+1702136577936:pattern.number <- pattern.number[[1]] %>% as.numeric()
+1702136577952:# Make nodes names the first value
+1702136577962:names(nodes.extracted) <- lapply(str_extract_all(nodes, "\\w+"), "[[", 1)
+1702136577972:# Function to encapsulate the while loop logic
+1702136577982:process_node <- function(start_node) {
+1702136577993:steps <- 0
+1702136578003:pattern_iteration <- 1
+1702136578012:current_node <- nodes.extracted[[start_node]]
+1702136578022:next_node <- "111" # Initial value
+1702136578043:while(!(next_node %in% nodes_ending_with_Z) && !is.null(current_node)) {
+1702136578053:steps <- steps + 1
+1702136578065:index <- (steps - 1) %% length(pattern.number) + 1
+1702136578076:current_element <- pattern.number[index]
+1702136578087:next_node <- current_node[[current_element]] %>% unlist %>% .[1]
+1702136578097:current_node <- nodes.extracted[[next_node]]
+1702136578107:}
+1702136578126:return(steps)
+1702136578138:}
+1702136578154:# Create a list of nodes ending with 'A'
+1702136578161:nodes_ending_with_A <- names(nodes.extracted)[grepl("A$", names(nodes.extracted))]
+1702136578171:nodes_ending_with_Z <- names(nodes.extracted)[grepl("Z$", names(nodes.extracted))]
+1702136578187:# Apply the function to each node in the list
+1702136578195:steps_record <- lapply(nodes_ending_with_A, process_node)
+1702136578886:# Convert the list to a named vector
+1702136578900:steps_record <- unlist(steps_record)
+1702136578916:numbers::mLCM(steps_record)
+1702136591469:answer2 <- numbers::mLCM(steps_record)
+1702136593807:answer2
+1702136624428:13740108158591 == answer2
