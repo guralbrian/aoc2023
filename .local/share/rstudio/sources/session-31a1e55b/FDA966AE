@@ -1,0 +1,27 @@
+{
+    "id": "FDA966AE",
+    "path": "~/scripts/advent_9.R",
+    "project_path": null,
+    "type": "r_source",
+    "hash": "0",
+    "contents": "",
+    "dirty": false,
+    "created": 1702215895983.0,
+    "source_on_save": false,
+    "relative_order": 4,
+    "properties": {
+        "tempName": "Untitled1",
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "30,21",
+        "scrollLine": "25"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1702222100,
+    "encoding": "",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1702222100770,
+    "read_only": false,
+    "read_only_alternatives": []
+}

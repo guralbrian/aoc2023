@@ -1,492 +1,3 @@
-# Replace the positions with the corresponding values from 'value.df'
-value.df$value[matched_positions]
-}) |> as.data.frame()
-# Get duplicates
-df <- lapply(apply(df, 1, table),function(x){table(x) %>% as.list()}) %>%
-rbindlist(fill = T) %>%
-cbind(df, .)
-# Add bets
-df$bet <- sapply(strsplit(data, " "), "[[", 2)
-# Add hand #
-df$hand <- seq(1,nrow(df), 1)
-df[is.na(df)] <- 0
-df.ordered <- df |>
-#arrange(`5`, `4`, `3`, `2`, `1`, X1, X2, X3, X4, X5, decreasing = TRUE)
-arrange(`3`, `2`, `1`, X1, X2, X3, X4, X5, decreasing = TRUE)
-#Set order
-df.ordered$rank <- seq(1,nrow(df.ordered), 1)
-answer1 <- df.ordered %>%
-mutate(score = as.numeric(bet)*rank) %>%
-pull(score) %>%
-sum()
-# Make Jokers raise the value of the max in 1:5
-df.jokers <- df[apply(df, 1, function(x) any(x == 10)), ]
-# Find most common numbers
-# if there are two twos, reference the higher
-df.hands <- df.jokers[,c(1:5)]
-# Make temp df with jokers converted to best cards
-for(i in 1:nrow(df.hands)){
-target.value <- table(unlist(df.hands[i,])) %>% subset(. == max(.)) %>% subset(names(.) == max(names(.))) %>% names()
-df.hands[i,which(df.hands[i,] == 10)] <- as.numeric(target.value)
-}
-df.hands <- as.numeric(df.hands)
-df.hands
-df.hands
-apply
-# Get duplicates and add back id and bet info
-df.2 <- apply(apply(df.hands, 1, table),2,  function(x){table(x) %>% as.list()}) %>%
-rbindlist(fill = T) %>%
-cbind(df.jokers[,c(1:5)], .)
-df.2[df.2 == 10] <- 0
-df.2[is.na(df.2)] <- 0
-df.2 <- df.2 %>%
-cbind(df.jokers[,c("bet", "hand")])
-df.2
-rbind(df.2, df[!apply(df, 1, function(x) any(x == 10)), ])
-df.2
-df
-left_join(df,df.2, by = "hand")
-df
-left_join(df,df.2, by = c("hand","X1"))
-left_join(df,df.2, by = c(colnames(df)[which(colnames(df) %in% colnames(df))]))
-colnames(df)[which(colnames(df) %in% colnames(df))]
-left_join(df,df.2, by = c(colnames(df)[which(colnames(df) %in% colnames(df.2))]))
-df
-right_join(df,df.2, by = c(colnames(df)[which(colnames(df) %in% colnames(df.2))]))
-left_join(df,df.2, by = c(colnames(df)[which(colnames(df) %in% colnames(df.2))]))
-left_join(df[which(!df$hand %in% df.2$hand),],df.2, by = c(colnames(df)[which(colnames(df) %in% colnames(df.2))]))
-right_join(df[which(!df$hand %in% df.2$hand),],df.2, by = c(colnames(df)[which(colnames(df) %in% colnames(df.2))]))
-join(df[which(!df$hand %in% df.2$hand),],df.2, by = c(colnames(df)[which(colnames(df) %in% colnames(df.2))]))
-merge(df[which(!df$hand %in% df.2$hand),],df.2, by = c(colnames(df)[which(colnames(df) %in% colnames(df.2))]))
-full_join(df[which(!df$hand %in% df.2$hand),],df.2, by = c(colnames(df)[which(colnames(df) %in% colnames(df.2))]))
-df.2 <- full_join(df[which(!df$hand %in% df.2$hand),],df.2, by = c(colnames(df)[which(colnames(df) %in% colnames(df.2))]))
-df.ordered.2 <- df.2 |>
-#arrange(`5`, `4`, `3`, `2`, `1`, X1, X2, X3, X4, X5, decreasing = TRUE)
-arrange(`4`, `2`, `1`, X1, X2, X3, X4, X5, decreasing = TRUE)
-df.ordered.2
-#Set order
-df.ordered.2$rank <- seq(1,nrow(df.ordered.2), 1)
-answer2 <- df.ordered.2 %>%
-mutate(score = as.numeric(bet)*rank) %>%
-pull(score) %>%
-sum()
-answer2
-answer2
-df.ordered.2
-df.ordered.2 <- df.2 |>
-#arrange(`5`, `4`, `3`, `2`, `1`, X1, X2, X3, X4, X5, decreasing = TRUE)
-arrange(`4`, `2`, `1`, X1, X2, X3, X4, X5, decreasing = TRUE)
-df.2
-df.2 |>
-arrange(`4`, `2`, `1`, X1, X2, X3, X4, X5, decreasing = TRUE)
-df.ordered.2 <- df.2 |>
-arrange(`4`, `3`,`2`, `1`, X1, X2, X3, X4, X5, decreasing = TRUE)
-df.ordered.2
-str(df.ordered.2)
-df.2[is.na(df.2)] <- 0
-df.ordered.2 <- df.2 |>
-arrange(`4`, `3`,`2`, `1`, X1, X2, X3, X4, X5, decreasing = TRUE)
-df.ordered.2
-df.ordered.2 <- df.2 |>
-arrange(`4`, `3`,`2`, `1`, X1, X2, X3, X4, X5, decreasing = TRUE)
-df.ordered.2
-df.ordered.2 <- df.2 |>
-arrange(`4`, `3`,`2`, `1`, X1, X2, X3, X4, X5)
-df.ordered.2
-df.ordered.2 <- df.2 |>
-arrange(`4`)
-df.ordered.2
-df.ordered.2 <- df.2 |>
-arrange(`4`, decreasing = TRUE)
-df.ordered.2 <- #
-df.2 |>
-arrange(`4`, decreasing = TRUE)
-df.2 |>
-arrange(`4`, decreasing = TRUE)
-colnames(df.2)
-df.2 |>
-arrange(4, decreasing = TRUE)
-df.2 |>
-arrange("4", decreasing = TRUE)
-df.2 |>
-arrange(`4`, decreasing = TRUE)
-df.2 |>
-arrange(X1, decreasing = TRUE)
-df.2 |>
-arrange(X1)
-?arrange
-df.2 |>
-arrange(X1, desc)
-df.2 |>
-arrange(X1, desc = T)
-df.2 |>
-arrange(X2, desc = T)
-df.2 |>
-arrange(X3, desc = T)
-# Turn jokers into 0s
-as.numeric(df.2$X1)
-# Turn jokers into 0s
-as.numeric(df.2[,c(1:3)])
-# Turn jokers into 0s
-numeric(df.2[,c(1:3)])
-df.ordered.2
-View(df.2)
-df.2 |>
-arrange(desc(X3))
-df.2 |>
-arrange(desc(X3, X1))
-df.2 |>
-arrange(X3, decreasing = TRUE)
-df.2 |>
-arrange(desc(`4`))
-df.2 |>
-arrange(desc(`4`), desc(`3`), desc(`2`),
-desc(`1`), desc(X1),  desc(X2),
-desc(X3),  desc(X4),  desc(X5))
-df.ordered.2  <- df.2 |>
-arrange(desc(`4`), desc(`3`), desc(`2`),
-desc(`1`), desc(X1),  desc(X2),
-desc(X3),  desc(X4),  desc(X5))
-#Set order
-df.ordered.2$rank <- seq(1,nrow(df.ordered.2), 1)
-answer2 <- df.ordered.2 %>%
-mutate(score = as.numeric(bet)*rank) %>%
-pull(score) %>%
-sum()
-answer2
-df.ordered.2  <- df.2 |>
-arrange(desc(`4`), desc(`3`), desc(`2`),
-desc(`1`), desc(X1),  desc(X2),
-desc(X3),  desc(X4),  desc(X5))
-#Set order
-df.ordered.2$rank <- seq(1,nrow(df.ordered.2), 1)
-answer2 <- df.ordered.2 %>%
-mutate(score = as.numeric(bet)*rank) %>%
-pull(score) %>%
-sum()
-df.ordered.2
-df.ordered.2  <- df.2 |>
-arrange(desc(`4`), desc(`3`), desc(`2`),
-desc(`1`))#, desc(X1),  desc(X2),
-df.ordered.2
-df.ordered.2  <- df.2 |>
-arrange(desc(`4`), desc(`3`), desc(`2`),
-desc(`1`), desc(X1),  desc(X2),
-desc(X3),  desc(X4),  desc(X5))
-#Set order
-df.ordered.2$rank <- seq(1,nrow(df.ordered.2), 1)
-df.ordered.2
-#Set order
-df.ordered.2$rank <- rev(seq(1,nrow(df.ordered.2), 1))
-answer2 <- df.ordered.2 %>%
-mutate(score = as.numeric(bet)*rank) %>%
-pull(score) %>%
-sum()
-answer2
-data <- readLines("data/input_7.txt")
-data <- readLines("data/input_7.txt")
-# Add bets
-hand <- lapply(strsplit(data, " "), "[[", 1)
-# Parse data
-df <- data.frame(do.call("rbind", strsplit(as.character(hand), "",
-fixed = TRUE)))
-# Make df to convert cards to value tier
-cards <- c('A', 'K', 'Q', 'J', 'T', '9', '8', '7', '6', '5', '4', '3', '2')
-value.df <- data.frame(cards = cards, value = rev(seq(1, length(cards), 1)))
-# Replace characters in df, using value.df as a dictionary
-df <- apply(df, 2, function(column) {
-# Use 'match' to find the positions of 'df' elements in 'value.df'
-matched_positions <- match(column, value.df$cards)
-# Replace the positions with the corresponding values from 'value.df'
-value.df$value[matched_positions]
-}) |> as.data.frame()
-# Get duplicates
-df <- lapply(apply(df, 1, table),function(x){table(x) %>% as.list()}) %>%
-rbindlist(fill = T) %>%
-cbind(df, .)
-# Add bets
-df$bet <- sapply(strsplit(data, " "), "[[", 2)
-# Add hand #
-df$hand <- seq(1,nrow(df), 1)
-# Part 2
-# Make Jokers raise the value of the max in 1:5
-df.jokers <- df[apply(df, 1, function(x) any(x == 10)), ]
-# Find most common numbers
-# if there are two twos, reference the higher
-df.hands <- df.jokers[,c(1:5)]
-# Make temp df with jokers converted to best cards
-for(i in 1:nrow(df.hands)){
-target.value <- table(unlist(df.hands[i,])) %>% subset(. == max(.)) %>% subset(names(.) == max(names(.))) %>% names()
-df.hands[i,which(df.hands[i,] == 10)] <- as.numeric(target.value)
-}
-# Get duplicates and add back id and bet info
-df.2 <- apply(apply(df.hands, 1, table),2,  function(x){table(x) %>% as.list()}) %>%
-rbindlist(fill = T) %>%
-cbind(df.jokers[,c(1:5)], .)
-# Part 2
-# Make Jokers raise the value of the max in 1:5
-df.jokers <- df[apply(df, 1, function(x) any(x == 10)), ]
-df.jokers
-# Part 2
-# Make Jokers raise the value of the max in 1:5
-df.jokers <- df[apply(df, 1, function(x) any(x == 10)), ]
-df.jokers
-data <- readLines("data/input_7.txt")
-# Add bets
-hand <- lapply(strsplit(data, " "), "[[", 1)
-# Parse data
-df <- data.frame(do.call("rbind", strsplit(as.character(hand), "",
-fixed = TRUE)))
-# Make df to convert cards to value tier
-cards <- c('A', 'K', 'Q', 'J', 'T', '9', '8', '7', '6', '5', '4', '3', '2')
-value.df <- data.frame(cards = cards, value = rev(seq(1, length(cards), 1)))
-# Replace characters in df, using value.df as a dictionary
-df <- apply(df, 2, function(column) {
-# Use 'match' to find the positions of 'df' elements in 'value.df'
-matched_positions <- match(column, value.df$cards)
-# Replace the positions with the corresponding values from 'value.df'
-value.df$value[matched_positions]
-}) |> as.data.frame()
-# Get duplicates
-df <- lapply(apply(df, 1, table),function(x){table(x) %>% as.list()}) %>%
-rbindlist(fill = T) %>%
-cbind(df, .)
-# Add bets
-df$bet <- sapply(strsplit(data, " "), "[[", 2)
-# Add hand #
-df$hand <- seq(1,nrow(df), 1)
-df
-df[is.na(df)] <- 0
-df
-# Part 2
-# Make Jokers raise the value of the max in 1:5
-df.jokers <- df[apply(df, 1, function(x) any(x == 10)), ]
-df.jokers
-# Find most common numbers
-# if there are two twos, reference the higher
-df.hands <- df.jokers[,c(1:5)]
-# Make temp df with jokers converted to best cards
-for(i in 1:nrow(df.hands)){
-target.value <- table(unlist(df.hands[i,])) %>% subset(. == max(.)) %>% subset(names(.) == max(names(.))) %>% names()
-df.hands[i,which(df.hands[i,] == 10)] <- as.numeric(target.value)
-}
-df.hands
-apply(apply(df.hands, 1, table),2,  function(x){table(x) %>% as.list()})
-apply(df.hands, 1, table)
-lapply(apply(df.hands, 1, table),function(x){table(x) %>% as.list()}) %>%
-rbindlist(fill = T)
-# Get duplicates and add back id and bet info
-df.2 <- lapply(apply(df.hands, 1, table),function(x){table(x) %>% as.list()}) %>%
-rbindlist(fill = T) %>%
-cbind(df.jokers[,c(1:5)], .)
-df.2
-df.2[df.2 == 10] <- 0
-df.2[is.na(df.2)] <- 0
-df.2 <- df.2 %>%
-cbind(df.jokers[,c("bet", "hand")])
-# Merge them back together
-df.2 <- full_join(df[which(!df$hand %in% df.2$hand),],df.2, by = c(colnames(df)[which(colnames(df) %in% colnames(df.2))]))
-df.2[is.na(df.2)] <- 0
-df.ordered.2  <- df.2 |>
-arrange(desc(`5`), desc(`4`), desc(`3`), desc(`2`),
-desc(`1`), desc(X1),  desc(X2),
-desc(X3),  desc(X4),  desc(X5))
-#Set order
-df.ordered.2$rank <- rev(seq(1,nrow(df.ordered.2), 1))
-answer2 <- df.ordered.2 %>%
-mutate(score = as.numeric(bet)*rank) %>%
-pull(score) %>%
-sum()
-answer2
-df.ordered.2
-answer2 <- df.ordered.2 %>%
-mutate(score = as.numeric(bet)*rank) %>%
-pull(score) %>%
-sum()
-answer2
-# Add bets
-hand <- lapply(strsplit(data, " "), "[[", 1)
-# Parse data
-df <- data.frame(do.call("rbind", strsplit(as.character(hand), "",
-fixed = TRUE)))
-# Make df to convert cards to value tier
-cards <- c('A', 'K', 'Q', 'J', 'T', '9', '8', '7', '6', '5', '4', '3', '2')
-value.df <- data.frame(cards = cards, value = rev(seq(1, length(cards), 1)))
-# Replace characters in df, using value.df as a dictionary
-df <- apply(df, 2, function(column) {
-# Use 'match' to find the positions of 'df' elements in 'value.df'
-matched_positions <- match(column, value.df$cards)
-# Replace the positions with the corresponding values from 'value.df'
-value.df$value[matched_positions]
-}) |> as.data.frame()
-# Get duplicates
-df <- lapply(apply(df, 1, table),function(x){table(x) %>% as.list()}) %>%
-rbindlist(fill = T) %>%
-cbind(df, .)
-# Add bets
-df$bet <- sapply(strsplit(data, " "), "[[", 2)
-# Add hand #
-df$hand <- seq(1,nrow(df), 1)
-df[is.na(df)] <- 0
-df.ordered <- df |>
-arrange(`5`, `4`, `3`, `2`, `1`, X1, X2, X3, X4, X5, decreasing = TRUE)
-#arrange(`3`, `2`, `1`, X1, X2, X3, X4, X5, decreasing = TRUE)
-#Set order
-df.ordered$rank <- seq(1,nrow(df.ordered), 1)
-answer1 <- df.ordered %>%
-mutate(score = as.numeric(bet)*rank) %>%
-pull(score) %>%
-sum()
-answer1
-251106089
-# Part 2
-# Make Jokers raise the value of the max in 1:5
-df.jokers <- df[apply(df, 1, function(x) any(x == 10)), ]
-# Find most common numbers
-# if there are two twos, reference the higher
-df.hands <- df.jokers[,c(1:5)]
-# Make temp df with jokers converted to best cards
-for(i in 1:nrow(df.hands)){
-target.value <- table(unlist(df.hands[i,])) %>% subset(. == max(.)) %>% subset(names(.) == max(names(.))) %>% names()
-df.hands[i,which(df.hands[i,] == 10)] <- as.numeric(target.value)
-}
-# Get duplicates and add back id and bet info
-df.2 <- lapply(apply(df.hands, 1, table),function(x){table(x) %>% as.list()}) %>%
-rbindlist(fill = T) %>%
-cbind(df.jokers[,c(1:5)], .)
-df.2[df.2 == 10] <- 0
-df.2[is.na(df.2)] <- 0
-df.2 <- df.2 %>%
-cbind(df.jokers[,c("bet", "hand")])
-# Merge them back together
-df.2 <- full_join(df[which(!df$hand %in% df.2$hand),],df.2, by = c(colnames(df)[which(colnames(df) %in% colnames(df.2))]))
-df.2[is.na(df.2)] <- 0
-# Turn jokers into 0s
-df.ordered.2  <- df.2 |>
-arrange(desc(`5`), desc(`4`), desc(`3`), desc(`2`),
-desc(`1`), desc(X1),  desc(X2),
-desc(X3),  desc(X4),  desc(X5))
-#arrange(`5`, `4`, `3`, `2`, `1`, X1, X2, X3, X4, X5, decreasing = TRUE)
-#Set order
-df.ordered.2$rank <- rev(seq(1,nrow(df.ordered.2), 1))
-answer2 <- df.ordered.2 %>%
-mutate(score = as.numeric(bet)*rank) %>%
-pull(score) %>%
-sum()
-answer2
-df.ordered.2
-View(df.ordered.2)
-View(df)
-data <- readLines("data/input_7.txt")
-# Add bets
-hand <- lapply(strsplit(data, " "), "[[", 1)
-# Parse data
-df <- data.frame(do.call("rbind", strsplit(as.character(hand), "",
-fixed = TRUE)))
-# Make df to convert cards to value tier
-cards <- c('A', 'K', 'Q', 'J', 'T', '9', '8', '7', '6', '5', '4', '3', '2')
-value.df <- data.frame(cards = cards, value = rev(seq(1, length(cards), 1)))
-# Replace characters in df, using value.df as a dictionary
-df <- apply(df, 2, function(column) {
-# Use 'match' to find the positions of 'df' elements in 'value.df'
-matched_positions <- match(column, value.df$cards)
-# Replace the positions with the corresponding values from 'value.df'
-value.df$value[matched_positions]
-}) |> as.data.frame()
-# Add bets
-df$bet <- sapply(strsplit(data, " "), "[[", 2)
-# Add hand #
-df$hand <- seq(1,nrow(df), 1)
-df
-# Make Jokers raise the value of the max in 1:5
-df.jokers <- df[apply(df, 1, function(x) any(x == 10)), ]
-# Find most common numbers
-# if there are two twos, reference the higher
-df.hands <- df.jokers[,c(1:5)]
-# Make temp df with jokers converted to best cards
-for(i in 1:nrow(df.hands)){
-target.value <- table(unlist(df.hands[i,])) %>% subset(. == max(.)) %>% subset(names(.) == max(names(.))) %>% names()
-df.hands[i,which(df.hands[i,] == 10)] <- as.numeric(target.value)
-}
-# Get duplicates and add back id and bet info
-df.2 <- lapply(apply(df.hands, 1, table),function(x){table(x) %>% as.list()}) %>%
-rbindlist(fill = T) %>%
-cbind(df.jokers[,c(1:5)], .)
-df.2[df.2 == 10] <- 0
-df.2[is.na(df.2)] <- 0
-df.2 <- df.2 %>%
-cbind(df.jokers[,c("bet", "hand")])
-# Merge them back together
-df.2 <- full_join(df[which(!df$hand %in% df.2$hand),],df.2, by = c(colnames(df)[which(colnames(df) %in% colnames(df.2))]))
-df.2[is.na(df.2)] <- 0
-# Turn jokers into 0s
-df.ordered.2  <- df.2 |>
-arrange(desc(`5`), desc(`4`), desc(`3`), desc(`2`),
-desc(`1`), desc(X1),  desc(X2),
-desc(X3),  desc(X4),  desc(X5))
-#arrange(`5`, `4`, `3`, `2`, `1`, X1, X2, X3, X4, X5, decreasing = TRUE)
-#Set order
-df.ordered.2$rank <- rev(seq(1,nrow(df.ordered.2), 1))
-answer2 <- df.ordered.2 %>%
-mutate(score = as.numeric(bet)*rank) %>%
-pull(score) %>%
-sum()
-answer2
-data <- c('RL',
-'AAA = (BBB, CCC)',
-'BBB = (DDD, EEE)',
-'CCC = (ZZZ, GGG)',
-'DDD = (DDD, DDD)',
-'EEE = (EEE, EEE)',
-'GGG = (GGG, GGG)',
-'ZZZ = (ZZZ, ZZZ)')
-pattern <- data[[1]]
-nodes <- data[-1]
-str_split(nodes, "(")
-nodes
-# Applying the regex to extract the parts
-extracted_parts <- str_extract_all(nodes, "(\\w+) = \\((\\w+), (\\w+)\\)")
-View(extracted_parts)
-# Applying the regex to extract the parts
-extracted_parts <- str_extract_all(nodes, "(\\w+))")
-# Applying the regex to extract the parts
-extracted_parts <- str_extract_all(nodes, "\\w+")
-View(extracted_parts)
-str_replace_all(pattern, c("R" = 3, "L" = 2))
-str_replace_all(pattern, c("R" = "3", "L" = "2"))
-# Use regex to detect word character sequences
-nodes.extracted <- str_extract_all(nodes, "\\w+")
-pattern.number <- str_replace_all(pattern, c("R" = "3", "L" = "2"))
-print(i)
-for(i in nodes.extracted){
-print(i)
-}
-steps <- 0
-pattern.iteration <- 1
-for(i in nodes.extracted){
-i[[pattern.number[[pattern.iteration]]]]
-}
-nodes.extracted <- str_extract_all(nodes, "\\w+")
-# Turn left/right into usable indexes
-pattern.number <- str_replace_all(pattern, c("R" = "3", "L" = "2"))
-steps <- 0
-pattern.iteration <- 1
-for(i in nodes.extracted){
-i[[as.numeric(pattern.number[[pattern.iteration]])]]
-}
-nodes.extracted[[pattern.number]]
-nodes.extracted[[pattern.number[[pattern.iteration]]]]
-pattern.number[[pattern.iteration]]
-# Turn left/right into usable indexes
-pattern.number <- str_replace_all(pattern, c("R" = "3", "L" = "2")) %>%
-str_split(.,"")
-pattern.number
-pattern.number <- pattern.number[[1]]
-pattern.number
-steps <- 0
-pattern.iteration <- 1
-for(i in nodes.extracted){
-i[[as.numeric(pattern.number[[pattern.iteration]])]]
 }
 nodes.extracted[[pattern.number[[pattern.iteration]]]]
 pattern.number
@@ -510,3 +21,492 @@ i[[as.numeric(pattern.number[[pattern.iteration]])]]
 nodes.extracted[[pattern.number[[pattern.iteration]]]]
 pattern.number[[pattern.iteration]]
 nodes.extracted
+pattern <- data[[1]]
+nodes <- data[-1]
+# Use regex to detect word character sequences
+nodes.extracted <- str_extract_all(nodes, "\\w+")
+# Turn left/right into usable indexes
+pattern.number <- str_replace_all(pattern, c("R" = "3", "L" = "2")) %>%
+str_split(.,"")
+pattern.number <- pattern.number[[1]] %>% as.numeric()
+steps <- 0
+pattern.iteration <- 1
+for(i in nodes.extracted){
+i[[as.numeric(pattern.number[[pattern.iteration]])]]
+}
+nodes.extracted[[pattern.number[[pattern.iteration]]]]
+pattern
+nodes
+nodes.extracted
+# Use regex to detect word character sequences
+nodes.extracted <- str_extract_all(nodes, "\\w+")[2:3]
+nodes.extracted
+str_extract_all
+# Turn left/right into usable indexes
+pattern.number <- str_replace_all(pattern, c("R" = "3", "L" = "2")) %>%
+str_split(.,"")
+pattern.number
+pattern.number <- pattern.number[[1]] %>% as.numeric()
+steps <- 0
+pattern.iteration <- 1
+for(i in nodes.extracted){
+i[[as.numeric(pattern.number[[pattern.iteration]])]]
+}
+nodes.extracted[[pattern.number[[pattern.iteration]]]]
+pattern.number
+pattern.iteration
+nodes.extracted
+names(nodes.extracted) <- lapply(str_extract_all(nodes, "\\w+"), "[[", 1)
+nodes.extracted
+# Use regex to detect word character sequences
+nodes.extracted <- str_extract_all(nodes, "\\w+")
+# Turn left/right into usable indexes
+pattern.number <- str_replace_all(pattern, c("R" = "3", "L" = "2")) %>%
+str_split(.,"")
+pattern.number <- pattern.number[[1]] %>% as.numeric()
+names(nodes.extracted) <- lapply(str_extract_all(nodes, "\\w+"), "[[", 1)
+nodes.extracted
+nodes.extracted
+print(i)
+pattern.iteration <- 1
+for(i in nodes.extracted){
+print(i)
+i[[as.numeric(pattern.number[[pattern.iteration]])]]
+}
+pattern.number
+nodes.extracted[[1]]
+current_node
+names(nodes.extracted)
+current_node
+current_node <- nodes.extracted[[1]]
+current_node
+steps + 1 / length(steps)
+length(steps)
+length(pattern.number)
+steps + 1 / length(pattern.number)
+# Track which step we're on
+steps <- steps + 1 / length(pattern.number) %% 1
+steps
+length(pattern.number) %% 1
+length(pattern.number)
+length(pattern.number) %% 2
+# Track which step we're on
+steps <- steps + 1 / length(pattern.number) %% 1
+for(i in 1:10){
+print(pattern.number[[i]])
+}
+for(i in 1:10){
+index <- (i - 1) %% length(pattern.number) + 1
+# Access the element
+current_element <- pattern.number[index]
+print(current_element)
+}
+current_node <- nodes.extracted[[1]]
+current_node
+names(nodes.extracted) <- lapply(str_extract_all(nodes, "\\w+"), "[[", 1)
+steps <- 0
+pattern.iteration <- 1
+current_node <- nodes.extracted[[1]]
+while(next_node != "ZZZ"){
+# Track which step we're on
+index <- (i - 1) %% length(pattern.number) + 1
+# Access the element
+current_element <- pattern.number[index]
+# apply steps to current itteration -> find next
+next_node <- current_node[[current_element]]
+current_node <- nodes.extracted[[next_node]]
+steps <- steps + 1
+}
+current_node[["ZZZ"]]
+current_node <- nodes.extracted[[1]]
+current_node
+current_node[["CCC"]]
+current_node["CCC"]
+current_node["CCC"]
+current_node[[2]]
+current_node[[3]]
+steps <- 0
+pattern.iteration <- 1
+current_node <- nodes.extracted[[1]]
+while(next_node != "ZZZ"){
+steps <- steps + 1
+# Track which step we're on
+index <- (steps - 1) %% length(pattern.number) + 1
+# Access the element
+current_element <- pattern.number[index]
+# apply steps to current itteration -> find next
+next_node <- current_node[[current_element]]
+current_node <- nodes.extracted[[next_node]]
+}
+steps <- 0
+pattern.iteration <- 1
+current_node <- nodes.extracted[[1]]
+while(next_node != "ZZZ"){
+steps <- steps + 1
+print(steps)
+# Track which step we're on
+index <- (steps - 1) %% length(pattern.number) + 1
+print(index)
+# Access the element
+current_element <- pattern.number[index]
+print(current_element)
+# apply steps to current itteration -> find next
+next_node <- current_node[[current_element]]
+current_node <- nodes.extracted[[next_node]]
+}
+next_node = NA
+while(next_node != "ZZZ"){
+steps <- steps + 1
+print(steps)
+# Track which step we're on
+index <- (steps - 1) %% length(pattern.number) + 1
+print(index)
+# Access the element
+current_element <- pattern.number[index]
+print(current_element)
+# apply steps to current itteration -> find next
+next_node <- current_node[[current_element]]
+current_node <- nodes.extracted[[next_node]]
+}
+next_node = 111
+while(next_node != "ZZZ"){
+steps <- steps + 1
+print(steps)
+# Track which step we're on
+index <- (steps - 1) %% length(pattern.number) + 1
+print(index)
+# Access the element
+current_element <- pattern.number[index]
+print(current_element)
+# apply steps to current itteration -> find next
+next_node <- current_node[[current_element]]
+current_node <- nodes.extracted[[next_node]]
+}
+names(nodes.extracted) <- lapply(str_extract_all(nodes, "\\w+"), "[[", 1)
+steps <- 0
+pattern.iteration <- 1
+current_node <- nodes.extracted[[1]]
+next_node = 111
+while(next_node != "ZZZ"){
+steps <- steps + 1
+print(steps)
+# Track which step we're on
+index <- (steps - 1) %% length(pattern.number) + 1
+print(index)
+# Access the element
+current_element <- pattern.number[index]
+print(current_element)
+# apply steps to current itteration -> find next
+next_node <- current_node[[current_element]]
+print(next_node)
+current_node <- nodes.extracted[[next_node]]
+}
+data <- c('LLR',
+'AAA = (BBB, BBB)',
+'BBB = (AAA, ZZZ)',
+'ZZZ = (ZZZ, ZZZ)')
+pattern <- data[[1]]
+nodes <- data[-1]
+# Use regex to detect word character sequences
+nodes.extracted <- str_extract_all(nodes, "\\w+")
+# Turn left/right into usable indexes
+pattern.number <- str_replace_all(pattern, c("R" = "3", "L" = "2")) %>%
+str_split(.,"")
+pattern.number <- pattern.number[[1]] %>% as.numeric()
+names(nodes.extracted) <- lapply(str_extract_all(nodes, "\\w+"), "[[", 1)
+steps <- 0
+pattern.iteration <- 1
+current_node <- nodes.extracted[[1]]
+next_node = 111
+while(next_node != "ZZZ"){
+steps <- steps + 1
+print(steps)
+# Track which step we're on
+index <- (steps - 1) %% length(pattern.number) + 1
+print(index)
+# Access the element
+current_element <- pattern.number[index]
+print(current_element)
+# apply steps to current itteration -> find next
+next_node <- current_node[[current_element]]
+print(next_node)
+current_node <- nodes.extracted[[next_node]]
+}
+data <- readLines("data/input_8.txt")
+pattern <- data[[1]]
+nodes <- data[-1]
+# Use regex to detect word character sequences
+nodes.extracted <- str_extract_all(nodes, "\\w+")
+# Turn left/right into usable indexes
+pattern.number <- str_replace_all(pattern, c("R" = "3", "L" = "2")) %>%
+str_split(.,"")
+pattern.number <- pattern.number[[1]] %>% as.numeric()
+# Make nodes names the first value
+names(nodes.extracted) <- lapply(str_extract_all(nodes, "\\w+"), "[[", 1)
+pattern
+data
+data <- data[which(data != "")]
+data
+pattern <- data[[1]]
+nodes <- data[-1]
+# Use regex to detect word character sequences
+nodes.extracted <- str_extract_all(nodes, "\\w+")
+# Turn left/right into usable indexes
+pattern.number <- str_replace_all(pattern, c("R" = "3", "L" = "2")) %>%
+str_split(.,"")
+pattern.number <- pattern.number[[1]] %>% as.numeric()
+names(nodes.extracted) <- lapply(str_extract_all(nodes, "\\w+"), "[[", 1)
+steps <- 0
+pattern.iteration <- 1
+current_node <- nodes.extracted[[1]]
+next_node = 111
+while(next_node != "ZZZ"){
+steps <- steps + 1
+print(steps)
+# Track which step we're on
+index <- (steps - 1) %% length(pattern.number) + 1
+print(index)
+# Access the element
+current_element <- pattern.number[index]
+print(current_element)
+# apply steps to current itteration -> find next
+next_node <- current_node[[current_element]]
+print(next_node)
+current_node <- nodes.extracted[[next_node]]
+}
+nodes.extracted[["AAA"]]
+current_node <- nodes.extracted[["AAA"]]
+names(nodes.extracted) <- lapply(str_extract_all(nodes, "\\w+"), "[[", 1)
+steps <- 0
+pattern.iteration <- 1
+current_node <- nodes.extracted[["AAA"]]
+next_node = 111
+while(next_node != "ZZZ"){
+steps <- steps + 1
+print(steps)
+# Track which step we're on
+index <- (steps - 1) %% length(pattern.number) + 1
+print(index)
+# Access the element
+current_element <- pattern.number[index]
+print(current_element)
+# apply steps to current itteration -> find next
+next_node <- current_node[[current_element]]
+print(next_node)
+current_node <- nodes.extracted[[next_node]]
+}
+data <- c('LR',
+'11A = (11B, XXX)',
+'11B = (XXX, 11Z)',
+'11Z = (11B, XXX)',
+'22A = (22B, XXX)',
+'22B = (22C, 22C)',
+'22C = (22Z, 22Z)',
+'22Z = (22B, 22B)',
+'XXX = (XXX, XXX)')
+# Function to encapsulate the while loop logic
+process_node <- function(start_node) {
+steps <- 0
+pattern_iteration <- 1
+current_node <- nodes.extracted[[start_node]]
+next_node <- "111" # Initial value
+while(next_node != "ZZZ" && !is.null(current_node)) {
+steps <- steps + 1
+index <- (steps - 1) %% length(pattern.number) + 1
+current_element <- pattern.number[index]
+next_node <- current_node[[current_element]] %>% unlist %>% .[1]
+current_node <- nodes.extracted[[next_node]]
+}
+return(steps)
+}
+# Create a list of nodes ending with 'A'
+nodes_ending_with_A <- names(nodes.extracted)[grepl("A$", names(nodes.extracted))]
+# Apply the function to each node in the list
+steps_record <- lapply(nodes_ending_with_A, process_node)
+data <- c('LR',
+'11A = (11B, XXX)',
+'11B = (XXX, 11Z)',
+'11Z = (11B, XXX)',
+'22A = (22B, XXX)',
+'22B = (22C, 22C)',
+'22C = (22Z, 22Z)',
+'22Z = (22B, 22B)',
+'XXX = (XXX, XXX)')
+data <- data[which(data != "")]
+pattern <- data[[1]]
+nodes <- data[-1]
+# Use regex to detect word character sequences
+nodes.extracted <- str_extract_all(nodes, "\\w+")
+# Turn left/right into usable indexes
+pattern.number <- str_replace_all(pattern, c("R" = "3", "L" = "2")) %>%
+str_split(.,"")
+pattern.number <- pattern.number[[1]] %>% as.numeric()
+# Make nodes names the first value
+names(nodes.extracted) <- lapply(str_extract_all(nodes, "\\w+"), "[[", 1)
+View(nodes.extracted)
+View(extracted_parts)
+# Make nodes names the first value
+names(nodes.extracted) <- lapply(str_extract_all(nodes, "\\w+"), "[[", 1)
+# Function to encapsulate the while loop logic
+process_node <- function(start_node) {
+steps <- 0
+pattern_iteration <- 1
+current_node <- nodes.extracted[[start_node]]
+next_node <- "111" # Initial value
+while(next_node != "ZZZ" && !is.null(current_node)) {
+steps <- steps + 1
+index <- (steps - 1) %% length(pattern.number) + 1
+current_element <- pattern.number[index]
+next_node <- current_node[[current_element]] %>% unlist %>% .[1]
+current_node <- nodes.extracted[[next_node]]
+}
+return(steps)
+}
+# Create a list of nodes ending with 'A'
+nodes_ending_with_A <- names(nodes.extracted)[grepl("A$", names(nodes.extracted))]
+# Apply the function to each node in the list
+steps_record <- lapply(nodes_ending_with_A, process_node)
+nodes_ending_with_A
+data <- c('LR',
+'11A = (11B, XXX)',
+'11B = (XXX, 11Z)',
+'11Z = (11B, XXX)',
+'22A = (22B, XXX)',
+'22B = (22C, 22C)',
+'22C = (22Z, 22Z)',
+'22Z = (22B, 22B)',
+'XXX = (XXX, XXX)')
+data <- data[which(data != "")]
+pattern <- data[[1]]
+nodes <- data[-1]
+# Use regex to detect word character sequences
+nodes.extracted <- str_extract_all(nodes, "\\w+")
+# Turn left/right into usable indexes
+pattern.number <- str_replace_all(pattern, c("R" = "3", "L" = "2")) %>%
+str_split(.,"")
+pattern.number <- pattern.number[[1]] %>% as.numeric()
+# Make nodes names the first value
+names(nodes.extracted) <- lapply(str_extract_all(nodes, "\\w+"), "[[", 1)
+# Function to encapsulate the while loop logic
+process_node <- function(start_node) {
+steps <- 0
+pattern_iteration <- 1
+current_node <- nodes.extracted[[start_node]]
+next_node <- "111" # Initial value
+while(!(next_node %in% nodes_ending_with_Z) && !is.null(current_node)) {
+steps <- steps + 1
+index <- (steps - 1) %% length(pattern.number) + 1
+current_element <- pattern.number[index]
+next_node <- current_node[[current_element]] %>% unlist %>% .[1]
+current_node <- nodes.extracted[[next_node]]
+}
+return(steps)
+}
+# Create a list of nodes ending with 'A'
+nodes_ending_with_A <- names(nodes.extracted)[grepl("A$", names(nodes.extracted))]
+nodes_ending_with_Z <- names(nodes.extracted)[grepl("Z$", names(nodes.extracted))]
+# Apply the function to each node in the list
+steps_record <- lapply(nodes_ending_with_A, process_node)
+# Convert the list to a named vector
+steps_record <- setNames(unlist(steps_record), nodes_ending_with_A)
+# Output the results
+steps_record
+steps_record
+# Apply the function to each node in the list
+steps_record <- lapply(nodes_ending_with_A, process_node)
+steps_record
+# Convert the list to a named vector
+steps_record <- unlist(steps_record)
+steps_record
+lcm_vector(steps_record)
+lcm_vector <- function(x) Reduce(lcm, x)
+lcm_vector(steps_record)
+# Convert the list to a named vector
+steps_record <- unlist(steps_record)
+steps_record
+lcm_vector <- function(x) Reduce(lcm, x)
+lcm_vector(steps_record)
+lcm
+lcm_of_steps <- if (length(steps_values) > 1) {
+Reduce(gtools::lcm, steps_values)
+} else {
+steps_values[1]
+}
+# Convert the list to a named vector
+steps_record <- unlist(steps_record)
+lcm_of_steps <- if (length(steps_record) > 1) {
+Reduce(gtools::lcm, steps_record)
+} else {
+steps_record[1]
+}
+library(gtools)
+install.packages("gtools")
+library(gtools)
+Reduce(lcm, steps_record)
+steps_record
+find_lcm <- function(numbers) {
+# Reduce the list using the lcm function from gtools
+Reduce(lcm, numbers)
+}
+# Example usage
+numbers <- c(12, 18, 24)  # Example list of numbers
+lcm_result <- find_lcm(numbers)
+steps_record[3] <- 4
+find_lcm <- function(numbers) {
+# Reduce the list using the lcm function from gtools
+Reduce(lcm, numbers)
+}
+# Example usage
+numbers <- c(12, 18, 24)  # Example list of numbers
+lcm_result <- find_lcm(numbers)
+# Apply the function to each node in the list
+steps_record <- lapply(nodes_ending_with_A, process_node)
+# Convert the list to a named vector
+steps_record <- unlist(steps_record)
+steps_record
+install.packages("numbers")
+library(numbers)
+numbers::mLCM(c(20,50,75))
+numbers::mLCM(steps_record)
+data <- c('LLR',
+'AAA = (BBB, BBB)',
+'BBB = (AAA, ZZZ)',
+'ZZZ = (ZZZ, ZZZ)')
+data <- readLines("data/input_8.txt")
+data <- data[which(data != "")]
+pattern <- data[[1]]
+nodes <- data[-1]
+# Use regex to detect word character sequences
+nodes.extracted <- str_extract_all(nodes, "\\w+")
+# Turn left/right into usable indexes
+pattern.number <- str_replace_all(pattern, c("R" = "3", "L" = "2")) %>%
+str_split(.,"")
+pattern.number <- pattern.number[[1]] %>% as.numeric()
+# Make nodes names the first value
+names(nodes.extracted) <- lapply(str_extract_all(nodes, "\\w+"), "[[", 1)
+# Function to encapsulate the while loop logic
+process_node <- function(start_node) {
+steps <- 0
+pattern_iteration <- 1
+current_node <- nodes.extracted[[start_node]]
+next_node <- "111" # Initial value
+while(!(next_node %in% nodes_ending_with_Z) && !is.null(current_node)) {
+steps <- steps + 1
+index <- (steps - 1) %% length(pattern.number) + 1
+current_element <- pattern.number[index]
+next_node <- current_node[[current_element]] %>% unlist %>% .[1]
+current_node <- nodes.extracted[[next_node]]
+}
+return(steps)
+}
+# Create a list of nodes ending with 'A'
+nodes_ending_with_A <- names(nodes.extracted)[grepl("A$", names(nodes.extracted))]
+nodes_ending_with_Z <- names(nodes.extracted)[grepl("Z$", names(nodes.extracted))]
+# Apply the function to each node in the list
+steps_record <- lapply(nodes_ending_with_A, process_node)
+# Convert the list to a named vector
+steps_record <- unlist(steps_record)
+numbers::mLCM(steps_record)
+answer2 <- numbers::mLCM(steps_record)
+answer2
+13740108158591 == answer2

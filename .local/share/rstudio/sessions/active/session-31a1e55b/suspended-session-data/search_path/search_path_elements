@@ -1,4 +1,6 @@
 .GlobalEnv
+package:numbers
+package:gtools
 package:data.table
 package:lubridate
 package:forcats

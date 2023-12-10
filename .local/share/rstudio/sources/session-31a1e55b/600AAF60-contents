@@ -47,8 +47,6 @@ while(next_node != "ZZZ"){
   current_node <- nodes.extracted[[next_node]]
   
 }
-
-
 #### Part 2
 # Make a list of every node that starts with "A"
 # Run the loop until it finds a node that ends with "Z"

@@ -7399,3 +7399,622 @@
 1702136591469:answer2 <- numbers::mLCM(steps_record)
 1702136593807:answer2
 1702136624428:13740108158591 == answer2
+1702215981301:# Practice data
+1702215981314:data <- c("0 3 6 9 12 15",
+1702215981322:"1 3 6 10 15 21",
+1702215981331:"10 13 16 21 30 45")
+1702215981686:# Parse it to numbers
+1702215981701:as.numeric(unlist(strsplit(data, " ")))
+1702215992504:# Parse it to numbers
+1702215992516:as.numeric(strsplit(data, " ")))
+1702215994926:# Parse it to numbers
+1702215994937:as.numeric(strsplit(data, " "))
+1702215998232:strsplit(data, " ")
+1702216029412:# Parse it to numbers
+1702216029422:lapply(strsplit(data, " "), as.numeric)
+1702216039727:# Parse it to numbers
+1702216039738:data.num <- lapply(strsplit(data, " "), as.numeric)
+1702216157100:# Find delta of numbers
+1702216157109:data[1]
+1702216164213:# Find delta of numbers
+1702216164224:data.numbers[[[1]]
+1702216168376:# Find delta of numbers
+1702216168386:data.numbers[[1]]
+1702216171938:# Find delta of numbers
+1702216171947:data.num[[1]]
+1702216206443:lapply(data.num, function(x)c(NA, diff(x)))
+1702216243953:lapply(data.num, function(x)diff(x))
+1702216747202:data.num[[1]] == 1
+1702216763526:lapply(data.num, function(x)diff(x))
+1702216863218:seq(data.num)
+1702216920430:summed.last <- rep(0, length(data.num))
+1702216922777:summed.last <- lapply(seq(data.num), function(x){
+1702216922785:data.num[[x]][data.num[[x]]] + summed.last[[x]]})
+1702216925290:View(summed.last)
+1702216973712:x <- 1
+1702216974091:data.num[[x]][data.num[[x]]] + summed.last[[x]]
+1702216979521:summed.last <- rep(0, length(data.num))
+1702216985898:data.num[[x]][data.num[[x]]] + summed.last[[x]]
+1702216993604:x <- 1
+1702216996358:data.num[[x]]
+1702217008213:data.num[[x]][data.num[[x]]]
+1702217023308:data.num[[x]][lenght(data.num[[x]])] + summed.last[[x]]
+1702217028878:data.num[[x]][length(data.num[[x]])] + summed.last[[x]]
+1702217057380:# Get the last number for each list and add it to its corresponding running sum
+1702217057391:data.num[[x]][length(data.num[[x]])] + summed.last[[x]]
+1702217057741:lapply(data.num, function(x)diff(x))
+1702217176402:1(data.num %in% 0)
+1702217178984:!(data.num %in% 0)
+1702217186597:data.num
+1702217192642:!!(data.num %in% 0)
+1702217206759:# Find delta of numbers #
+1702217206770:# Get the last number for each list and add
+1702217206780:# it to its corresponding running sum
+1702217206790:summed.last <- lapply(seq(data.num), function(x){
+1702217206801:data.num[[x]][length(data.num[[x]])] + summed.last[[x]]})
+1702217207595:# extract last number and add it to group
+1702217207605:data.num <- lapply(data.num, function(x)diff(x))
+1702217211266:View(summed.last)
+1702217216309:# Find delta of numbers #
+1702217216319:# Get the last number for each list and add
+1702217216329:# it to its corresponding running sum
+1702217216339:summed.last <- lapply(seq(data.num), function(x){
+1702217216348:data.num[[x]][length(data.num[[x]])] + summed.last[[x]]})
+1702217216759:# extract last number and add it to group
+1702217216771:data.num <- lapply(data.num, function(x)diff(x))
+1702217218014:View(summed.last)
+1702217257130:# Initialize summed number list
+1702217257141:summed.last <- rep(0, length(data.num))
+1702217257764:# Find delta of numbers #
+1702217257776:# Get the last number for each list and add
+1702217257786:# it to its corresponding running sum
+1702217257795:summed.last <- lapply(seq(data.num), function(x){
+1702217257804:data.num[[x]][length(data.num[[x]])] + summed.last[[x]]})
+1702217259275:# extract last number and add it to group
+1702217259286:data.num <- lapply(data.num, function(x)diff(x))
+1702217261406:View(summed.last)
+1702217267845:# Parse it to numbers
+1702217267853:data.num <- lapply(strsplit(data, " "), as.numeric)
+1702217268227:# Initialize summed number list
+1702217268237:summed.last <- rep(0, length(data.num))
+1702217268713:# Find delta of numbers #
+1702217268722:# Get the last number for each list and add
+1702217268731:# it to its corresponding running sum
+1702217268738:summed.last <- lapply(seq(data.num), function(x){
+1702217268745:data.num[[x]][length(data.num[[x]])] + summed.last[[x]]})
+1702217269199:# extract last number and add it to group
+1702217269211:data.num <- lapply(data.num, function(x)diff(x))
+1702217270506:View(summed.last)
+1702217288326:View(data.num)
+1702217297817:# Find delta of numbers #
+1702217297828:# Get the last number for each list and add
+1702217297837:# it to its corresponding running sum
+1702217297847:summed.last <- lapply(seq(data.num), function(x){
+1702217297856:data.num[[x]][length(data.num[[x]])] + summed.last[[x]]})
+1702217299118:summed.last
+1702217308340:# Find delta of numbers #
+1702217308352:# Get the last number for each list and add
+1702217308362:# it to its corresponding running sum
+1702217308372:summed.last <- lapply(seq(data.num), function(x){
+1702217308379:data.num[[x]][length(data.num[[x]])] + summed.last[[x]]})
+1702217308894:# extract last number and add it to group
+1702217308905:data.num <- lapply(data.num, function(x)diff(x))
+1702217310910:data.num
+1702217313086:# Find delta of numbers #
+1702217313098:# Get the last number for each list and add
+1702217313111:# it to its corresponding running sum
+1702217313121:summed.last <- lapply(seq(data.num), function(x){
+1702217313133:data.num[[x]][length(data.num[[x]])] + summed.last[[x]]})
+1702217313485:# extract last number and add it to group
+1702217313498:data.num <- lapply(data.num, function(x)diff(x))
+1702217315004:data.num
+1702217317245:summed.last
+1702217335870:# Find delta of numbers #
+1702217335879:# Get the last number for each list and add
+1702217335888:# it to its corresponding running sum
+1702217335898:summed.last <- lapply(seq(data.num), function(x){
+1702217335907:data.num[[x]][length(data.num[[x]])] + summed.last[[x]]})
+1702217336272:# extract last number and add it to group
+1702217336281:data.num <- lapply(data.num, function(x)diff(x))
+1702217338204:data.num
+1702217340352:!!(data.num %in% 0)
+1702217344363:!(data.num %in% 0)
+1702217361364:sum(summed.last)
+1702217369627:sum(unlist(summed.last))
+1702217387162:# Parse it to numbers
+1702217387171:data.num <- lapply(strsplit(data, " "), as.numeric)
+1702217387780:# Initialize summed number list
+1702217387793:summed.last <- rep(0, length(data.num))
+1702217388227:# Find delta of numbers #
+1702217388239:# Get the last number for each list and add
+1702217388249:# it to its corresponding running sum
+1702217388260:summed.last <- lapply(seq(data.num), function(x){
+1702217388270:data.num[[x]][length(data.num[[x]])] + summed.last[[x]]})
+1702217388757:# extract last number and add it to group
+1702217388769:data.num <- lapply(data.num, function(x)diff(x))
+1702217390863:summed.last
+1702217392925:data.num
+1702217513732:# Parse it to numbers
+1702217513750:data.num <- lapply(strsplit(data, " "), as.numeric)
+1702217513951:# Initialize summed number list
+1702217513959:summed.last <- rep(0, length(data.num))
+1702217514162:# Find delta of numbers #
+1702217514175:# Get the last number for each list and add
+1702217514185:# it to its corresponding running sum
+1702217514196:summed.last <- lapply(seq(data.num), function(x){
+1702217514206:data.num[[x]][length(data.num[[x]])] + summed.last[[x]]})
+1702217514712:# extract last number and add it to group
+1702217534726:# extract last number and add it to group
+1702217534738:data.num <- lapply(data.num, function(x)c(diff(x),
+1702217534753:diff(x)[length(diff(x)) + x[length(x)]]))
+1702217537381:data.num
+1702217592421:# Parse it to numbers
+1702217592432:data.num <- lapply(strsplit(data, " "), as.numeric)
+1702217594828:data.num
+1702217596744:# extract last number and add it to group
+1702217596755:data.num <- lapply(data.num, function(x){
+1702217596763:x})
+1702217598083:data.num
+1702217631218:# Parse it to numbers
+1702217631230:data.num <- lapply(strsplit(data, " "), as.numeric)
+1702217632153:# Initialize summed number list
+1702217632166:summed.last <- rep(0, length(data.num))
+1702217632355:# Find delta of numbers #
+1702217632366:# Get the last number for each list and add
+1702217632373:# it to its corresponding running sum
+1702217632380:summed.last <- lapply(seq(data.num), function(x){
+1702217632390:data.num[[x]][length(data.num[[x]])] + summed.last[[x]]})
+1702217635074:# extract last number and add it to group
+1702217635084:data.num <- lapply(data.num, function(x){
+1702217635096:c(diff(x), diff(x)[length(diff(x))] + x[length(x)]]))
+1702217647023:# extract last number and add it to group
+1702217647034:data.num <- lapply(data.num, function(x){
+1702217647043:c(diff(x), diff(x)[length(diff(x))] + x[length(x)]}))
+1702217683186:# extract last number and add it to group
+1702217683197:data.num <- lapply(data.num, function(x){
+1702217683207:c(diff(x), diff(x)[length(diff(x))] + x[length(x)])})
+1702217685220:data.num
+1702218158264:data.num
+1702218232510:# Parse it to numbers
+1702218232523:data.num <- lapply(strsplit(data, " "), as.numeric)
+1702218234243:# Initialize summed number list
+1702218234256:summed.last <- rep(0, length(data.num))
+1702218235009:# Find delta of numbers #
+1702218235024:# Get the last number for each list and add
+1702218235037:# it to its corresponding running sum
+1702218235048:last.numbers <-  lapply(seq(data.num), function(x){
+1702218235058:data.num[[x]][length(data.num[[x]])]})
+1702218237901:last.numbers
+1702218257697:last.numbers
+1702218260137:data.num
+1702218261913:# extract last number and add it to group
+1702218261922:data.num <- lapply(data.num, function(x){diff(x)}
+1702218262998:data.num
+1702218265386:data.num
+1702218271232:# extract last number and add it to group
+1702218271243:data.num <- lapply(data.num, function(x){diff(x)})
+1702218273012:data.num
+1702218281103:summed.last
+1702218291285:summed.last <- lapply(seq(data.num), function(x){
+1702218291294:data.num[[x]][length(data.num[[x]])] + summed.last[[x]]})
+1702218292370:summed.last
+1702218320769:# extract last number and add it to group
+1702218320779:data.num <- lapply(data.num, function(x){diff(x)})
+1702218321171:summed.last <- lapply(seq(data.num), function(x){
+1702218321183:data.num[[x]][length(data.num[[x]])] + summed.last[[x]]})
+1702218322860:summed.last
+1702218326775:# extract last number and add it to group
+1702218326786:data.num <- lapply(data.num, function(x){diff(x)})
+1702218327104:summed.last <- lapply(seq(data.num), function(x){
+1702218327115:data.num[[x]][length(data.num[[x]])] + summed.last[[x]]})
+1702218328777:summed.last
+1702218334194:data.num
+1702218342936:summed.last
+1702218379241:data.num
+1702218385162:# extract last number and add it to group
+1702218385172:data.num <- lapply(data.num, function(x){diff(x)})
+1702218385668:summed.last <- lapply(seq(data.num), function(x){
+1702218385677:data.num[[x]][length(data.num[[x]])] + summed.last[[x]]})
+1702218387321:summed.last
+1702218390057:data.num
+1702218405312:sum(unlist(summed.last))
+1702218416370:sum(unlist(summed.last)) + sum(unlist(last.numbers))
+1702218488059:unlist(data.num)
+1702218492313:unlist(data.num) == 0
+1702218515266:all(unlist(data.num) == 0)
+1702218535168:unlist(data.num) != 0
+1702218546642:all(unlist(data.num) == 0)
+1702218560967:all(unlist(data.num) != 0)
+1702218577165:# Parse it to numbers
+1702218577176:data.num <- lapply(strsplit(data, " "), as.numeric)
+1702218577193:# Initialize summed number list
+1702218577203:summed.last <- rep(0, length(data.num))
+1702218577213:# Find delta of numbers #
+1702218577223:# Get the last number for each list and add
+1702218577234:# it to its corresponding running sum
+1702218577243:last.numbers <-  lapply(seq(data.num), function(x){
+1702218577252:data.num[[x]][length(data.num[[x]])]})
+1702218577269:while(all(unlist(data.num) != 0)) {
+1702218577277:# extract last number and add it to group
+1702218577286:data.num <- lapply(data.num, function(x){diff(x)})
+1702218577295:#c(diff(x), diff(x)[length(diff(x))] + x[length(x)])})
+1702218577307:summed.last <- lapply(seq(data.num), function(x){
+1702218577315:data.num[[x]][length(data.num[[x]])] + summed.last[[x]]})
+1702218577324:}
+1702218577344:sum(unlist(summed.last)) + sum(unlist(last.numbers))
+1702218587487:# Parse it to numbers
+1702218587497:data.num <- lapply(strsplit(data, " "), as.numeric)
+1702218587513:# Initialize summed number list
+1702218587522:summed.last <- rep(0, length(data.num))
+1702218587532:# Find delta of numbers #
+1702218587539:# Get the last number for each list and add
+1702218587546:# it to its corresponding running sum
+1702218587554:last.numbers <-  lapply(seq(data.num), function(x){
+1702218587563:data.num[[x]][length(data.num[[x]])]})
+1702218587580:while(all(unlist(data.num) == 0)) {
+1702218587588:# extract last number and add it to group
+1702218587597:data.num <- lapply(data.num, function(x){diff(x)})
+1702218587605:#c(diff(x), diff(x)[length(diff(x))] + x[length(x)])})
+1702218587620:summed.last <- lapply(seq(data.num), function(x){
+1702218587629:data.num[[x]][length(data.num[[x]])] + summed.last[[x]]})
+1702218587638:}
+1702218587669:sum(unlist(summed.last)) + sum(unlist(last.numbers))
+1702218635861:unlist(data.num) == 0)
+1702218638272:data.num
+1702218642294:unlist(data.num) == 0
+1702218646488:all(unlist(data.num) == 0)
+1702218655979:all(unlist(data.num) != 0)
+1702218663044:any(unlist(data.num) != 0)
+1702218667073:# Parse it to numbers
+1702218667083:data.num <- lapply(strsplit(data, " "), as.numeric)
+1702218667098:# Initialize summed number list
+1702218667108:summed.last <- rep(0, length(data.num))
+1702218667117:# Find delta of numbers #
+1702218667128:# Get the last number for each list and add
+1702218667137:# it to its corresponding running sum
+1702218667146:last.numbers <-  lapply(seq(data.num), function(x){
+1702218667157:data.num[[x]][length(data.num[[x]])]})
+1702218667174:while(any(unlist(data.num) != 0)) {
+1702218667183:# extract last number and add it to group
+1702218667192:data.num <- lapply(data.num, function(x){diff(x)})
+1702218667201:#c(diff(x), diff(x)[length(diff(x))] + x[length(x)])})
+1702218667211:summed.last <- lapply(seq(data.num), function(x){
+1702218667219:data.num[[x]][length(data.num[[x]])] + summed.last[[x]]})
+1702218667226:}
+1702218667245:sum(unlist(summed.last)) + sum(unlist(last.numbers))
+1702218707021:data <- readLines("data/input_9.txt")
+1702218707618:# Parse it to numbers
+1702218707629:data.num <- lapply(strsplit(data, " "), as.numeric)
+1702218708281:# Initialize summed number list
+1702218708289:summed.last <- rep(0, length(data.num))
+1702218708788:# Find delta of numbers #
+1702218708798:# Get the last number for each list and add
+1702218708809:# it to its corresponding running sum
+1702218708818:last.numbers <-  lapply(seq(data.num), function(x){
+1702218708829:data.num[[x]][length(data.num[[x]])]})
+1702218709560:while(any(unlist(data.num) != 0)) {
+1702218709573:# extract last number and add it to group
+1702218709584:data.num <- lapply(data.num, function(x){diff(x)})
+1702218709594:#c(diff(x), diff(x)[length(diff(x))] + x[length(x)])})
+1702218709604:summed.last <- lapply(seq(data.num), function(x){
+1702218709613:data.num[[x]][length(data.num[[x]])] + summed.last[[x]]})
+1702218709623:}
+1702218710328:sum(unlist(summed.last)) + sum(unlist(last.numbers))
+1702218816669:# Practice data
+1702218816680:data <- c("0 3 6 9 12 15",
+1702218816691:"1 3 6 10 15 21",
+1702218816702:"10 13 16 21 30 45")
+1702218823809:data.num <- lapply(strsplit(data, " "), as.numeric)
+1702218823825:summed.first <- rep(0, length(data.num))
+1702218823835:# Find delta of numbers #
+1702218823846:# Get the last number for each list and add
+1702218823859:# it to its corresponding running sum
+1702218823871:first.numbers <-  lapply(seq(data.num), function(x){
+1702218823886:data.num[[x]][1]})
+1702218823914:while(any(unlist(data.num) != 0)) {
+1702218823925:# extract last number and add it to group
+1702218823936:data.num <- lapply(data.num, function(x){diff(x)})
+1702218823946:#c(diff(x), diff(x)[length(diff(x))] + x[length(x)])})
+1702218823956:summed.first <- lapply(seq(data.num), function(x){
+1702218823966:data.num[[x]][1] + summed.last[[x]]})
+1702218823976:}
+1702218823998:sum(unlist(summed.first)) + sum(unlist(first.numbers))
+1702218846176:# Change last to first
+1702218846187:data.num <- lapply(strsplit(data, " "), as.numeric)
+1702218846204:summed.first <- rep(0, length(data.num))
+1702218846214:# Find delta of numbers #
+1702218846223:# Get the last number for each list and add
+1702218846234:# it to its corresponding running sum
+1702218846244:first.numbers <-  lapply(seq(data.num), function(x){
+1702218846254:data.num[[x]][1]})
+1702218846279:while(any(unlist(data.num) != 0)) {
+1702218846288:# extract last number and add it to group
+1702218846298:data.num <- lapply(data.num, function(x){diff(x)})
+1702218846311:#c(diff(x), diff(x)[length(diff(x))] + x[length(x)])})
+1702218846321:summed.first <- lapply(seq(data.num), function(x){
+1702218846332:data.num[[x]][1] + summed.first[[x]]})
+1702218846343:}
+1702218846366:sum(unlist(summed.first)) + sum(unlist(first.numbers))
+1702218852850:## Part 2
+1702218852863:# Change last to first
+1702218852873:data.num <- lapply(strsplit(data, " "), as.numeric)
+1702218855696:summed.first <- rep(0, length(data.num))
+1702218857132:data.num
+1702218859912:# Find delta of numbers #
+1702218859923:# Get the last number for each list and add
+1702218859934:# it to its corresponding running sum
+1702218859942:first.numbers <-  lapply(seq(data.num), function(x){
+1702218859952:data.num[[x]][1]})
+1702218861164:first.numbers
+1702218867975:data.num
+1702218871367:first.numbers
+1702218876049:data.num
+1702218878396:first.numbers
+1702218922904:while(any(unlist(data.num) != 0)) {
+1702218922916:# extract last number and add it to group
+1702218922926:data.num <- lapply(data.num, function(x){diff(x)})
+1702218922935:#c(diff(x), diff(x)[length(diff(x))] + x[length(x)])})
+1702218922945:summed.first <- lapply(seq(data.num), function(x){
+1702218922954:data.num[[x]][1] + summed.first[[x]]})
+1702218922963:}
+1702218925248:View(data.num)
+1702218927298:View(first.numbers)
+1702218930288:View(last.numbers)
+1702218934332:View(summed.first)
+1702218938377:View(data.num)
+1702218939604:View(first.numbers)
+1702218940609:View(summed.first)
+1702218967055:# Change last to first
+1702218967065:data.num <- lapply(strsplit(data, " "), as.numeric)
+1702218967083:summed.first <- rep(0, length(data.num))
+1702218967093:# Find delta of numbers #
+1702218967103:# Get the last number for each list and add
+1702218967112:# it to its corresponding running sum
+1702218967122:first.numbers <-  lapply(seq(data.num), function(x){
+1702218967131:data.num[[x]][1]})
+1702218967147:while(any(unlist(data.num) != 0)) {
+1702218967155:# extract last number and add it to group
+1702218967163:data.num <- lapply(data.num, function(x){diff(x)})
+1702218967171:#c(diff(x), diff(x)[length(diff(x))] + x[length(x)])})
+1702218967179:summed.first <- lapply(seq(data.num), function(x){
+1702218967187:data.num[[x]][1] - summed.first[[x]]})
+1702218967195:}
+1702218969144:sum(unlist(summed.first)) + sum(unlist(first.numbers))
+1702218973769:data <- readLines("data/input_9.txt")
+1702218978879:# it to its corresponding running sum
+1702218978888:first.numbers <-  lapply(seq(data.num), function(x){
+1702218978899:data.num[[x]][1]})
+1702218978916:while(any(unlist(data.num) != 0)) {
+1702218978925:# extract last number and add it to group
+1702218978934:data.num <- lapply(data.num, function(x){diff(x)})
+1702218978942:#c(diff(x), diff(x)[length(diff(x))] + x[length(x)])})
+1702218978951:summed.first <- lapply(seq(data.num), function(x){
+1702218978960:data.num[[x]][1] - summed.first[[x]]})
+1702218978969:}
+1702218978991:sum(unlist(summed.first)) + sum(unlist(first.numbers))
+1702218983771:data <- readLines("data/input_9.txt")
+1702218986794:# Change last to first
+1702218986802:data.num <- lapply(strsplit(data, " "), as.numeric)
+1702218986817:summed.first <- rep(0, length(data.num))
+1702218986824:# Find delta of numbers #
+1702218986832:# Get the last number for each list and add
+1702218986840:# it to its corresponding running sum
+1702218986850:first.numbers <-  lapply(seq(data.num), function(x){
+1702218986858:data.num[[x]][1]})
+1702218986878:while(any(unlist(data.num) != 0)) {
+1702218986890:# extract last number and add it to group
+1702218986905:data.num <- lapply(data.num, function(x){diff(x)})
+1702218986918:#c(diff(x), diff(x)[length(diff(x))] + x[length(x)])})
+1702218986930:summed.first <- lapply(seq(data.num), function(x){
+1702218986941:data.num[[x]][1] - summed.first[[x]]})
+1702218986951:}
+1702218987005:sum(unlist(summed.first)) + sum(unlist(first.numbers))
+1702218997076:data.num
+1702219001749:# Practice data
+1702219001759:data <- c("0 3 6 9 12 15",
+1702219001767:"1 3 6 10 15 21",
+1702219001776:"10 13 16 21 30 45")
+1702219007315:data <- readLines("data/input_9.txt")
+1702219010600:## Part 2
+1702219010610:# Change last to first
+1702219010620:data.num <- lapply(strsplit(data, " "), as.numeric)
+1702219012006:data.num
+1702219016378:summed.first <- rep(0, length(data.num))
+1702219017349:summed.first
+1702219029880:# Find delta of numbers #
+1702219029895:# Get the last number for each list and add
+1702219029909:# it to its corresponding running sum
+1702219029924:first.numbers <-  lapply(seq(data.num), function(x){
+1702219029943:data.num[[x]][1]})
+1702219030982:first.numbers
+1702219034895:while(any(unlist(data.num) != 0)) {
+1702219034909:# extract last number and add it to group
+1702219034923:data.num <- lapply(data.num, function(x){diff(x)})
+1702219034937:#c(diff(x), diff(x)[length(diff(x))] + x[length(x)])})
+1702219034949:summed.first <- lapply(seq(data.num), function(x){
+1702219034961:data.num[[x]][1] - summed.first[[x]]})
+1702219034970:}
+1702219035554:sum(unlist(summed.first)) + sum(unlist(first.numbers))
+1702221274430:## Part 2
+1702221274447:# Change last to first
+1702221274460:data.num <- lapply(strsplit(data, " "), as.numeric)
+1702221274932:summed.first <- rep(0, length(data.num))
+1702221275898:# Find delta of numbers #
+1702221275913:# Get the last number for each list and add
+1702221275926:# it to its corresponding running sum
+1702221275937:first.numbers <-  lapply(seq(data.num), function(x){
+1702221275949:data.num[[x]][1]})
+1702221278312:first.numbers
+1702221281854:# Practice data
+1702221281864:data <- c("0 3 6 9 12 15",
+1702221281876:"1 3 6 10 15 21",
+1702221281886:"10 13 16 21 30 45")
+1702221286088:## Part 2
+1702221286099:# Change last to first
+1702221286109:data.num <- lapply(strsplit(data, " "), as.numeric)
+1702221287415:data.num
+1702221295937:summed.first <- rep(0, length(data.num))
+1702221297200:summed.first
+1702221322002:# extract last number and add it to group
+1702221322013:data.num <- lapply(data.num, function(x){diff(x)})
+1702221323416:data.num
+1702221338057:lapply(seq(data.num), function(x){
+1702221338068:data.num[[x]][1] - summed.first[[x]]})
+1702221358906:data.num
+1702221452255:data.num[[x]][1]
+1702221455817:data.num
+1702221465303:summed.first
+1702221476201:data.num <- lapply(strsplit(data, " "), as.numeric)
+1702221476220:summed.first <- rep(0, length(data.num))
+1702221476230:# Find delta of numbers #
+1702221476242:# Get the last number for each list and add
+1702221476253:# it to its corresponding running sum
+1702221476265:first.numbers <-  lapply(seq(data.num), function(x){
+1702221476276:data.num[[x]][1]})
+1702221476293:while(any(unlist(data.num) != 0)) {
+1702221476304:# extract last number and add it to group
+1702221476315:data.num <- lapply(data.num, function(x){diff(x)})
+1702221476325:#c(diff(x), diff(x)[length(diff(x))] + x[length(x)])})
+1702221476337:summed.first <- lapply(seq(data.num), function(x){
+1702221476349:data.num[[x]][1] - summed.first[[x]]})
+1702221476358:}
+1702221478397:summed.first
+1702221501416:sum(unlist(summed.first)) + sum(unlist(first.numbers))
+1702221510965:summed.first
+1702221513092:first.numbers
+1702221521601:data <- readLines("data/input_9.txt")
+1702221525737:# Change last to first
+1702221525746:data.num <- lapply(strsplit(data, " "), as.numeric)
+1702221525765:summed.first <- rep(0, length(data.num))
+1702221525776:# Find delta of numbers #
+1702221525786:# Get the last number for each list and add
+1702221525795:# it to its corresponding running sum
+1702221525804:first.numbers <-  lapply(seq(data.num), function(x){
+1702221525814:data.num[[x]][1]})
+1702221525830:while(any(unlist(data.num) != 0)) {
+1702221525839:# extract last number and add it to group
+1702221525848:data.num <- lapply(data.num, function(x){diff(x)})
+1702221525856:#c(diff(x), diff(x)[length(diff(x))] + x[length(x)])})
+1702221525862:summed.first <- lapply(seq(data.num), function(x){
+1702221525870:data.num[[x]][1] - summed.first[[x]]})
+1702221525878:}
+1702221525925:sum(unlist(summed.first)) + sum(unlist(first.numbers))
+1702221594012:# Practice data
+1702221594025:data <- c("0 3 6 9 12 15",
+1702221594037:"1 3 6 10 15 21",
+1702221594049:"10 13 16 21 30 45")
+1702221599319:# Change last to first
+1702221599328:data.num <- lapply(strsplit(data, " "), as.numeric)
+1702221599344:summed.first <- rep(0, length(data.num))
+1702221599353:# Find delta of numbers #
+1702221599362:# Get the last number for each list and add
+1702221599371:# it to its corresponding running sum
+1702221599381:first.numbers <-  lapply(seq(data.num), function(x){
+1702221599390:data.num[[x]][1]})
+1702221599407:while(any(unlist(data.num) != 0)) {
+1702221599415:# extract last number and add it to group
+1702221599426:data.num <- lapply(data.num, function(x){diff(x)})
+1702221599436:#c(diff(x), diff(x)[length(diff(x))] + x[length(x)])})
+1702221599445:summed.first <- lapply(seq(data.num), function(x){
+1702221599454:-data.num[[x]][1] + summed.first[[x]]})
+1702221599463:}
+1702221600775:sum(unlist(summed.first)) + sum(unlist(first.numbers))
+1702221603249:summed.first
+1702221607837:first.numbers
+1702221611969:sum(unlist(summed.first)) + sum(unlist(first.numbers))
+1702221670428:# Change last to first
+1702221670437:data.num <- lapply(strsplit(data, " "), as.numeric)
+1702221670456:summed.first <- rep(0, length(data.num))
+1702221670467:# Find delta of numbers #
+1702221670478:# Get the last number for each list and add
+1702221670487:# it to its corresponding running sum
+1702221670498:first.numbers <-  lapply(seq(data.num), function(x){
+1702221670509:data.num[[x]][1]})
+1702221670530:while(any(unlist(data.num) != 0)) {
+1702221670541:# extract last number and add it to group
+1702221670552:data.num <- lapply(data.num, function(x){diff(x)})
+1702221670563:#c(diff(x), diff(x)[length(diff(x))] + x[length(x)])})
+1702221670574:summed.first <- lapply(seq(data.num), function(x){
+1702221670585:data.num[[x]][1] - summed.first[[x]]})
+1702221670596:}
+1702221670617:sum(unlist(summed.first)) + sum(unlist(first.numbers))
+1702221672951:summed.first
+1702221708449:## Part 2
+1702221708459:# Change last to first
+1702221708470:data.num <- lapply(strsplit(data, " "), as.numeric)
+1702221709244:summed.first <- rep(0, length(data.num))
+1702221709918:# Find delta of numbers #
+1702221709929:# Get the last number for each list and add
+1702221709936:# it to its corresponding running sum
+1702221709945:first.numbers <-  lapply(seq(data.num), function(x){
+1702221709952:data.num[[x]][1]})
+1702221714739:data.num
+1702221723453:lapply(data.num, function(x){diff(x)})
+1702221791185:# extract last number and add it to group
+1702221791195:data.num <- lapply(data.num, function(x){diff(x)})
+1702221794314:lapply(seq(data.num), function(x){
+1702221794325:data.num[[x]][1] - summed.first[[x]]})
+1702221803540:summed.first
+1702221848375:sum(unlist(first.numbers)) - sum(unlist(summed.first))
+1702221853225:# Change last to first
+1702221853234:data.num <- lapply(strsplit(data, " "), as.numeric)
+1702221853250:summed.first <- rep(0, length(data.num))
+1702221853259:# Find delta of numbers #
+1702221853267:# Get the last number for each list and add
+1702221853276:# it to its corresponding running sum
+1702221853285:first.numbers <-  lapply(seq(data.num), function(x){
+1702221853294:data.num[[x]][1]})
+1702221853312:while(any(unlist(data.num) != 0)) {
+1702221853321:# extract last number and add it to group
+1702221853330:data.num <- lapply(data.num, function(x){diff(x)})
+1702221853346:summed.first <- lapply(seq(data.num), function(x){
+1702221853355:data.num[[x]][1] - summed.first[[x]]})
+1702221853364:}
+1702221853385:sum(unlist(first.numbers)) - sum(unlist(summed.first))
+1702221858442:first.numbers
+1702221861700:summed.first
+1702221871207:sum(unlist(first.numbers)) + sum(unlist(summed.first))
+1702221886719:summed.first
+1702221956802:# Parse it to numbers
+1702221956812:data.num <- lapply(strsplit(data, " "), as.numeric)
+1702221958756:data.num
+1702221967654:# Initialize summed number list
+1702221967665:summed.last <- rep(0, length(data.num))
+1702221969587:data.rev <- lapply(data.num, rev)
+1702221986669:# Parse it to numbers
+1702221986709:data.num <- lapply(strsplit(data, " "), as.numeric)
+1702221986944:data.rev <- lapply(data.num, rev)
+1702221987124:# Initialize summed number list
+1702221987137:summed.last <- rep(0, length(data.rev))
+1702221987286:# Find delta of numbers #
+1702221987297:# Get the last number for each list and add
+1702221987309:# it to its corresponding running sum
+1702221987321:last.numbers <-  lapply(seq(data.rev), function(x){
+1702221987335:data.rev[[x]][length(data.rev[[x]])]})
+1702221987447:while(any(unlist(data.rev) != 0)) {
+1702221987462:# extract last number and add it to group
+1702221987474:data.rev <- lapply(data.rev, function(x){diff(x)})
+1702221987485:#c(diff(x), diff(x)[length(diff(x))] + x[length(x)])})
+1702221987496:summed.last <- lapply(seq(data.rev), function(x){
+1702221987508:data.rev[[x]][length(data.rev[[x]])] + summed.last[[x]]})
+1702221987517:}
+1702221988040:sum(unlist(summed.last)) + sum(unlist(last.numbers))
+1702221993740:data <- readLines("data/input_9.txt")
+1702221997415:# Parse it to numbers
+1702221997428:data.num <- lapply(strsplit(data, " "), as.numeric)
+1702221997452:data.rev <- lapply(data.num, rev)
+1702221997468:# Initialize summed number list
+1702221997479:summed.last <- rep(0, length(data.rev))
+1702221997492:# Find delta of numbers #
+1702221997503:# Get the last number for each list and add
+1702221997514:# it to its corresponding running sum
+1702221997525:last.numbers <-  lapply(seq(data.rev), function(x){
+1702221997535:data.rev[[x]][length(data.rev[[x]])]})
+1702221997555:while(any(unlist(data.rev) != 0)) {
+1702221997564:# extract last number and add it to group
+1702221997574:data.rev <- lapply(data.rev, function(x){diff(x)})
+1702221997584:#c(diff(x), diff(x)[length(diff(x))] + x[length(x)])})
+1702221997597:summed.last <- lapply(seq(data.rev), function(x){
+1702221997606:data.rev[[x]][length(data.rev[[x]])] + summed.last[[x]]})
+1702221997617:}
+1702221997671:sum(unlist(summed.last)) + sum(unlist(last.numbers))

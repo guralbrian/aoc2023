@@ -1,0 +1,28 @@
+{
+    "id": "58B64048",
+    "path": null,
+    "project_path": null,
+    "type": "object_explorer",
+    "hash": "0",
+    "contents": "",
+    "dirty": false,
+    "created": 1702218930334.0,
+    "source_on_save": false,
+    "relative_order": 6,
+    "properties": {
+        "id": "b2b186f51f0f4affaece3e8c02221474",
+        "name": "last.numbers",
+        "title": "last.numbers",
+        "language": "R",
+        "source_window_id": "",
+        "Source": "Source"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1702136647,
+    "encoding": "",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1702218930334,
+    "read_only": false,
+    "read_only_alternatives": []
+}
